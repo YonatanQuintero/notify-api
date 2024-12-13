@@ -1,3 +1,5 @@
+import { InvalidUrlError } from '../errors/invalid-url.error';
+import { ValueRequiredError } from '../errors/value-required.error';
 import { ValueObject } from '../primitives/value-object';
 
 export class UrlVO extends ValueObject {
@@ -7,12 +9,12 @@ export class UrlVO extends ValueObject {
 
   static create(url?: string): UrlVO {
     if (!url) {
-      throw new Error('UrlVO: URL is required.');
+      throw new ValueRequiredError('Url');
     }
     try {
       new URL(url);
     } catch {
-      throw new Error(`UrlVO: Invalid URL "${url}".`);
+      throw new InvalidUrlError(url);
     }
     return new UrlVO(url.trim());
   }

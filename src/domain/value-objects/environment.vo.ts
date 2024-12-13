@@ -1,5 +1,7 @@
 import { ValueObject } from '../primitives/value-object';
 import { EnvironmentEnum } from '../enums/environment.enum';
+import { ValueRequiredError } from '../errors/value-required.error';
+import { InvalidEnvironmentError } from '../errors/invalid-environment.error';
 
 export class EnvironmentVO extends ValueObject {
   private constructor(private readonly value: EnvironmentEnum) {
@@ -8,12 +10,12 @@ export class EnvironmentVO extends ValueObject {
 
   static create(env?: string): EnvironmentVO {
     if (!env) {
-      throw new Error('EnvironmentVO: Environment value is required.');
+      throw new ValueRequiredError('Environment');
     }
 
     const environment = env.trim() as EnvironmentEnum;
     if (!Object.values(EnvironmentEnum).includes(environment)) {
-      throw new Error(`EnvironmentVO: Invalid environment "${env}". Allowed values: ${Object.values(EnvironmentEnum).join(', ')}.`);
+      throw new InvalidEnvironmentError(env);
     }
 
     return new EnvironmentVO(environment);

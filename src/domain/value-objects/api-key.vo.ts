@@ -1,3 +1,4 @@
+import { InvalidApiKeyError } from '../errors/invalid-api-key.error';
 import { ValueObject } from '../primitives/value-object';
 
 export class ApiKeyVO extends ValueObject {
@@ -9,7 +10,7 @@ export class ApiKeyVO extends ValueObject {
 
     static create(apiKey?: string): ApiKeyVO {
         if (!apiKey || apiKey.trim().length === 0 || apiKey.trim().length < ApiKeyVO.MIN_LENGTH) {
-            throw new Error('ApiKeyVO: API key cannot be empty or less than 64 characters long.');
+            throw new InvalidApiKeyError(ApiKeyVO.MIN_LENGTH);
         }
         return new ApiKeyVO(apiKey.trim());
     }

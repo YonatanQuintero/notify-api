@@ -1,3 +1,4 @@
+import { InvalidPortError } from '../errors/invalid-port.error';
 import { ValueObject } from '../primitives/value-object';
 
 export class PortVO extends ValueObject {
@@ -7,10 +8,10 @@ export class PortVO extends ValueObject {
 
   static create(port?: number): PortVO {
     if (port == null || isNaN(port)) {
-      throw new Error('PortVO: Port must be a number.');
+      throw new InvalidPortError(NaN);
     }
     if (port <= 0 || port > 65535) {
-      throw new Error(`PortVO: Invalid port number ${port}. Must be between 1 and 65535.`);
+      throw new InvalidPortError(port);
     }
     return new PortVO(port);
   }

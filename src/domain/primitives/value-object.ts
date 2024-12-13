@@ -1,4 +1,3 @@
-// domain/primitives/value-object.ts
 export abstract class ValueObject {
 
     equals(other: ValueObject): boolean {
