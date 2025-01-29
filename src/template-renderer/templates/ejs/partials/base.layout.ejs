@@ -6,17 +6,17 @@
     <table class="t-body">
       <tr>
         <td>
-          <%- include(`partials/${lang}/header.ejs`) %>
+          <%- include(`../partials/${lang}/header.ejs`) %>
         </td>
       </tr>
       <tr>
         <td>
-          <%- include(bodyPartial) %>
+          <%- include(`../${templateName}/${lang}/template.ejs`) %>
         </td>
       </tr>
       <tr>
         <td>
-          <%- include(`partials/${lang}/footer.ejs`) %>
+          <%- include(`../partials/${lang}/footer.ejs`) %>
         </td>
       </tr>
     </table>

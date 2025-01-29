@@ -1,7 +1,7 @@
-import { LanguageVO } from '../../../../src/common/value-objects/language.vo';
-import { LanguageEnum } from '../../../../src/common/enums/language.enum';
+import { LanguageVO } from '../../../../src/config/value-objects/language.vo';
+import { LanguageEnum } from '../../../../src/config/enums/language.enum';
 import { ValueRequiredError } from 'src/common/errors/value-required.error';
-import { InvalidLanguageError } from 'src/common/errors/invalid-language.error';
+import { InvalidLanguageError } from 'src/config/errors/invalid-language.error';
 
 describe('LanguageVO', () => {
     it('should create a LanguageVO for a valid language', () => {

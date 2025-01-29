@@ -1,17 +1,23 @@
-import { LanguageVO } from "src/common/value-objects/language.vo";
-import { NotificationTypeVO } from "src/common/value-objects/notification-type.vo";
+import { LanguageEnum } from "src/config/enums/language.enum";
+import { TemplateNameEnum } from "src/template-renderer/enums/template-name.enum";
+import { LanguageVO } from "src/config/value-objects/language.vo";
+import { TemplateNameVO } from "src/template-renderer/value-objects/template-name.vo";
 
 export class TemplateRenderer {
 
     private constructor(
-        public readonly type: NotificationTypeVO,
+        public readonly name: TemplateNameVO,
         public readonly language: LanguageVO,
         public readonly params: Map<string, string>) {
     }
 
-    static create(type: string, language: string, params: Map<string, string>): TemplateRenderer {
+    static create(
+        name: string | TemplateNameEnum,
+        language: string | LanguageEnum,
+        params: Map<string, string>
+    ): TemplateRenderer {
         return new TemplateRenderer(
-            NotificationTypeVO.create(type),
+            TemplateNameVO.create(name),
             LanguageVO.create(language),
             params
         );

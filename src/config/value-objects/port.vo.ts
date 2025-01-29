@@ -1,5 +1,5 @@
 import { InvalidPortError } from '../errors/invalid-port.error';
-import { ValueObject } from '../primitives/value-object';
+import { ValueObject } from '../../common/primitives/value-object';
 
 export class PortVO extends ValueObject {
   private constructor(private readonly value: number) {

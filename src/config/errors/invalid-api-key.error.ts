@@ -1,4 +1,4 @@
-import { DomainError } from "../primitives/domain-error";
+import { DomainError } from "../../common/primitives/domain-error";
 
 export class InvalidApiKeyError extends DomainError {
     constructor(minLength: number) {

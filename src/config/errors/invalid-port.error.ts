@@ -1,5 +1,5 @@
 
-import { DomainError } from '../primitives/domain-error';
+import { DomainError } from '../../common/primitives/domain-error';
 
 export class InvalidPortError extends DomainError {
     constructor(port: number) {

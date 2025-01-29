@@ -1,6 +1,6 @@
-import { ValueObject } from '../primitives/value-object';
+import { ValueObject } from '../../common/primitives/value-object';
 import { EnvironmentEnum } from '../enums/environment.enum';
-import { ValueRequiredError } from '../errors/value-required.error';
+import { ValueRequiredError } from '../../common/errors/value-required.error';
 import { InvalidEnvironmentError } from '../errors/invalid-environment.error';
 
 export class EnvironmentVO extends ValueObject {

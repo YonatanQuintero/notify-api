@@ -1,4 +1,4 @@
-export enum NotificationType {
+export enum TemplateNameEnum {
     RECOVER_PASSWORD_SUCCESS = 'recover-password-success',
     TFA = 'tfa',
     UPDATE_EMAIL = 'update-email',

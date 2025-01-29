@@ -1,5 +1,5 @@
-import { InvalidApiKeyError } from 'src/common/errors/invalid-api-key.error';
-import { ApiKeyVO } from '../../../../src/common/value-objects/api-key.vo';
+import { InvalidApiKeyError } from 'src/config/errors/invalid-api-key.error';
+import { ApiKeyVO } from '../../../../src/config/value-objects/api-key.vo';
 
 describe('ApiKeyVO', () => {
 

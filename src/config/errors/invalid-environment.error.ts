@@ -1,5 +1,5 @@
 import { EnvironmentEnum } from "../enums/environment.enum";
-import { DomainError } from "../primitives/domain-error";
+import { DomainError } from "../../common/primitives/domain-error";
 
 export class InvalidEnvironmentError extends DomainError {
     constructor(env: string) {

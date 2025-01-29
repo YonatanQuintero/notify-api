@@ -1,5 +1,5 @@
-import { InvalidPortError } from "src/common/errors/invalid-port.error";
-import { PortVO } from "../../../../src/common/value-objects/port.vo";
+import { InvalidPortError } from "src/config/errors/invalid-port.error";
+import { PortVO } from "../../../../src/config/value-objects/port.vo";
 
 
 describe('PortVO', () => {

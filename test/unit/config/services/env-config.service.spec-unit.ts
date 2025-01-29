@@ -1,7 +1,7 @@
 import { Logger } from '@nestjs/common';
-import { InvalidPortError } from 'src/common/errors/invalid-port.error';
-import { InvalidApiKeyError } from 'src/common/errors/invalid-api-key.error';
-import { InvalidEnvironmentError } from 'src/common/errors/invalid-environment.error';
+import { InvalidPortError } from 'src/config/errors/invalid-port.error';
+import { InvalidApiKeyError } from 'src/config/errors/invalid-api-key.error';
+import { InvalidEnvironmentError } from 'src/config/errors/invalid-environment.error';
 import { EnvConfigService } from 'src/config/services/env-config.service';
 import { AppConfig } from 'src/config/entities/app-config.entity';
 
@@ -17,7 +17,7 @@ describe('EnvConfigService', () => {
             PORT: '3000',
             API_KEY: 'a'.repeat(64), // Minimum valid API key length
             ENVIRONMENT: 'production',
-            DEFAULT_LANG: 'en-US',
+            DEFAULT_LANG: 'en-us',
             SMTP_HOST: 'smtp.example.com',
             SMTP_PORT: '587',
             SMTP_USER: 'smtp-user',
@@ -42,7 +42,7 @@ describe('EnvConfigService', () => {
         expect(appConfig.port.getValue()).toBe(3000);
         expect(appConfig.apiKey.getValue()).toBe('a'.repeat(64));
         expect(appConfig.environment.getValue()).toBe('production');
-        expect(appConfig.defaultLang.getValue()).toBe('en-US');
+        expect(appConfig.defaultLang.getValue()).toBe('en-us');
         expect(appConfig.smptHost.getValue()).toBe('smtp.example.com');
     });
 
