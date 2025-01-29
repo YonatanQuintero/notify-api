@@ -16,7 +16,7 @@ export class AppService {
   ) { }
 
   getHello(): string {
-    return this.i18n.t("test.hello-world", { lang: "es-LA" });
+    return this.i18n.t("test.hello-world", { lang: "es-la" });
   }
 
   async getTemplate(): Promise<string> {
