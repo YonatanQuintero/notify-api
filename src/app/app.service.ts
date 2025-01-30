@@ -47,12 +47,10 @@ export class AppService {
       EmailSender.create(
         this.appConfig.smptUser.getValue(),
         this.appConfig.companyName.getValue(),
-        ["yhonax.qrz@gmail.com", "yonax73@gmail.com"],
-        LanguageEnum.EN_US,
+        ["yhonax.qrz@gmail.com"],
+        LanguageEnum.ES_LA,
         TemplateNameEnum.WELCOME,
-        new Map([["username", "John Doe"]]),
-        ["yonatan.a.quintero.r@gmail.com"],
-        ["mariacrp63@gmail.com"],
+        new Map([["username", "John Doe"]])
       ));
   }
 }
