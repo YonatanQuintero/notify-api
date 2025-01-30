@@ -4,12 +4,14 @@ import { AppService } from './app.service';
 import { ConfigurationModule } from '../config/configuration.module';
 import { I18nAppModule } from './../i18n/i18n.module';
 import { TemplateRendererModule } from 'src/template-renderer/template-renderer.module';
+import { EmailModule } from 'src/email/email.module';
 
 @Module({
   imports: [
     ConfigurationModule,
     I18nAppModule,
-    TemplateRendererModule
+    TemplateRendererModule,
+    EmailModule
   ],
   controllers: [AppController],
   providers: [

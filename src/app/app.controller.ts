@@ -15,4 +15,10 @@ export class AppController {
     const rendered = await this.appService.getTemplate();
     return { rendered };
   }
+
+  @Get('/send-email')
+  async sendEmail() {
+    const sent = await this.appService.sendEmail();
+    return { sent };
+  }
 }

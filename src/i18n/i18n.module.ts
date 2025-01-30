@@ -7,7 +7,7 @@ import { I18nExceptionFilter } from './i18n-exception.filter';
 @Module({
     imports: [
         I18nModule.forRoot({
-            fallbackLanguage: 'en-US',
+            fallbackLanguage: 'en-us',
             loader: I18nJsonLoader,
             loaderOptions: {
                 path: path.join(__dirname, '/translations'),
