@@ -8,6 +8,7 @@ import Mail from "nodemailer/lib/mailer";
 import { AppConfig } from "src/config/entities/app-config.entity";
 import { I18nService } from "nestjs-i18n";
 import { TemplateRenderer } from "src/template-renderer/entities/template-renderer.entity";
+import { InvalidEmailError } from "../errors/invalid-email.error";
 
 @Injectable()
 export class NodeMailerService extends AbstractEmailSenderService {
@@ -42,7 +43,8 @@ export class NodeMailerService extends AbstractEmailSenderService {
                     const { to, templateName } = emailSender;
                     if (error) {
                         Logger.error(error.message);
-                        return reject(new Error(error.message));
+                        Logger.error(JSON.stringify(emailSender));
+                        return reject(new InvalidEmailError(error.message));
                     }
                     to.getValues().forEach((email) => {
                         Logger.log(

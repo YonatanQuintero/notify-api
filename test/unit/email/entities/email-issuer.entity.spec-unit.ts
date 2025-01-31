@@ -102,17 +102,16 @@ describe('EmailIssuer', () => {
     // Parameterized tests for multiple invalid emails
     describe('Invalid Email Formats', () => {
         const invalidEmails = [
-            // '',
             'plainaddress',
             '@missinglocal.com',
             'username@.com',
-            // 'username@com',
+            'username@com',
             'username@domain..com',
             'username@domain,com',
             'username@domain@domain.com',
             'username@-domain.com',
             'username@domain-.com',
-            // 'username@domain.c',
+            'username@domain.c',
             'username@.domain.com',
         ];
 
