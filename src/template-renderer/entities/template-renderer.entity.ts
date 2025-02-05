@@ -8,13 +8,13 @@ export class TemplateRenderer {
     private constructor(
         public readonly name: TemplateNameVO,
         public readonly language: LanguageVO,
-        public readonly params: Map<string, string>) {
+        public readonly params: Record<string, string>) {
     }
 
     static create(
         name: string | TemplateNameEnum,
         language: string | LanguageEnum,
-        params: Map<string, string>
+        params: Record<string, string>
     ): TemplateRenderer {
         return new TemplateRenderer(
             TemplateNameVO.create(name),

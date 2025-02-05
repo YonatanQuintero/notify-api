@@ -3,6 +3,7 @@ import { AbstractConfigService } from './abstracts/config.service.abstract';
 import { ConfigModule } from '@nestjs/config';
 import { EnvConfigService } from './services/env-config.service';
 
+@Global()
 @Module({
     imports: [
         ConfigModule.forRoot()

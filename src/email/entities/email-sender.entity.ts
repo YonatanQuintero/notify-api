@@ -12,10 +12,11 @@ export class EmailSender {
         public readonly to: EmailRecipientList,
         public readonly lang: LanguageVO,
         public readonly templateName: TemplateNameVO,
-        public readonly params: Map<string, string>,
+        public readonly params: Record<string, string>,
         public readonly cc?: EmailVO[],
         public readonly bcc?: EmailVO[]
-    ) { }
+    ) { 
+    }
 
     static create(
         fromEmail: string,
@@ -23,7 +24,7 @@ export class EmailSender {
         toEmail: string[],
         lang: string | LanguageEnum,
         templateName: string | TemplateNameEnum,
-        params: Map<string, string>,
+        params: Record<string, string>,
         ccEmail?: string[],
         bccEmail?: string[],
     ): EmailSender {

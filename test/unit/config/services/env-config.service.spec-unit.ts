@@ -4,6 +4,10 @@ import { InvalidApiKeyError } from 'src/config/errors/invalid-api-key.error';
 import { InvalidEnvironmentError } from 'src/config/errors/invalid-environment.error';
 import { EnvConfigService } from 'src/config/services/env-config.service';
 import { AppConfig } from 'src/config/entities/app-config.entity';
+import { RedisConfig } from 'src/config/entities/redis-config.entity';
+import { InvalidUrlError } from 'src/common/errors/invalid-url.error';
+import { NonEmptyStringError } from 'src/common/errors/non-empty-string.error';
+import { InvalidRedisDBError } from 'src/config/errors/invalid-redis-db.error';
 
 describe('EnvConfigService', () => {
     let envBackup: NodeJS.ProcessEnv;
@@ -26,6 +30,10 @@ describe('EnvConfigService', () => {
             COMPANY_ICON_URL: 'https://example.com/icon.png',
             COMPANY_WEBSITE_URL: 'https://example.com',
             COMPANY_ADDRESS: '123 Example Street',
+            REDIS_URL: 'redis://localhost:6379/0',
+            REDIS_PORT: '6379',
+            REDIS_HOST: 'localhost',
+            REDIS_DB: '0'
         };
     });
 
@@ -77,6 +85,52 @@ describe('EnvConfigService', () => {
 
         expect(() => envConfigService.getAppConfig()).toThrow();
         expect(loggerSpy).toHaveBeenCalledWith(expect.stringContaining('Error creating AppConfig:'));
+        loggerSpy.mockRestore();
+    });
+
+    it('should create a RedisConfig instance with valid environment variables', () => {
+        const envConfigService = new EnvConfigService();
+        const redisConfig = envConfigService.getRedisConfig();
+
+        expect(redisConfig).toBeInstanceOf(RedisConfig);
+        expect(redisConfig.url.getValue()).toBe('redis://localhost:6379/0');
+        expect(redisConfig.port.getValue()).toBe(6379);
+        expect(redisConfig.host.getValue()).toBe('localhost');
+        expect(redisConfig.db.getValue()).toBe(0);
+    });
+
+    it('should throw an error if REDIS_URL is invalid', () => {
+        process.env.REDIS_URL = 'invalid-url'; // Invalid URL
+        const envConfigService = new EnvConfigService();
+        expect(() => envConfigService.getRedisConfig()).toThrow(InvalidUrlError);
+    });
+
+    it('should throw an error if REDIS_PORT is invalid', () => {
+        process.env.REDIS_PORT = '-1'; // Invalid port
+        const envConfigService = new EnvConfigService();
+        expect(() => envConfigService.getRedisConfig()).toThrow(InvalidPortError);
+    });
+
+    it('should throw an error if REDIS_HOST is invalid', () => {
+        delete process.env.REDIS_HOST; // Invalid host
+        const envConfigService = new EnvConfigService();
+        expect(() => envConfigService.getRedisConfig()).toThrow(NonEmptyStringError);
+    });
+
+    it('should throw an error if REDIS_DB is invalid', () => {
+        process.env.REDIS_DB = '16'; // Invalid DB index
+        const envConfigService = new EnvConfigService();
+        expect(() => envConfigService.getRedisConfig()).toThrow(InvalidRedisDBError);
+    });
+
+    it('should log an error and rethrow if RedisConfig creation fails', () => {
+        const loggerSpy = jest.spyOn(Logger, 'error').mockImplementation(() => { });
+        process.env.REDIS_URL = 'invalid-url'; // Invalid URL
+
+        const envConfigService = new EnvConfigService();
+
+        expect(() => envConfigService.getRedisConfig()).toThrow();
+        expect(loggerSpy).toHaveBeenCalledWith(expect.stringContaining('Error creating RedisConfig:'));
         loggerSpy.mockRestore();
     });
 });

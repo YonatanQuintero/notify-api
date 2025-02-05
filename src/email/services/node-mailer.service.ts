@@ -62,7 +62,7 @@ export class NodeMailerService extends AbstractEmailSenderService {
     }
 
     private async buildEmail(emailSender: EmailSender): Promise<Mail.Options> {
-
+console.log(`Building email for: ${JSON.stringify(emailSender)}`);
         const {
             from,
             to,
@@ -73,10 +73,10 @@ export class NodeMailerService extends AbstractEmailSenderService {
             bcc,
         } = emailSender;
 
-        params.set("companyName", this.appConfig.companyName.getValue());
-        params.set("companySite", this.appConfig.companyWebsiteUrl.getValue());
-        params.set("companyIconUrl", this.appConfig.companyIconUrl.getValue());
-        params.set("companyAddress", this.appConfig.companyAddress.getValue());
+        params["companyName"] = this.appConfig.companyName.getValue();
+        params["companySite"] = this.appConfig.companyWebsiteUrl.getValue();
+        params["companyIconUrl"] = this.appConfig.companyIconUrl.getValue();
+        params["companyAddress"] = this.appConfig.companyAddress.getValue();
 
         const subject = this.i18n.t(
             `subject.${templateName.getValue()}`,

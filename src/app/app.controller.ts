@@ -21,4 +21,10 @@ export class AppController {
     const sent = await this.appService.sendEmail();
     return { sent };
   }
+
+  @Get('send-email-on-queue')
+  async sendEmailOnQueue() {
+    const jobId = await this.appService.sendEmailonQueue();
+    return { jobId };
+  }
 }

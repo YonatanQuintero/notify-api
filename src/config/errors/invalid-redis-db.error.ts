@@ -1,0 +1,7 @@
+import { DomainError } from "src/common/primitives/domain-error";
+
+export class InvalidRedisDBError extends DomainError {
+    constructor(dbIndex: number) {
+        super('INVALID_REDIS_DB', `Invalid Redis DB index ${dbIndex}. Must be between 0 and 15.`);
+    }
+}

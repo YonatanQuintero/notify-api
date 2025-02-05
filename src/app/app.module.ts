@@ -1,17 +1,19 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigurationModule } from '../config/configuration.module';
 import { I18nAppModule } from './../i18n/i18n.module';
 import { TemplateRendererModule } from 'src/template-renderer/template-renderer.module';
 import { EmailModule } from 'src/email/email.module';
+import { ConfigurationModule } from 'src/config/configuration.module';
+import { QueueModule } from 'src/queue/queue.module';
 
 @Module({
   imports: [
-    ConfigurationModule,
     I18nAppModule,
     TemplateRendererModule,
-    EmailModule
+    EmailModule,
+    ConfigurationModule,
+    QueueModule
   ],
   controllers: [AppController],
   providers: [

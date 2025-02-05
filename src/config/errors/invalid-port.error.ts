@@ -1,4 +1,3 @@
-
 import { DomainError } from '../../common/primitives/domain-error';
 
 export class InvalidPortError extends DomainError {

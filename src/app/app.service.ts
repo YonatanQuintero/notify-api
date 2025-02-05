@@ -8,6 +8,7 @@ import { TemplateRenderer } from 'src/template-renderer/entities/template-render
 import { AbstractEmailSenderService } from 'src/email/abstracts/email-sender.service.abstract';
 import { EmailSender } from 'src/email/entities/email-sender.entity';
 import { AppConfig } from 'src/config/entities/app-config.entity';
+import { SendEmailQueue } from 'src/email/queues/send-email.queue';
 
 @Injectable()
 export class AppService {
@@ -18,7 +19,8 @@ export class AppService {
     private readonly i18n: I18nService,
     private readonly templateRendererService: AbstractTemplateRendererService,
     private readonly configService: AbstractConfigService,
-    private readonly emailService: AbstractEmailSenderService
+    private readonly emailService: AbstractEmailSenderService,
+    private readonly sendEmailQueue: SendEmailQueue,
   ) {
     this.appConfig = this.configService.getAppConfig();
   }
@@ -32,25 +34,41 @@ export class AppService {
       TemplateRenderer.create(
         TemplateNameEnum.WELCOME,
         LanguageEnum.EN_US,
-        new Map([
-          ["username", "John Doe"],
-          ["companyName", this.appConfig.companyName.getValue()],
-          ["site", this.appConfig.companyWebsiteUrl.getValue()],
-          ["logo", this.appConfig.companyIconUrl.getValue()],
-        ])
+        {
+          "username": "John Doe",
+          "companyName": this.appConfig.companyName.getValue(),
+          "companySite": this.appConfig.companyWebsiteUrl.getValue(),
+          "companyIconUrl": this.appConfig.companyIconUrl.getValue(),
+        }
       )
     );
   }
 
   async sendEmail(): Promise<boolean> {
+    const emailSender = EmailSender.create(
+      this.appConfig.smptUser.getValue(),
+      this.appConfig.companyName.getValue(),
+      ["yhonax.qrz@gmail.com"],
+      LanguageEnum.ES_LA,
+      TemplateNameEnum.WELCOME,
+      { "username": "John Doe" }
+    )
     return await this.emailService.send(
-      EmailSender.create(
-        this.appConfig.smptUser.getValue(),
-        this.appConfig.companyName.getValue(),
-        ["yhonax.qrz@gmail.com"],
-        LanguageEnum.ES_LA,
-        TemplateNameEnum.WELCOME,
-        new Map([["username", "John Doe"]])
-      ));
+      emailSender
+    );
+  }
+
+  async sendEmailonQueue(): Promise<string> {
+    const emailSender = EmailSender.create(
+      this.appConfig.smptUser.getValue(),
+      this.appConfig.companyName.getValue(),
+      ["yhonax.qrz@gmail.com"],
+      LanguageEnum.ES_LA,
+      TemplateNameEnum.WELCOME,
+      { "username": "John Doe" }
+    );
+
+    const result = await this.sendEmailQueue.add(emailSender);
+    return result.id.toString();
   }
 }
