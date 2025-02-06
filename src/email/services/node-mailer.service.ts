@@ -5,17 +5,19 @@ import { AbstractConfigService } from "src/config/abstracts/config.service.abstr
 import { AbstractTemplateRendererService } from "src/template-renderer/abstracts/template-renderer.service.abstract";
 import * as nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
-import { AppConfig } from "src/config/entities/app-config.entity";
 import { I18nService } from "nestjs-i18n";
 import { TemplateRenderer } from "src/template-renderer/entities/template-renderer.entity";
 import { InvalidEmailError } from "../errors/invalid-email.error";
+import { SmtpConfig } from "src/config/entities/smpt-config.entity";
+import { CompanyConfig } from "src/config/entities/company-config.entity";
 
 @Injectable()
 export class NodeMailerService extends AbstractEmailSenderService {
 
     private readonly logger = new Logger(NodeMailerService.name);
     private readonly transporter: nodemailer.Transporter;
-    private readonly appConfig: AppConfig;
+    private readonly smtpConfig: SmtpConfig;
+    private readonly companyConfig: CompanyConfig;
 
     constructor(
         private readonly i18n: I18nService,
@@ -23,13 +25,14 @@ export class NodeMailerService extends AbstractEmailSenderService {
         private readonly templateRendererService: AbstractTemplateRendererService
     ) {
         super();
-        this.appConfig = this.configService.getAppConfig();
+        this.smtpConfig = this.configService.getSmtpConfig();
+        this.companyConfig = this.configService.getCompanyConfig();
         this.transporter = nodemailer.createTransport({
-            host: this.appConfig.smptHost.getValue(),
-            port: this.appConfig.smptPort.getValue(),
+            host: this.smtpConfig.host.getValue(),
+            port: this.smtpConfig.port.getValue(),
             auth: {
-                user: this.appConfig.smptUser.getValue(),
-                pass: this.appConfig.smptPass.getValue(),
+                user: this.smtpConfig.user.getValue(),
+                pass: this.smtpConfig.pass.getValue(),
             },
         });
     }
@@ -74,10 +77,10 @@ export class NodeMailerService extends AbstractEmailSenderService {
             bcc,
         } = emailSender;
 
-        params["companyName"] = this.appConfig.companyName.getValue();
-        params["companySite"] = this.appConfig.companyWebsiteUrl.getValue();
-        params["companyIconUrl"] = this.appConfig.companyIconUrl.getValue();
-        params["companyAddress"] = this.appConfig.companyAddress.getValue();
+        params["companyName"] = this.companyConfig.name.getValue();
+        params["companySite"] = this.companyConfig.websiteUrl.getValue();
+        params["companyIconUrl"] = this.companyConfig.iconUrl.getValue();
+        params["companyAddress"] = this.companyConfig.address.getValue();
 
         const subject = this.i18n.t(
             `subject.${templateName.getValue()}`,

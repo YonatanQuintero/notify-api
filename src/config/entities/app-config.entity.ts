@@ -10,15 +10,7 @@ export class AppConfig {
     public readonly port: PortVO,
     public readonly apiKey: ApiKeyVO,
     public readonly environment: EnvironmentVO,
-    public readonly defaultLang: LanguageVO,
-    public readonly smptHost: NonEmptyStringVO,
-    public readonly smptPort: PortVO,
-    public readonly smptUser: NonEmptyStringVO,
-    public readonly smptPass: NonEmptyStringVO,
-    public readonly companyName: NonEmptyStringVO,
-    public readonly companyIconUrl: UrlVO,
-    public readonly companyWebsiteUrl: UrlVO,
-    public readonly companyAddress: NonEmptyStringVO
+    public readonly defaultLang: LanguageVO
   ) {
   }
 
@@ -26,29 +18,13 @@ export class AppConfig {
     port: number,
     apiKey: string,
     environment: string,
-    defaultLang: string,
-    smptHost: string,
-    smptPort: number,
-    smptUser: string,
-    smptPass: string,
-    companyName: string,
-    companyIconUrl: string,
-    companyWebsiteUrl: string,
-    companyAddress: string,
+    defaultLang: string
   ): AppConfig {
     return new AppConfig(
       PortVO.create(port),
       ApiKeyVO.create(apiKey),
       EnvironmentVO.create(environment),
-      LanguageVO.create(defaultLang),
-      NonEmptyStringVO.create(smptHost),
-      PortVO.create(smptPort),
-      NonEmptyStringVO.create(smptUser),
-      NonEmptyStringVO.create(smptPass),
-      NonEmptyStringVO.create(companyName),
-      UrlVO.create(companyIconUrl),
-      UrlVO.create(companyWebsiteUrl),
-      NonEmptyStringVO.create(companyAddress),
+      LanguageVO.create(defaultLang)
     );
   }
 }

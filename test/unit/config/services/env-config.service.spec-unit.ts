@@ -8,6 +8,8 @@ import { RedisConfig } from 'src/config/entities/redis-config.entity';
 import { InvalidUrlError } from 'src/common/errors/invalid-url.error';
 import { NonEmptyStringError } from 'src/common/errors/non-empty-string.error';
 import { InvalidRedisDBError } from 'src/config/errors/invalid-redis-db.error';
+import { SmtpConfig } from 'src/config/entities/smpt-config.entity';
+import { CompanyConfig } from 'src/config/entities/company-config.entity';
 
 describe('EnvConfigService', () => {
     let envBackup: NodeJS.ProcessEnv;
@@ -51,7 +53,6 @@ describe('EnvConfigService', () => {
         expect(appConfig.apiKey.getValue()).toBe('a'.repeat(64));
         expect(appConfig.environment.getValue()).toBe('production');
         expect(appConfig.defaultLang.getValue()).toBe('en-us');
-        expect(appConfig.smptHost.getValue()).toBe('smtp.example.com');
     });
 
     it('should throw an error if PORT is invalid', () => {
@@ -132,6 +133,96 @@ describe('EnvConfigService', () => {
 
         expect(() => envConfigService.getRedisConfig()).toThrow();
         expect(loggerSpy).toHaveBeenCalledWith(expect.stringContaining('Error creating RedisConfig:'));
+        loggerSpy.mockRestore();
+    });
+
+    it('should create a SmtpConfig instance with valid environment variables', () => {
+        const envConfigService = new EnvConfigService();
+        const smtpConfig = envConfigService.getSmtpConfig();
+
+        expect(smtpConfig).toBeInstanceOf(SmtpConfig);
+        expect(smtpConfig.host.getValue()).toBe('smtp.example.com');
+        expect(smtpConfig.port.getValue()).toBe(587);
+        expect(smtpConfig.user.getValue()).toBe('smtp-user');
+        expect(smtpConfig.pass.getValue()).toBe('smtp-pass');
+    });
+
+    it('should throw an error if SMTP_HOST is invalid', () => {
+        process.env.SMTP_HOST = ''; // Invalid host
+        const envConfigService = new EnvConfigService();
+        expect(() => envConfigService.getSmtpConfig()).toThrow(NonEmptyStringError);
+    });
+
+    it('should throw an error if SMTP_PORT is invalid', () => {
+        process.env.SMTP_PORT = '-1'; // Invalid port
+        const envConfigService = new EnvConfigService();
+        expect(() => envConfigService.getSmtpConfig()).toThrow(InvalidPortError);
+    });
+
+    it('should throw an error if SMTP_USER is missing', () => {
+        delete process.env.SMTP_USER; // Missing user
+        const envConfigService = new EnvConfigService();
+        expect(() => envConfigService.getSmtpConfig()).toThrow(NonEmptyStringError);
+    });
+
+    it('should throw an error if SMTP_PASS is missing', () => {
+        delete process.env.SMTP_PASS; // Missing password
+        const envConfigService = new EnvConfigService();
+        expect(() => envConfigService.getSmtpConfig()).toThrow(NonEmptyStringError);
+    });
+
+    it('should log an error and rethrow if SmtpConfig creation fails', () => {
+        const envConfigService = new EnvConfigService();
+        const loggerSpy = jest.spyOn(envConfigService["logger"], 'error').mockImplementation(() => { });
+        process.env.SMTP_HOST = ''; // Invalid host
+
+        expect(() => envConfigService.getSmtpConfig()).toThrow();
+        expect(loggerSpy).toHaveBeenCalledWith(expect.stringContaining('Error creating SmtpConfig:'));
+        loggerSpy.mockRestore();
+    });
+
+    it('should create a CompanyConfig instance with valid environment variables', () => {
+        const envConfigService = new EnvConfigService();
+        const companyConfig = envConfigService.getCompanyConfig();
+
+        expect(companyConfig).toBeInstanceOf(CompanyConfig);
+        expect(companyConfig.name.getValue()).toBe('Example Company');
+        expect(companyConfig.iconUrl.getValue()).toBe('https://example.com/icon.png');
+        expect(companyConfig.websiteUrl.getValue()).toBe('https://example.com');
+        expect(companyConfig.address.getValue()).toBe('123 Example Street');
+    });
+
+    it('should throw an error if COMPANY_NAME is missing', () => {
+        delete process.env.COMPANY_NAME; // Missing company name
+        const envConfigService = new EnvConfigService();
+        expect(() => envConfigService.getCompanyConfig()).toThrow(NonEmptyStringError);
+    });
+
+    it('should throw an error if COMPANY_ICON_URL is invalid', () => {
+        process.env.COMPANY_ICON_URL = 'invalid-url'; // Invalid company icon URL
+        const envConfigService = new EnvConfigService();
+        expect(() => envConfigService.getCompanyConfig()).toThrow(InvalidUrlError);
+    });
+
+    it('should throw an error if COMPANY_WEBSITE_URL is invalid', () => {
+        process.env.COMPANY_WEBSITE_URL = 'invalid-url'; // Invalid company website URL
+        const envConfigService = new EnvConfigService();
+        expect(() => envConfigService.getCompanyConfig()).toThrow(InvalidUrlError);
+    });
+
+    it('should throw an error if COMPANY_ADDRESS is missing', () => {
+        delete process.env.COMPANY_ADDRESS; // Missing company address
+        const envConfigService = new EnvConfigService();
+        expect(() => envConfigService.getCompanyConfig()).toThrow(NonEmptyStringError);
+    });
+
+    it('should log an error and rethrow if CompanyConfig creation fails', () => {
+        const envConfigService = new EnvConfigService();
+        const loggerSpy = jest.spyOn(envConfigService["logger"], 'error').mockImplementation(() => { });
+        process.env.COMPANY_NAME = ''; // Missing company name
+
+        expect(() => envConfigService.getCompanyConfig()).toThrow();
+        expect(loggerSpy).toHaveBeenCalledWith(expect.stringContaining('Error creating CompanyConfig:'));
         loggerSpy.mockRestore();
     });
 });

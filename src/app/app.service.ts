@@ -7,14 +7,16 @@ import { AbstractTemplateRendererService } from 'src/template-renderer/abstracts
 import { TemplateRenderer } from 'src/template-renderer/entities/template-renderer.entity';
 import { AbstractEmailSenderService } from 'src/email/abstracts/email-sender.service.abstract';
 import { EmailSender } from 'src/email/entities/email-sender.entity';
-import { AppConfig } from 'src/config/entities/app-config.entity';
 import { SendEmailQueue } from 'src/email/queues/send-email.queue';
 import { EmailSenderDto } from 'src/email/dtos/email-sender.dto';
+import { SmtpConfig } from 'src/config/entities/smpt-config.entity';
+import { CompanyConfig } from 'src/config/entities/company-config.entity';
 
 @Injectable()
 export class AppService {
 
-  private readonly appConfig: AppConfig;
+  private readonly smtpConfig: SmtpConfig;
+  private readonly companyConfig: CompanyConfig;
 
   constructor(
     private readonly i18n: I18nService,
@@ -23,7 +25,8 @@ export class AppService {
     private readonly emailService: AbstractEmailSenderService,
     private readonly sendEmailQueue: SendEmailQueue,
   ) {
-    this.appConfig = this.configService.getAppConfig();
+    this.smtpConfig = this.configService.getSmtpConfig();
+    this.companyConfig = this.configService.getCompanyConfig();
   }
 
   getHello(): string {
@@ -37,9 +40,9 @@ export class AppService {
         LanguageEnum.EN_US,
         {
           "username": "John Doe",
-          "companyName": this.appConfig.companyName.getValue(),
-          "companySite": this.appConfig.companyWebsiteUrl.getValue(),
-          "companyIconUrl": this.appConfig.companyIconUrl.getValue(),
+          "companyName": this.companyConfig.name.getValue(),
+          "companySite": this.companyConfig.websiteUrl.getValue(),
+          "companyIconUrl": this.companyConfig.iconUrl.getValue(),
         }
       )
     );
@@ -47,8 +50,8 @@ export class AppService {
 
   async sendEmail(): Promise<boolean> {
     const emailSender = EmailSender.create(new EmailSenderDto(
-      this.appConfig.smptUser.getValue(),
-      this.appConfig.companyName.getValue(),
+      this.smtpConfig.user.getValue(),
+      this.companyConfig.name.getValue(),
       ["yhonax.qrz@gmail.com"],
       LanguageEnum.ES_LA,
       TemplateNameEnum.WELCOME,
@@ -62,8 +65,8 @@ export class AppService {
 
   async sendEmailonQueue(): Promise<string> {
     const result = await this.sendEmailQueue.add(new EmailSenderDto(
-      this.appConfig.smptUser.getValue(),
-      this.appConfig.companyName.getValue(),
+      this.smtpConfig.user.getValue(),
+      this.companyConfig.name.getValue(),
       ["yhonax.qrz@gmail.com"],
       LanguageEnum.ES_LA,
       TemplateNameEnum.WELCOME,

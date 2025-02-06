@@ -6,8 +6,6 @@ import { InvalidPortError } from 'src/config/errors/invalid-port.error';
 import { InvalidApiKeyError } from 'src/config/errors/invalid-api-key.error';
 import { InvalidEnvironmentError } from 'src/config/errors/invalid-environment.error';
 import { InvalidLanguageError } from 'src/config/errors/invalid-language.error';
-import { NonEmptyStringError } from 'src/common/errors/non-empty-string.error';
-import { InvalidUrlError } from 'src/common/errors/invalid-url.error';
 import { AppConfig } from 'src/config/entities/app-config.entity';
 
 describe('AppConfig', () => {
@@ -15,15 +13,7 @@ describe('AppConfig', () => {
         port: 3000,
         apiKey: 'a'.repeat(64), // Minimum valid API key length
         environment: EnvironmentEnum.PRODUCTION,
-        defaultLang: LanguageEnum.EN_US,
-        smptHost: 'smtp.example.com',
-        smptPort: 587,
-        smptUser: 'smtp-user',
-        smptPass: 'smtp-pass',
-        companyName: 'Example Company',
-        companyIconUrl: 'https://example.com/icon.png',
-        companyWebsiteUrl: 'https://example.com',
-        companyAddress: '123 Example Street',
+        defaultLang: LanguageEnum.EN_US
     };
 
     it('should create an AppConfig instance with valid data', () => {
@@ -31,15 +21,7 @@ describe('AppConfig', () => {
             validData.port,
             validData.apiKey,
             validData.environment,
-            validData.defaultLang,
-            validData.smptHost,
-            validData.smptPort,
-            validData.smptUser,
-            validData.smptPass,
-            validData.companyName,
-            validData.companyIconUrl,
-            validData.companyWebsiteUrl,
-            validData.companyAddress,
+            validData.defaultLang
         );
 
         expect(appConfig).toBeInstanceOf(AppConfig);
@@ -47,7 +29,6 @@ describe('AppConfig', () => {
         expect(appConfig.apiKey).toBeInstanceOf(ApiKeyVO);
         expect(appConfig.environment.getValue()).toBe(EnvironmentEnum.PRODUCTION);
         expect(appConfig.defaultLang.getValue()).toBe(LanguageEnum.EN_US);
-        expect(appConfig.companyWebsiteUrl.getValue()).toBe(validData.companyWebsiteUrl);
     });
 
     it('should throw an error if any required value is invalid (invalid port)', () => {
@@ -56,15 +37,7 @@ describe('AppConfig', () => {
                 0, // Invalid port
                 validData.apiKey,
                 validData.environment,
-                validData.defaultLang,
-                validData.smptHost,
-                validData.smptPort,
-                validData.smptUser,
-                validData.smptPass,
-                validData.companyName,
-                validData.companyIconUrl,
-                validData.companyWebsiteUrl,
-                validData.companyAddress,
+                validData.defaultLang
             )
         ).toThrow(InvalidPortError);
     });
@@ -75,15 +48,7 @@ describe('AppConfig', () => {
                 validData.port,
                 'short-api-key', // Invalid API key
                 validData.environment,
-                validData.defaultLang,
-                validData.smptHost,
-                validData.smptPort,
-                validData.smptUser,
-                validData.smptPass,
-                validData.companyName,
-                validData.companyIconUrl,
-                validData.companyWebsiteUrl,
-                validData.companyAddress,
+                validData.defaultLang
             )
         ).toThrow(InvalidApiKeyError);
     });
@@ -94,15 +59,7 @@ describe('AppConfig', () => {
                 validData.port,
                 validData.apiKey,
                 'invalid-environment', // Invalid environment
-                validData.defaultLang,
-                validData.smptHost,
-                validData.smptPort,
-                validData.smptUser,
-                validData.smptPass,
-                validData.companyName,
-                validData.companyIconUrl,
-                validData.companyWebsiteUrl,
-                validData.companyAddress,
+                validData.defaultLang
             )
         ).toThrow(InvalidEnvironmentError);
     });
@@ -113,54 +70,9 @@ describe('AppConfig', () => {
                 validData.port,
                 validData.apiKey,
                 validData.environment,
-                'invalid-language', // Invalid language
-                validData.smptHost,
-                validData.smptPort,
-                validData.smptUser,
-                validData.smptPass,
-                validData.companyName,
-                validData.companyIconUrl,
-                validData.companyWebsiteUrl,
-                validData.companyAddress,
+                'invalid-language' // Invalid language
             )
         ).toThrow(InvalidLanguageError);
     });
 
-    it('should throw an error if the SMTP host is empty', () => {
-        expect(() =>
-            AppConfig.create(
-                validData.port,
-                validData.apiKey,
-                validData.environment,
-                validData.defaultLang,
-                '', // Empty SMTP host
-                validData.smptPort,
-                validData.smptUser,
-                validData.smptPass,
-                validData.companyName,
-                validData.companyIconUrl,
-                validData.companyWebsiteUrl,
-                validData.companyAddress,
-            )
-        ).toThrow(NonEmptyStringError);
-    });
-
-    it('should throw an error if the company website URL is invalid', () => {
-        expect(() =>
-            AppConfig.create(
-                validData.port,
-                validData.apiKey,
-                validData.environment,
-                validData.defaultLang,
-                validData.smptHost,
-                validData.smptPort,
-                validData.smptUser,
-                validData.smptPass,
-                validData.companyName,
-                validData.companyIconUrl,
-                'invalid-url', // Invalid URL
-                validData.companyAddress,
-            )
-        ).toThrow(InvalidUrlError);
-    });
 });
