@@ -54,7 +54,7 @@ describe('EJSTemplateRendererService', () => {
             .spyOn(ejs, 'renderFile')
             .mockRejectedValue(error);
 
-        const loggerSpy = jest.spyOn(Logger, 'error');
+        const loggerSpy = jest.spyOn(service["logger"], 'error');
 
         const templateRenderer = TemplateRenderer.create(
             TemplateNameEnum.WELCOME,

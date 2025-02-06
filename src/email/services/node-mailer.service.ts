@@ -13,6 +13,7 @@ import { InvalidEmailError } from "../errors/invalid-email.error";
 @Injectable()
 export class NodeMailerService extends AbstractEmailSenderService {
 
+    private readonly logger = new Logger(NodeMailerService.name);
     private readonly transporter: nodemailer.Transporter;
     private readonly appConfig: AppConfig;
 
@@ -47,7 +48,7 @@ export class NodeMailerService extends AbstractEmailSenderService {
                         return reject(new InvalidEmailError(error.message));
                     }
                     to.getValues().forEach((email) => {
-                        Logger.log(
+                        this.logger.log(
                             `Email sent to: ${email} (${templateName.getValue()})`
                         );
                     });

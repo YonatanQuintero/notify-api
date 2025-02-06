@@ -5,6 +5,9 @@ import { RedisConfig } from "../entities/redis-config.entity";
 
 @Injectable()
 export class EnvConfigService extends AbstractConfigService {
+
+    private logger = new Logger(EnvConfigService.name);
+
     getAppConfig(): AppConfig {
         try {
 
@@ -37,7 +40,7 @@ export class EnvConfigService extends AbstractConfigService {
                 Number(process.env.REDIS_DB)
             );
         } catch (error) {
-            Logger.error(`Error creating RedisConfig: ${error.message}`);
+            this.logger.error(`Error creating RedisConfig: ${error.message}`);
             throw error;
         }
     }

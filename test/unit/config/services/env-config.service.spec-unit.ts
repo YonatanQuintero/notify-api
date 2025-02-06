@@ -124,10 +124,11 @@ describe('EnvConfigService', () => {
     });
 
     it('should log an error and rethrow if RedisConfig creation fails', () => {
-        const loggerSpy = jest.spyOn(Logger, 'error').mockImplementation(() => { });
-        process.env.REDIS_URL = 'invalid-url'; // Invalid URL
 
         const envConfigService = new EnvConfigService();
+        const loggerSpy = jest.spyOn(envConfigService["logger"], 'error').mockImplementation(() => { });
+        process.env.REDIS_URL = 'invalid-url'; // Invalid URL
+
 
         expect(() => envConfigService.getRedisConfig()).toThrow();
         expect(loggerSpy).toHaveBeenCalledWith(expect.stringContaining('Error creating RedisConfig:'));

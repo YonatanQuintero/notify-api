@@ -7,6 +7,7 @@ import * as ejs from 'ejs';
 @Injectable()
 export class EJSTemplateRendererService extends AbstractTemplateRendererService {
 
+    private readonly logger = new Logger(EJSTemplateRendererService.name);
     async render(templateRenderer: TemplateRenderer): Promise<string> {
         try {
 
@@ -22,7 +23,7 @@ export class EJSTemplateRendererService extends AbstractTemplateRendererService 
             });
 
         } catch (error) {
-            Logger.error(`Error rendering template: ${error.message}`);
+            this.logger.error(`Error rendering template: ${error.message}`);
             throw error;
         }
     }
