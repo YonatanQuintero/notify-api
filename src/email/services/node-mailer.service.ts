@@ -62,7 +62,7 @@ export class NodeMailerService extends AbstractEmailSenderService {
     }
 
     private async buildEmail(emailSender: EmailSender): Promise<Mail.Options> {
-console.log(`Building email for: ${JSON.stringify(emailSender)}`);
+
         const {
             from,
             to,

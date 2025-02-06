@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import Bull, { Queue } from "bull";
 import { QueueServiceError } from "../errors/queue-service.error";
-import { EmailSender } from "src/email/entities/email-sender.entity";
 
 @Injectable()
 export abstract class AbstractQueue<T> {
@@ -9,8 +8,8 @@ export abstract class AbstractQueue<T> {
         protected readonly queue: Queue
     ) { }
 
-    async add(entity: T): Promise<Bull.Job<T>> {
-        return await this.queue.add(entity);
+    async add(dto: T): Promise<Bull.Job<T>> {
+        return await this.queue.add(dto);
     }
 
     async getJobStatus(jobId: string): Promise<string> {

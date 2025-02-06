@@ -27,7 +27,7 @@ describe('EJSTemplateRendererService', () => {
         const templateRenderer = TemplateRenderer.create(
             TemplateNameEnum.WELCOME,
             LanguageEnum.EN_US,
-            new Map([['username', 'JohnDoe'], ['code', '123456']])
+            { 'username': 'JohnDoe', 'code': '123456' }
         );
 
         const result = await service.render(templateRenderer);
@@ -59,7 +59,7 @@ describe('EJSTemplateRendererService', () => {
         const templateRenderer = TemplateRenderer.create(
             TemplateNameEnum.WELCOME,
             LanguageEnum.EN_US,
-            new Map([['key', 'value']])
+            { 'key': 'value' }
         );
 
         await expect(service.render(templateRenderer)).rejects.toThrow(error);

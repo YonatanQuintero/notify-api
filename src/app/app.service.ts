@@ -9,6 +9,7 @@ import { AbstractEmailSenderService } from 'src/email/abstracts/email-sender.ser
 import { EmailSender } from 'src/email/entities/email-sender.entity';
 import { AppConfig } from 'src/config/entities/app-config.entity';
 import { SendEmailQueue } from 'src/email/queues/send-email.queue';
+import { EmailSenderDto } from 'src/email/dtos/email-sender.dto';
 
 @Injectable()
 export class AppService {
@@ -45,30 +46,29 @@ export class AppService {
   }
 
   async sendEmail(): Promise<boolean> {
-    const emailSender = EmailSender.create(
+    const emailSender = EmailSender.create(new EmailSenderDto(
       this.appConfig.smptUser.getValue(),
       this.appConfig.companyName.getValue(),
       ["yhonax.qrz@gmail.com"],
       LanguageEnum.ES_LA,
       TemplateNameEnum.WELCOME,
       { "username": "John Doe" }
-    )
+    ))
+
     return await this.emailService.send(
       emailSender
     );
   }
 
   async sendEmailonQueue(): Promise<string> {
-    const emailSender = EmailSender.create(
+    const result = await this.sendEmailQueue.add(new EmailSenderDto(
       this.appConfig.smptUser.getValue(),
       this.appConfig.companyName.getValue(),
       ["yhonax.qrz@gmail.com"],
       LanguageEnum.ES_LA,
       TemplateNameEnum.WELCOME,
       { "username": "John Doe" }
-    );
-
-    const result = await this.sendEmailQueue.add(emailSender);
+    ));
     return result.id.toString();
   }
 }

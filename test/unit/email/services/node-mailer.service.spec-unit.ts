@@ -6,6 +6,7 @@ import { AppConfig } from "src/config/entities/app-config.entity";
 import { NodeMailerService } from "src/email/services/node-mailer.service";
 import { AbstractTemplateRendererService } from "src/template-renderer/abstracts/template-renderer.service.abstract";
 import { EmailSender } from "src/email/entities/email-sender.entity";
+import { EmailSenderDto } from "src/email/dtos/email-sender.dto";
 
 // Mock nodemailer's createTransport method
 jest.mock('nodemailer');
@@ -55,15 +56,15 @@ describe('NodeMailerService', () => {
     });
 
     it('should send email successfully and resolve true', async () => {
-        const params = new Map<string, string>([['key', 'value']]);
-        const emailSender = EmailSender.create(
+        const emailSenderDto = new EmailSenderDto(
             'from@example.com',
             'From Name',
             ['to@example.com'],
             'en-us',
             'welcome',
-            params
+            { 'key': 'value' }
         );
+        const emailSender = EmailSender.create(emailSenderDto);
 
         // Simulate successful sending by calling the callback with no error.
         transporterSendMailMock.mockImplementation(
@@ -78,15 +79,15 @@ describe('NodeMailerService', () => {
     });
 
     it('should reject sending email when transporter.sendMail returns an error', async () => {
-        const params = new Map<string, string>([['key', 'value']]);
-        const emailSender = EmailSender.create(
+        const emailSenderDto = new EmailSenderDto(
             'from@example.com',
             'From Name',
             ['to@example.com'],
             'en-us',
             'welcome',
-            params
+            { 'key': 'value' }
         );
+        const emailSender = EmailSender.create(emailSenderDto);
 
         const errorMessage = 'SMTP connection error';
 

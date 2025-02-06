@@ -7,10 +7,10 @@ import { InvalidTemplateNameError } from "src/template-renderer/errors/invalid-t
 
 describe('TemplateRenderer', () => {
     it('should create a TemplateRenderer with valid string name and language', () => {
-        const params = new Map<string, string>([
-            ['username', 'JohnDoe'],
-            ['code', '123456'],
-        ]);
+        const params = {
+            'username': 'JohnDoe',
+            'code': '123456',
+        };
 
         const renderer = TemplateRenderer.create(
             'welcome',      // valid string in TemplateNameEnum
@@ -25,9 +25,9 @@ describe('TemplateRenderer', () => {
     });
 
     it('should create a TemplateRenderer with enum values for name and language', () => {
-        const params = new Map<string, string>([
-            ['someKey', 'someValue'],
-        ]);
+        const params = {
+            'someValue': 'someKey'
+        };
 
         const renderer = TemplateRenderer.create(
             TemplateNameEnum.RECOVER_PASSWORD_SUCCESS, // direct enum
@@ -41,40 +41,40 @@ describe('TemplateRenderer', () => {
     });
 
     it('should throw ValueRequiredError if name is missing', () => {
-        const params = new Map<string, string>([]);
+        const params = {};
         expect(() =>
             TemplateRenderer.create(undefined as any, LanguageEnum.EN_US, params)
         ).toThrow(ValueRequiredError);
     });
 
     it('should throw ValueRequiredError if language is missing', () => {
-        const params = new Map<string, string>([]);
+        const params = {};
         expect(() =>
             TemplateRenderer.create(TemplateNameEnum.WELCOME, undefined as any, params)
         ).toThrow(ValueRequiredError);
     });
 
     it('should throw InvalidTemplateNameError if name is invalid', () => {
-        const params = new Map<string, string>([]);
+        const params = {};
         expect(() =>
             TemplateRenderer.create('INVALID_NAME', LanguageEnum.EN_US, params)
         ).toThrow(InvalidTemplateNameError);
     });
 
     it('should throw an error if language is invalid', () => {
-        const params = new Map<string, string>([]);
+        const params = {};
         expect(() =>
             TemplateRenderer.create(TemplateNameEnum.WELCOME, 'invalid-lang', params)
         ).toThrow(InvalidLanguageError);
     });
 
     it('should accept an empty params map', () => {
-        const emptyParams = new Map<string, string>();
+        const emptyParams = {};
         const renderer = TemplateRenderer.create(
             TemplateNameEnum.WELCOME,
             LanguageEnum.EN_US,
             emptyParams
         );
-        expect(renderer.params.size).toBe(0);
+        expect(Object.keys(renderer.params).length).toBe(0);
     });
 });

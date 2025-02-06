@@ -5,6 +5,7 @@ import { LanguageEnum } from "src/config/enums/language.enum";
 import { EmailIssuer } from "./email-issuer.entity";
 import { EmailRecipientList } from "./email-recipient-list.entity";
 import { EmailVO } from "../value-objects/email.vo";
+import { EmailSenderDto } from "../dtos/email-sender.dto";
 
 export class EmailSender {
     private constructor(
@@ -15,19 +16,15 @@ export class EmailSender {
         public readonly params: Record<string, string>,
         public readonly cc?: EmailVO[],
         public readonly bcc?: EmailVO[]
-    ) { 
+    ) {
     }
 
     static create(
-        fromEmail: string,
-        fromName: string,
-        toEmail: string[],
-        lang: string | LanguageEnum,
-        templateName: string | TemplateNameEnum,
-        params: Record<string, string>,
-        ccEmail?: string[],
-        bccEmail?: string[],
+        emailSenderDto: EmailSenderDto
     ): EmailSender {
+        const {
+            fromEmail, fromName, toEmail, lang, templateName, params, ccEmail, bccEmail
+        } = emailSenderDto;
         const from = EmailIssuer.create(fromEmail, fromName);
         const to = EmailRecipientList.create(toEmail);
         const langVO = LanguageVO.create(lang);
