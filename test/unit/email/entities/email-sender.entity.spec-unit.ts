@@ -5,8 +5,8 @@ import { EmailIssuer } from "src/email/entities/email-issuer.entity";
 import { EmailRecipientList } from "src/email/entities/email-recipient-list.entity";
 import { EmailSender } from "src/email/entities/email-sender.entity";
 import { InvalidEmailError } from "src/email/errors/invalid-email.error";
-import { InvalidTemplateNameError } from "src/template-renderer/errors/invalid-template-name.error";
-import { TemplateNameVO } from "src/template-renderer/value-objects/template-name.vo";
+import { InvalidTemplateNameError } from "src/template-renderer/errors/invalid-notification-name.error";
+import { NotificationNameVO } from "src/template-renderer/value-objects/notification-name.vo";
 
 describe('EmailSender', () => {
     const validFromEmail = 'from@example.com';
@@ -38,7 +38,7 @@ describe('EmailSender', () => {
         expect(sender.from).toBeInstanceOf(EmailIssuer);
         expect(sender.to).toBeInstanceOf(EmailRecipientList);
         expect(sender.lang).toBeInstanceOf(LanguageVO);
-        expect(sender.notificationName).toBeInstanceOf(TemplateNameVO);
+        expect(sender.notificationName).toBeInstanceOf(NotificationNameVO);
         expect(sender.params).toBeInstanceOf(Object);
         expect(sender.cc).toBeDefined();
         expect(sender.cc?.length).toBe(validCcEmails.length);

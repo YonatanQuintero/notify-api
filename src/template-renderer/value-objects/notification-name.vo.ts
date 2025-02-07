@@ -1,17 +1,17 @@
 import { NotificationNameEnum } from "../enums/notification-name.enum";
-import { InvalidTemplateNameError } from "../errors/invalid-template-name.error";
+import { InvalidTemplateNameError } from "../errors/invalid-notification-name.error";
 import { ValueRequiredError } from "../../common/errors/value-required.error";
 import { ValueObject } from "../../common/primitives/value-object";
 
-export class TemplateNameVO extends ValueObject {
+export class NotificationNameVO extends ValueObject {
 
     private constructor(private readonly value: NotificationNameEnum) {
         super();
     }
 
-    static create(name?: string | NotificationNameEnum): TemplateNameVO {
+    static create(name?: string | NotificationNameEnum): NotificationNameVO {
         if (!name) {
-            throw new ValueRequiredError('Template Name');
+            throw new ValueRequiredError('Notification Name');
         }
 
         if (typeof name === 'string') {
@@ -19,10 +19,10 @@ export class TemplateNameVO extends ValueObject {
             if (!Object.values(NotificationNameEnum).includes(trimmed)) {
                 throw new InvalidTemplateNameError(name);
             }
-            return new TemplateNameVO(trimmed);
+            return new NotificationNameVO(trimmed);
         }
 
-        return new TemplateNameVO(name);
+        return new NotificationNameVO(name);
     }
 
     getValue(): NotificationNameEnum {

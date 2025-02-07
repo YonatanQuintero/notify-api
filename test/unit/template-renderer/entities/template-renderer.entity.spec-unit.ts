@@ -3,7 +3,7 @@ import { LanguageEnum } from "src/config/enums/language.enum";
 import { InvalidLanguageError } from "src/config/errors/invalid-language.error";
 import { TemplateRenderer } from "src/template-renderer/entities/template-renderer.entity";
 import { NotificationNameEnum } from "src/template-renderer/enums/notification-name.enum";
-import { InvalidTemplateNameError } from "src/template-renderer/errors/invalid-template-name.error";
+import { InvalidTemplateNameError } from "src/template-renderer/errors/invalid-notification-name.error";
 
 describe('TemplateRenderer', () => {
     it('should create a TemplateRenderer with valid string name and language', () => {

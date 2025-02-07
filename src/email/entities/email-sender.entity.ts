@@ -1,4 +1,4 @@
-import { TemplateNameVO } from "src/template-renderer/value-objects/template-name.vo";
+import { NotificationNameVO } from "src/template-renderer/value-objects/notification-name.vo";
 import { LanguageVO } from "src/config/value-objects/language.vo";
 import { EmailIssuer } from "./email-issuer.entity";
 import { EmailRecipientList } from "./email-recipient-list.entity";
@@ -10,7 +10,7 @@ export class EmailSender {
         public readonly from: EmailIssuer,
         public readonly to: EmailRecipientList,
         public readonly lang: LanguageVO,
-        public readonly notificationName: TemplateNameVO,
+        public readonly notificationName: NotificationNameVO,
         public readonly params: Record<string, string>,
         public readonly cc?: EmailVO[],
         public readonly bcc?: EmailVO[]
@@ -26,9 +26,9 @@ export class EmailSender {
         const from = EmailIssuer.create(fromEmail, fromName);
         const to = EmailRecipientList.create(toEmail);
         const langVO = LanguageVO.create(lang);
-        const templateNameVO = TemplateNameVO.create(notificationName);
+        const notificationNameVO = NotificationNameVO.create(notificationName);
         const cc = ccEmail ? ccEmail.map((cc) => EmailVO.create(cc)) : undefined;
         const bcc = bccEmail ? bccEmail.map((bcc) => EmailVO.create(bcc)) : undefined;
-        return new EmailSender(from, to, langVO, templateNameVO, params, cc, bcc);
+        return new EmailSender(from, to, langVO, notificationNameVO, params, cc, bcc);
     }
 }

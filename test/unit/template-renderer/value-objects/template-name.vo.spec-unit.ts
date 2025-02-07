@@ -1,43 +1,43 @@
 import { ValueRequiredError } from "src/common/errors/value-required.error";
 import { NotificationNameEnum } from "src/template-renderer/enums/notification-name.enum";
-import { InvalidTemplateNameError } from "src/template-renderer/errors/invalid-template-name.error";
-import { TemplateNameVO } from "src/template-renderer/value-objects/template-name.vo";
+import { InvalidTemplateNameError } from "src/template-renderer/errors/invalid-notification-name.error";
+import { NotificationNameVO } from "src/template-renderer/value-objects/notification-name.vo";
 
-describe('TemplateNameVO', () => {
-    it('should create a TemplateNameVO from a valid string', () => {
-        const vo = TemplateNameVO.create('welcome');
-        expect(vo).toBeInstanceOf(TemplateNameVO);
+describe('NotificationNameVO', () => {
+    it('should create a NotificationNameVO from a valid string', () => {
+        const vo = NotificationNameVO.create('welcome');
+        expect(vo).toBeInstanceOf(NotificationNameVO);
         expect(vo.getValue()).toBe(NotificationNameEnum.WELCOME);
     });
 
-    it('should create a TemplateNameVO from a valid enum value', () => {
-        const vo = TemplateNameVO.create(NotificationNameEnum.RECOVER_PASSWORD_SUCCESS);
-        expect(vo).toBeInstanceOf(TemplateNameVO);
+    it('should create a NotificationNameVO from a valid enum value', () => {
+        const vo = NotificationNameVO.create(NotificationNameEnum.RECOVER_PASSWORD_SUCCESS);
+        expect(vo).toBeInstanceOf(NotificationNameVO);
         expect(vo.getValue()).toBe(NotificationNameEnum.RECOVER_PASSWORD_SUCCESS);
     });
 
     it('should trim the string before validation', () => {
-        const vo = TemplateNameVO.create('   welcome   ');
+        const vo = NotificationNameVO.create('   welcome   ');
         expect(vo.getValue()).toBe(NotificationNameEnum.WELCOME);
     });
 
-    it('should throw a ValueRequiredError if the template name is undefined', () => {
-        expect(() => TemplateNameVO.create(undefined)).toThrow(ValueRequiredError);
+    it('should throw a ValueRequiredError if the notification name is undefined', () => {
+        expect(() => NotificationNameVO.create(undefined)).toThrow(ValueRequiredError);
     });
 
     it('should throw an InvalidNotificationTypeError if the string is not in the enum', () => {
-        expect(() => TemplateNameVO.create('INVALID_NAME')).toThrow(InvalidTemplateNameError);
+        expect(() => NotificationNameVO.create('INVALID_NAME')).toThrow(InvalidTemplateNameError);
     });
 
-    it('should consider two TemplateNameVOs equal if they have the same enum value', () => {
-        const vo1 = TemplateNameVO.create(NotificationNameEnum.WELCOME);
-        const vo2 = TemplateNameVO.create(NotificationNameEnum.WELCOME);
+    it('should consider two NotificationNameVOs equal if they have the same enum value', () => {
+        const vo1 = NotificationNameVO.create(NotificationNameEnum.WELCOME);
+        const vo2 = NotificationNameVO.create(NotificationNameEnum.WELCOME);
         expect(vo1.equals(vo2)).toBe(true);
     });
 
-    it('should consider two TemplateNameVOs not equal if they have different enum values', () => {
-        const vo1 = TemplateNameVO.create(NotificationNameEnum.WELCOME);
-        const vo2 = TemplateNameVO.create(NotificationNameEnum.RECOVER_PASSWORD_SUCCESS);
+    it('should consider two NotificationNameVOs not equal if they have different enum values', () => {
+        const vo1 = NotificationNameVO.create(NotificationNameEnum.WELCOME);
+        const vo2 = NotificationNameVO.create(NotificationNameEnum.RECOVER_PASSWORD_SUCCESS);
         expect(vo1.equals(vo2)).toBe(false);
     });
 });
