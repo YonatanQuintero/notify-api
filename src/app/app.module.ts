@@ -6,6 +6,7 @@ import { TemplateRendererModule } from 'src/template-renderer/template-renderer.
 import { EmailModule } from 'src/email/email.module';
 import { ConfigurationModule } from 'src/config/configuration.module';
 import { QueueModule } from 'src/queue/queue.module';
+import { NotificationModule } from 'src/notification/notification.module';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { QueueModule } from 'src/queue/queue.module';
     TemplateRendererModule,
     EmailModule,
     ConfigurationModule,
-    QueueModule
+    QueueModule,
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [

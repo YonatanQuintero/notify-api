@@ -2,11 +2,12 @@ import * as nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
 import { I18nService } from "nestjs-i18n";
 import { AbstractConfigService } from "src/config/abstracts/config.service.abstract";
-import { AppConfig } from "src/config/entities/app-config.entity";
 import { NodeMailerService } from "src/email/services/node-mailer.service";
 import { AbstractTemplateRendererService } from "src/template-renderer/abstracts/template-renderer.service.abstract";
 import { EmailSender } from "src/email/entities/email-sender.entity";
 import { EmailSenderDto } from "src/email/dtos/email-sender.dto";
+import { SmtpConfig } from "src/config/entities/smpt-config.entity";
+import { CompanyConfig } from "src/config/entities/company-config.entity";
 
 // Mock nodemailer's createTransport method
 jest.mock('nodemailer');
@@ -18,16 +19,19 @@ describe('NodeMailerService', () => {
     let templateRendererServiceMock: Partial<AbstractTemplateRendererService>;
     let transporterSendMailMock: jest.Mock;
 
-    const fakeAppConfig: AppConfig = {
-        smptHost: { getValue: () => 'smtp.example.com' },
-        smptPort: { getValue: () => 587 },
-        smptUser: { getValue: () => 'user@example.com' },
-        smptPass: { getValue: () => 'password' },
-        companyName: { getValue: () => 'Example Company' },
-        companyWebsiteUrl: { getValue: () => 'https://example.com' },
-        companyIconUrl: { getValue: () => 'https://example.com/icon.png' },
-        companyAddress: { getValue: () => '123 Example St' },
-    } as unknown as AppConfig;
+    const fakeSmtpConfig: SmtpConfig = {
+        host: { getValue: () => 'smtp.example.com' },
+        port: { getValue: () => 587 },
+        user: { getValue: () => 'user@example.com' },
+        pass: { getValue: () => 'password' },
+    } as unknown as SmtpConfig;
+
+    const fakeCompanyConfig: CompanyConfig = {
+        name: { getValue: () => 'Example Company' },
+        websiteUrl: { getValue: () => 'https://example.com' },
+        iconUrl: { getValue: () => 'https://example.com/icon.png' },
+        address: { getValue: () => '123 Example St' },
+    } as unknown as CompanyConfig;
 
     beforeEach(() => {
         transporterSendMailMock = jest.fn();
@@ -41,7 +45,8 @@ describe('NodeMailerService', () => {
         };
 
         configServiceMock = {
-            getAppConfig: jest.fn().mockReturnValue(fakeAppConfig),
+            getSmtpConfig: jest.fn().mockReturnValue(fakeSmtpConfig),
+            getCompanyConfig: jest.fn().mockReturnValue(fakeCompanyConfig)
         };
 
         templateRendererServiceMock = {
