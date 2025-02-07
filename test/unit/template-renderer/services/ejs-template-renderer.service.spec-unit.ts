@@ -3,7 +3,7 @@ import * as ejs from 'ejs';
 import * as path from 'path';
 import { LanguageEnum } from 'src/config/enums/language.enum';
 import { TemplateRenderer } from 'src/template-renderer/entities/template-renderer.entity';
-import { NotificationNameEnum } from 'src/template-renderer/enums/notification-name.enum';
+import { NotificationNameEnum } from 'src/notification/enums/notification-name.enum';
 import { EJSTemplateRendererService } from 'src/template-renderer/services/ejs-template-renderer.service';
 
 describe('EJSTemplateRendererService', () => {

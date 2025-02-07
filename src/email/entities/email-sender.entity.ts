@@ -1,4 +1,4 @@
-import { NotificationNameVO } from "src/template-renderer/value-objects/notification-name.vo";
+import { NotificationNameVO } from "src/notification/value-objects/notification-name.vo";
 import { LanguageVO } from "src/config/value-objects/language.vo";
 import { EmailIssuer } from "./email-issuer.entity";
 import { EmailRecipientList } from "./email-recipient-list.entity";

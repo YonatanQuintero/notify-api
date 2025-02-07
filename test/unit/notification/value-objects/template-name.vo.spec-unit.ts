@@ -1,7 +1,7 @@
 import { ValueRequiredError } from "src/common/errors/value-required.error";
-import { NotificationNameEnum } from "src/template-renderer/enums/notification-name.enum";
-import { InvalidNotificationNameError } from "src/template-renderer/errors/invalid-notification-name.error";
-import { NotificationNameVO } from "src/template-renderer/value-objects/notification-name.vo";
+import { NotificationNameEnum } from "src/notification/enums/notification-name.enum";
+import { InvalidNotificationNameError } from "src/notification/errors/invalid-notification-name.error";
+import { NotificationNameVO } from "src/notification/value-objects/notification-name.vo";
 
 describe('NotificationNameVO', () => {
     it('should create a NotificationNameVO from a valid string', () => {

@@ -1,5 +1,5 @@
 import { LanguageEnum } from "src/config/enums/language.enum";
-import { NotificationNameEnum } from "src/template-renderer/enums/notification-name.enum";
+import { NotificationNameEnum } from "src/notification/enums/notification-name.enum";
 
 export class EmailSenderDto {
 

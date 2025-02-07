@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { I18nService } from 'nestjs-i18n';
 import { LanguageEnum } from 'src/config/enums/language.enum';
-import { NotificationNameEnum } from 'src/template-renderer/enums/notification-name.enum';
+import { NotificationNameEnum } from 'src/notification/enums/notification-name.enum';
 import { AbstractConfigService } from 'src/config/abstracts/config.service.abstract';
 import { AbstractTemplateRendererService } from 'src/template-renderer/abstracts/template-renderer.service.abstract';
 import { TemplateRenderer } from 'src/template-renderer/entities/template-renderer.entity';

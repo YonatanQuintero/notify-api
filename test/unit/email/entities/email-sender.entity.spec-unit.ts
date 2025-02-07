@@ -5,8 +5,8 @@ import { EmailIssuer } from "src/email/entities/email-issuer.entity";
 import { EmailRecipientList } from "src/email/entities/email-recipient-list.entity";
 import { EmailSender } from "src/email/entities/email-sender.entity";
 import { InvalidEmailError } from "src/email/errors/invalid-email.error";
-import { InvalidNotificationNameError } from "src/template-renderer/errors/invalid-notification-name.error";
-import { NotificationNameVO } from "src/template-renderer/value-objects/notification-name.vo";
+import { InvalidNotificationNameError } from "src/notification/errors/invalid-notification-name.error";
+import { NotificationNameVO } from "src/notification/value-objects/notification-name.vo";
 
 describe('EmailSender', () => {
     const validFromEmail = 'from@example.com';
