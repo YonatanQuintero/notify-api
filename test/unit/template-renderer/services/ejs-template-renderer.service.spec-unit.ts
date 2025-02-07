@@ -3,7 +3,7 @@ import * as ejs from 'ejs';
 import * as path from 'path';
 import { LanguageEnum } from 'src/config/enums/language.enum';
 import { TemplateRenderer } from 'src/template-renderer/entities/template-renderer.entity';
-import { TemplateNameEnum } from 'src/template-renderer/enums/template-name.enum';
+import { NotificationNameEnum } from 'src/template-renderer/enums/notification-name.enum';
 import { EJSTemplateRendererService } from 'src/template-renderer/services/ejs-template-renderer.service';
 
 describe('EJSTemplateRendererService', () => {
@@ -25,7 +25,7 @@ describe('EJSTemplateRendererService', () => {
             .mockResolvedValue('<html>Mocked Result</html>');
 
         const templateRenderer = TemplateRenderer.create(
-            TemplateNameEnum.WELCOME,
+            NotificationNameEnum.WELCOME,
             LanguageEnum.EN_US,
             { 'username': 'JohnDoe', 'code': '123456' }
         );
@@ -41,7 +41,7 @@ describe('EJSTemplateRendererService', () => {
             ),
             {
                 lang: 'en-us',
-                templateName: 'welcome',
+                notificationName: 'welcome',
                 username: 'JohnDoe',
                 code: '123456',
             },
@@ -57,7 +57,7 @@ describe('EJSTemplateRendererService', () => {
         const loggerSpy = jest.spyOn(service["logger"], 'error');
 
         const templateRenderer = TemplateRenderer.create(
-            TemplateNameEnum.WELCOME,
+            NotificationNameEnum.WELCOME,
             LanguageEnum.EN_US,
             { 'key': 'value' }
         );

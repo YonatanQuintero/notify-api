@@ -44,7 +44,7 @@ export class NodeMailerService extends AbstractEmailSenderService {
             return new Promise(async (resolve, reject) => {
                 const mailOptions = await this.buildEmail(emailSender);
                 this.transporter.sendMail(mailOptions, (error: any) => {
-                    const { to, templateName } = emailSender;
+                    const { to, notificationName: templateName } = emailSender;
                     if (error) {
                         Logger.error(error.message);
                         Logger.error(JSON.stringify(emailSender));
@@ -71,7 +71,7 @@ export class NodeMailerService extends AbstractEmailSenderService {
             from,
             to,
             lang,
-            templateName,
+            notificationName,
             params,
             cc,
             bcc,
@@ -83,13 +83,13 @@ export class NodeMailerService extends AbstractEmailSenderService {
         params["companyAddress"] = this.companyConfig.address.getValue();
 
         const subject = this.i18n.t(
-            `subject.${templateName.getValue()}`,
+            `subject.${notificationName.getValue()}`,
             { lang: lang.getValue() }
         );
 
         const html = await this.templateRendererService.render(
             TemplateRenderer.create(
-                templateName.getValue(),
+                notificationName.getValue(),
                 lang.getValue(),
                 params
             )

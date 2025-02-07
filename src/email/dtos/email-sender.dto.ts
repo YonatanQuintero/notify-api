@@ -1,5 +1,5 @@
 import { LanguageEnum } from "src/config/enums/language.enum";
-import { TemplateNameEnum } from "src/template-renderer/enums/template-name.enum";
+import { NotificationNameEnum } from "src/template-renderer/enums/notification-name.enum";
 
 export class EmailSenderDto {
 
@@ -8,7 +8,7 @@ export class EmailSenderDto {
         readonly fromName: string,
         readonly toEmail: string[],
         readonly lang: string | LanguageEnum,
-        readonly templateName: string | TemplateNameEnum,
+        readonly notificationName: string | NotificationNameEnum,
         readonly params: Record<string, string>,
         readonly ccEmail?: string[],
         readonly bccEmail?: string[],

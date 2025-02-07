@@ -69,7 +69,7 @@ describe('EmailNotificationSender', () => {
         expect(calledWith.fromName).toBe('Company Name');
         expect(calledWith.toEmail).toEqual(notificationDto.recipients);
         expect(calledWith.lang).toBe(notificationDto.lang);
-        expect(calledWith.templateName).toBe(notificationDto.templateName);
+        expect(calledWith.notificationName).toBe(notificationDto.templateName);
         expect(calledWith.params).toBe(notificationDto.params);
         expect(calledWith.ccEmail).toEqual(notificationDto.ccEmail);
         expect(calledWith.bccEmail).toEqual(notificationDto.bccEmail);

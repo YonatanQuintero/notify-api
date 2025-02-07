@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { I18nService } from 'nestjs-i18n';
 import { LanguageEnum } from 'src/config/enums/language.enum';
-import { TemplateNameEnum } from 'src/template-renderer/enums/template-name.enum';
+import { NotificationNameEnum } from 'src/template-renderer/enums/notification-name.enum';
 import { AbstractConfigService } from 'src/config/abstracts/config.service.abstract';
 import { AbstractTemplateRendererService } from 'src/template-renderer/abstracts/template-renderer.service.abstract';
 import { TemplateRenderer } from 'src/template-renderer/entities/template-renderer.entity';
@@ -36,7 +36,7 @@ export class AppService {
   async getTemplate(): Promise<string> {
     return this.templateRendererService.render(
       TemplateRenderer.create(
-        TemplateNameEnum.WELCOME,
+        NotificationNameEnum.WELCOME,
         LanguageEnum.EN_US,
         {
           "username": "John Doe",
@@ -54,7 +54,7 @@ export class AppService {
       this.companyConfig.name.getValue(),
       ["yhonax.qrz@gmail.com"],
       LanguageEnum.ES_LA,
-      TemplateNameEnum.WELCOME,
+      NotificationNameEnum.WELCOME,
       { "username": "John Doe" }
     ))
 
@@ -69,7 +69,7 @@ export class AppService {
       this.companyConfig.name.getValue(),
       ["yhonax.qrz@gmail.com"],
       LanguageEnum.ES_LA,
-      TemplateNameEnum.WELCOME,
+      NotificationNameEnum.WELCOME,
       { "username": "John Doe" }
     ));
     return result.id.toString();

@@ -1,5 +1,5 @@
 import { LanguageEnum } from "src/config/enums/language.enum";
-import { TemplateNameEnum } from "src/template-renderer/enums/template-name.enum";
+import { NotificationNameEnum } from "src/template-renderer/enums/notification-name.enum";
 import { LanguageVO } from "src/config/value-objects/language.vo";
 import { TemplateNameVO } from "src/template-renderer/value-objects/template-name.vo";
 
@@ -12,7 +12,7 @@ export class TemplateRenderer {
     }
 
     static create(
-        name: string | TemplateNameEnum,
+        name: string | NotificationNameEnum,
         language: string | LanguageEnum,
         params: Record<string, string>
     ): TemplateRenderer {

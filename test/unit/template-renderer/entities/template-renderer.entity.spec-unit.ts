@@ -2,7 +2,7 @@ import { ValueRequiredError } from "src/common/errors/value-required.error";
 import { LanguageEnum } from "src/config/enums/language.enum";
 import { InvalidLanguageError } from "src/config/errors/invalid-language.error";
 import { TemplateRenderer } from "src/template-renderer/entities/template-renderer.entity";
-import { TemplateNameEnum } from "src/template-renderer/enums/template-name.enum";
+import { NotificationNameEnum } from "src/template-renderer/enums/notification-name.enum";
 import { InvalidTemplateNameError } from "src/template-renderer/errors/invalid-template-name.error";
 
 describe('TemplateRenderer', () => {
@@ -13,13 +13,13 @@ describe('TemplateRenderer', () => {
         };
 
         const renderer = TemplateRenderer.create(
-            'welcome',      // valid string in TemplateNameEnum
+            'welcome',      // valid string in NotificationNameEnum
             'en-us',        // valid string in LanguageEnum
             params
         );
 
         expect(renderer).toBeInstanceOf(TemplateRenderer);
-        expect(renderer.name.getValue()).toBe(TemplateNameEnum.WELCOME);
+        expect(renderer.name.getValue()).toBe(NotificationNameEnum.WELCOME);
         expect(renderer.language.getValue()).toBe(LanguageEnum.EN_US);
         expect(renderer.params).toEqual(params);
     });
@@ -30,13 +30,13 @@ describe('TemplateRenderer', () => {
         };
 
         const renderer = TemplateRenderer.create(
-            TemplateNameEnum.RECOVER_PASSWORD_SUCCESS, // direct enum
+            NotificationNameEnum.RECOVER_PASSWORD_SUCCESS, // direct enum
             LanguageEnum.ES_LA,                        // direct enum
             params
         );
 
         expect(renderer).toBeInstanceOf(TemplateRenderer);
-        expect(renderer.name.getValue()).toBe(TemplateNameEnum.RECOVER_PASSWORD_SUCCESS);
+        expect(renderer.name.getValue()).toBe(NotificationNameEnum.RECOVER_PASSWORD_SUCCESS);
         expect(renderer.language.getValue()).toBe(LanguageEnum.ES_LA);
     });
 
@@ -50,7 +50,7 @@ describe('TemplateRenderer', () => {
     it('should throw ValueRequiredError if language is missing', () => {
         const params = {};
         expect(() =>
-            TemplateRenderer.create(TemplateNameEnum.WELCOME, undefined as any, params)
+            TemplateRenderer.create(NotificationNameEnum.WELCOME, undefined as any, params)
         ).toThrow(ValueRequiredError);
     });
 
@@ -64,14 +64,14 @@ describe('TemplateRenderer', () => {
     it('should throw an error if language is invalid', () => {
         const params = {};
         expect(() =>
-            TemplateRenderer.create(TemplateNameEnum.WELCOME, 'invalid-lang', params)
+            TemplateRenderer.create(NotificationNameEnum.WELCOME, 'invalid-lang', params)
         ).toThrow(InvalidLanguageError);
     });
 
     it('should accept an empty params map', () => {
         const emptyParams = {};
         const renderer = TemplateRenderer.create(
-            TemplateNameEnum.WELCOME,
+            NotificationNameEnum.WELCOME,
             LanguageEnum.EN_US,
             emptyParams
         );

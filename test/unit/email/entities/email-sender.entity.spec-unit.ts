@@ -13,7 +13,7 @@ describe('EmailSender', () => {
     const validFromName = 'From Name';
     const validToEmails = ['to1@example.com', 'to2@example.com'];
     const validLang = 'en-us';
-    const validTemplateName = 'welcome';
+    const validNotificationName = 'welcome';
     const validParams = { 'key': 'value' };
     const validCcEmails = ['cc@example.com'];
     const validBccEmails = ['bcc@example.com'];
@@ -23,7 +23,7 @@ describe('EmailSender', () => {
         validFromName,
         validToEmails,
         validLang,
-        validTemplateName,
+        validNotificationName,
         validParams,
         validCcEmails,
         validBccEmails
@@ -38,7 +38,7 @@ describe('EmailSender', () => {
         expect(sender.from).toBeInstanceOf(EmailIssuer);
         expect(sender.to).toBeInstanceOf(EmailRecipientList);
         expect(sender.lang).toBeInstanceOf(LanguageVO);
-        expect(sender.templateName).toBeInstanceOf(TemplateNameVO);
+        expect(sender.notificationName).toBeInstanceOf(TemplateNameVO);
         expect(sender.params).toBeInstanceOf(Object);
         expect(sender.cc).toBeDefined();
         expect(sender.cc?.length).toBe(validCcEmails.length);
@@ -52,7 +52,7 @@ describe('EmailSender', () => {
             validFromName,
             validToEmails,
             validLang,
-            validTemplateName,
+            validNotificationName,
             validParams
         );
         const sender = EmailSender.create(senderDto);
@@ -69,7 +69,7 @@ describe('EmailSender', () => {
             validFromName,
             validToEmails,
             validLang,
-            validTemplateName,
+            validNotificationName,
             validParams
         );
         expect(() => {
@@ -84,7 +84,7 @@ describe('EmailSender', () => {
             validFromName,
             invalidToEmails,
             validLang,
-            validTemplateName,
+            validNotificationName,
             validParams
         );
         expect(() => {
@@ -99,7 +99,7 @@ describe('EmailSender', () => {
             validFromName,
             validToEmails,
             invalidLang,
-            validTemplateName,
+            validNotificationName,
             validParams
         );
         expect(() => {
@@ -107,14 +107,14 @@ describe('EmailSender', () => {
         }).toThrow(InvalidLanguageError);
     });
 
-    it('should throw an error if templateName is invalid', () => {
-        const invalidTemplateName = 'invalid-template-name';
+    it('should throw an error if notificationName is invalid', () => {
+        const invalidNotificationName = 'invalid-notification-name';
         const senderDto = new EmailSenderDto(
             validFromEmail,
             validFromName,
             validToEmails,
             validLang,
-            invalidTemplateName,
+            invalidNotificationName,
             validParams
         );
         expect(() => {
