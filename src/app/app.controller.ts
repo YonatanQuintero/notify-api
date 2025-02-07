@@ -11,7 +11,8 @@ export class AppController {
   }
 
   @Get('/template')
-  async getTemplate() {
+  async getTemplate(
+  ) {
     const rendered = await this.appService.getTemplate();
     return { rendered };
   }

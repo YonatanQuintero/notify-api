@@ -7,6 +7,7 @@ import { SmtpConfig } from "src/config/entities/smpt-config.entity";
 import { CompanyConfig } from "src/config/entities/company-config.entity";
 import { EmailSenderDto } from "src/email/dtos/email-sender.dto";
 import { AppConfig } from "src/config/entities/app-config.entity";
+import { NotificationMetaDto } from "../dtos/notification-meta.dto";
 
 @Injectable()
 export class EmailNotificationSender extends AbstractNotificationSender {
@@ -31,15 +32,15 @@ export class EmailNotificationSender extends AbstractNotificationSender {
         this.fromName = this.companyConfig.name.getValue();
     }
 
-    async send(dto: NotificationDto): Promise<string> {
+    async send(dto: NotificationDto, metaDto: NotificationMetaDto): Promise<string> {
         try {
             const result = await this.sendEmailQueue.add(
                 new EmailSenderDto(
                     this.fromEmail,
                     this.fromName,
                     dto.recipients,
-                    dto.lang || this.appConfig.defaultLang.getValue(),
-                    dto.templateName,
+                    metaDto.lang,
+                    dto.name,
                     dto.params,
                     dto.ccEmail,
                     dto.bccEmail,

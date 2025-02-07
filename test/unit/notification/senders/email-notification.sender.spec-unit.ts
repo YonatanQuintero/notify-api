@@ -48,7 +48,7 @@ describe('EmailNotificationSender', () => {
         const notificationDto: NotificationDto = {
             type: NotificationTypeEnum.EMAIL,
             recipients: ['to@example.com'],
-            templateName: 'welcome',
+            name: 'welcome',
             params: { 'key': 'value' },
             ccEmail: ['cc@example.com'],
             bccEmail: ['bcc@example.com'],
@@ -69,7 +69,7 @@ describe('EmailNotificationSender', () => {
         expect(calledWith.fromName).toBe('Company Name');
         expect(calledWith.toEmail).toEqual(notificationDto.recipients);
         expect(calledWith.lang).toBe(notificationDto.lang);
-        expect(calledWith.notificationName).toBe(notificationDto.templateName);
+        expect(calledWith.notificationName).toBe(notificationDto.name);
         expect(calledWith.params).toBe(notificationDto.params);
         expect(calledWith.ccEmail).toEqual(notificationDto.ccEmail);
         expect(calledWith.bccEmail).toEqual(notificationDto.bccEmail);
@@ -83,7 +83,7 @@ describe('EmailNotificationSender', () => {
         const notificationDto: NotificationDto = {
             type: NotificationTypeEnum.EMAIL,
             recipients: ['to@example.com'],
-            templateName: 'welcome',
+            name: 'welcome',
             params: { 'key': 'value' },
         };
 
