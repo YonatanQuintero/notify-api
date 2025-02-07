@@ -15,7 +15,7 @@ import { NotificationModule } from 'src/notification/notification.module';
     EmailModule,
     ConfigurationModule,
     QueueModule,
-    NotificationModule,
+    NotificationModule
   ],
   controllers: [AppController],
   providers: [

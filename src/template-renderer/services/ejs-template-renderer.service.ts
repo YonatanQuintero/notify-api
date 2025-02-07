@@ -18,7 +18,7 @@ export class EJSTemplateRendererService extends AbstractTemplateRendererService 
 
             return await ejs.renderFile(resolvedPath, {
                 lang: templateRenderer.language.getValue(),
-                notificationName: templateRenderer.name.getValue(),
+                templateName: templateRenderer.name.getValue(),
                 ...templateRenderer.params,
             });
 

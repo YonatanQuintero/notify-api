@@ -9,8 +9,9 @@ export class NotificationService {
         private readonly senderFactory: NotificationSenderFactory
     ) { }
 
-    sendNotification(dto: NotificationDto): Promise<string> {
+    async sendNotification(dto: NotificationDto): Promise<string> {
         const sender = this.senderFactory.getSender(dto.type);
-        return sender.send(dto);
+        return await sender.send(dto);
+        // return 'job-123';
     }
 }
