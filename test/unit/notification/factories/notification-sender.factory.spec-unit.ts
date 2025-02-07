@@ -1,4 +1,4 @@
-import { NotificationType } from "src/notification/enums/notification-type.enum";
+import { NotificationTypeEnum } from "src/notification/enums/notification-type.enum";
 import { NotificationSenderFactory } from "src/notification/factories/notification-sender.factory";
 import { EmailNotificationSender } from "src/notification/senders/email-notification.sender";
 
@@ -13,13 +13,13 @@ describe('NotificationSenderFactory', () => {
   });
 
   it('should return the emailNotificationSender for NotificationType.EMAIL', () => {
-    const sender = factory.getSender(NotificationType.EMAIL);
+    const sender = factory.getSender(NotificationTypeEnum.EMAIL);
     expect(sender).toBe(emailNotificationSenderMock);
   });
 
   it('should throw an error for unsupported notification types', () => {
     // Define an unsupported type. Assuming NotificationType is an enum, we cast a string.
-    const unsupportedType = 'unsupported-type' as NotificationType;
+    const unsupportedType = 'unsupported-type' as NotificationTypeEnum;
     expect(() => factory.getSender(unsupportedType)).toThrow(`Unsupported notification type: ${unsupportedType}`);
   });
 });

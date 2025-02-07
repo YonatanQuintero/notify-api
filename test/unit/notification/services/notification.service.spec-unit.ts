@@ -1,5 +1,5 @@
 import { NotificationDto } from "src/notification/dtos/notification.dto";
-import { NotificationType } from "src/notification/enums/notification-type.enum";
+import { NotificationTypeEnum } from "src/notification/enums/notification-type.enum";
 import { NotificationSenderFactory } from "src/notification/factories/notification-sender.factory";
 import { NotificationService } from "src/notification/services/notification.service";
 
@@ -22,7 +22,7 @@ describe('NotificationService', () => {
 
     it('should use the correct sender and return its result', async () => {
         const dto: NotificationDto = {
-            type: NotificationType.EMAIL,
+            type: NotificationTypeEnum.EMAIL,
             recipients: ['test@example.com'],
             templateName: 'welcome',
             params: { 'key': 'value' }

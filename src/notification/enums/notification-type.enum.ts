@@ -1,4 +1,4 @@
-export enum NotificationType {
+export enum NotificationTypeEnum {
     EMAIL = 'email',
     SMS = 'sms',
     TELEGRAM = 'telegram'

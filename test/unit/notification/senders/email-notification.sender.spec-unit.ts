@@ -6,7 +6,7 @@ import { CompanyConfig } from 'src/config/entities/company-config.entity';
 import { AppConfig } from 'src/config/entities/app-config.entity';
 import { EmailNotificationSender } from 'src/notification/senders/email-notification.sender';
 import { NotificationDto } from 'src/notification/dtos/notification.dto';
-import { NotificationType } from 'src/notification/enums/notification-type.enum';
+import { NotificationTypeEnum } from 'src/notification/enums/notification-type.enum';
 
 describe('EmailNotificationSender', () => {
     let emailNotificationSender: EmailNotificationSender;
@@ -46,7 +46,7 @@ describe('EmailNotificationSender', () => {
     it('should send notification and return the job id as a string', async () => {
         // Arrange: Create a dummy NotificationDto.
         const notificationDto: NotificationDto = {
-            type: NotificationType.EMAIL,
+            type: NotificationTypeEnum.EMAIL,
             recipients: ['to@example.com'],
             templateName: 'welcome',
             params: { 'key': 'value' },
@@ -81,7 +81,7 @@ describe('EmailNotificationSender', () => {
     it('should log an error and rethrow if sendEmailQueue.add fails', async () => {
         // Arrange: Create a basic NotificationDto.
         const notificationDto: NotificationDto = {
-            type: NotificationType.EMAIL,
+            type: NotificationTypeEnum.EMAIL,
             recipients: ['to@example.com'],
             templateName: 'welcome',
             params: { 'key': 'value' },

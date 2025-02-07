@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { EmailNotificationSender } from "../senders/email-notification.sender";
 import { AbstractNotificationSender } from "../abstracts/notification-sender.abstract";
-import { NotificationType } from "../enums/notification-type.enum";
+import { NotificationTypeEnum } from "../enums/notification-type.enum";
 
 @Injectable()
 export class NotificationSenderFactory {
@@ -9,9 +9,9 @@ export class NotificationSenderFactory {
         private readonly emailNotificationSender: EmailNotificationSender
     ) { }
 
-    getSender(type: NotificationType): AbstractNotificationSender {
+    getSender(type: NotificationTypeEnum): AbstractNotificationSender {
         switch (type) {
-            case NotificationType.EMAIL:
+            case NotificationTypeEnum.EMAIL:
                 return this.emailNotificationSender;
             default:
                 throw new Error(`Unsupported notification type: ${type}`);

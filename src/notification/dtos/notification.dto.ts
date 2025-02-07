@@ -1,9 +1,9 @@
-import { NotificationType } from "../enums/notification-type.enum";
+import { NotificationTypeEnum } from "../enums/notification-type.enum";
 
 export class NotificationDto {
 
     constructor(
-        readonly type: NotificationType,
+        readonly type: NotificationTypeEnum,
         readonly recipients: string[],
         readonly templateName: string,
         readonly params: Record<string, string>,
