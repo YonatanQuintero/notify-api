@@ -5,7 +5,7 @@ import { EmailIssuer } from "src/email/entities/email-issuer.entity";
 import { EmailRecipientList } from "src/email/entities/email-recipient-list.entity";
 import { EmailSender } from "src/email/entities/email-sender.entity";
 import { InvalidEmailError } from "src/email/errors/invalid-email.error";
-import { InvalidTemplateNameError } from "src/template-renderer/errors/invalid-notification-name.error";
+import { InvalidNotificationNameError } from "src/template-renderer/errors/invalid-notification-name.error";
 import { NotificationNameVO } from "src/template-renderer/value-objects/notification-name.vo";
 
 describe('EmailSender', () => {
@@ -119,6 +119,6 @@ describe('EmailSender', () => {
         );
         expect(() => {
             EmailSender.create(senderDto);
-        }).toThrow(InvalidTemplateNameError);
+        }).toThrow(InvalidNotificationNameError);
     });
 });

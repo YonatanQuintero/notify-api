@@ -1,6 +1,6 @@
 import { ValueRequiredError } from "src/common/errors/value-required.error";
 import { NotificationNameEnum } from "src/template-renderer/enums/notification-name.enum";
-import { InvalidTemplateNameError } from "src/template-renderer/errors/invalid-notification-name.error";
+import { InvalidNotificationNameError } from "src/template-renderer/errors/invalid-notification-name.error";
 import { NotificationNameVO } from "src/template-renderer/value-objects/notification-name.vo";
 
 describe('NotificationNameVO', () => {
@@ -26,7 +26,7 @@ describe('NotificationNameVO', () => {
     });
 
     it('should throw an InvalidNotificationTypeError if the string is not in the enum', () => {
-        expect(() => NotificationNameVO.create('INVALID_NAME')).toThrow(InvalidTemplateNameError);
+        expect(() => NotificationNameVO.create('INVALID_NAME')).toThrow(InvalidNotificationNameError);
     });
 
     it('should consider two NotificationNameVOs equal if they have the same enum value', () => {
