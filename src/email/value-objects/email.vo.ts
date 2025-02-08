@@ -14,11 +14,12 @@ export class EmailVO extends ValueObject {
             throw new ValueRequiredError('Email');
         }
 
-        if (!this.validateEmail(email)) {
+        const normalizedEmail = email.trim().toLocaleLowerCase();
+        if (!this.validateEmail(normalizedEmail)) {
             throw new InvalidEmailError(email);
         }
 
-        return new EmailVO(email);
+        return new EmailVO(normalizedEmail);
     }
 
     getValue(): string {

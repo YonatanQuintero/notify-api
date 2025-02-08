@@ -41,7 +41,7 @@ describe('EJSTemplateRendererService', () => {
             ),
             {
                 lang: 'en-us',
-                notificationName: 'welcome',
+                templateName: 'welcome',
                 username: 'JohnDoe',
                 code: '123456',
             },

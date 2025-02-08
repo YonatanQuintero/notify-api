@@ -42,7 +42,7 @@ describe('NotificationService', () => {
         const result = await notificationService.sendNotification(dto, metaDto);
 
         expect(senderFactoryMock.getSender).toHaveBeenCalledWith(dto.type);
-        expect(senderMock.send).toHaveBeenCalledWith(dto);
+        expect(senderMock.send).toHaveBeenCalledWith(dto, metaDto);
         expect(result).toBe(expectedResult);
     });
 });

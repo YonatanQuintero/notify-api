@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { AbstractConfigService } from 'src/config/abstracts/config.service.abstract';
 import { LanguageVO } from 'src/config/value-objects/language.vo';
 
-
 @Injectable()
 export class LanguageInterceptor implements NestInterceptor {
     private appConfig = this.configService.getAppConfig();

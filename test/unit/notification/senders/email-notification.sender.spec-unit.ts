@@ -7,6 +7,8 @@ import { AppConfig } from 'src/config/entities/app-config.entity';
 import { EmailNotificationSender } from 'src/notification/senders/email-notification.sender';
 import { NotificationDto } from 'src/notification/dtos/notification.dto';
 import { NotificationTypeEnum } from 'src/notification/enums/notification-type.enum';
+import { NotificationNameEnum } from 'src/notification/enums/notification-name.enum';
+import { NotificationMetaDto } from 'src/notification/dtos/notification-meta.dto';
 
 describe('EmailNotificationSender', () => {
     let emailNotificationSender: EmailNotificationSender;
@@ -48,11 +50,15 @@ describe('EmailNotificationSender', () => {
         const notificationDto: NotificationDto = {
             type: NotificationTypeEnum.EMAIL,
             recipients: ['to@example.com'],
-            name: 'welcome',
+            name: NotificationNameEnum.WELCOME,
             params: { 'key': 'value' },
             ccEmail: ['cc@example.com'],
-            bccEmail: ['bcc@example.com'],
-            lang: 'es-la', // Provided language; should override appConfig.defaultLang.
+            bccEmail: ['bcc@example.com']
+        };
+
+        const metaDto: NotificationMetaDto = {
+            lang: 'en-us',
+            ipClient: '::1',
         };
 
         // Simulate a successful queue job result.
@@ -60,7 +66,7 @@ describe('EmailNotificationSender', () => {
         (sendEmailQueueMock.add as jest.Mock).mockResolvedValue(jobResult);
 
         // Act: Call the send method.
-        const result = await emailNotificationSender.send(notificationDto);
+        const result = await emailNotificationSender.send(notificationDto, metaDto);
 
         // Assert: Verify that sendEmailQueue.add was called with a properly constructed EmailSenderDto.
         expect(sendEmailQueueMock.add).toHaveBeenCalledTimes(1);
@@ -68,11 +74,11 @@ describe('EmailNotificationSender', () => {
         expect(calledWith.fromEmail).toBe('smtp-user@example.com');
         expect(calledWith.fromName).toBe('Company Name');
         expect(calledWith.toEmail).toEqual(notificationDto.recipients);
-        expect(calledWith.lang).toBe(notificationDto.lang);
         expect(calledWith.notificationName).toBe(notificationDto.name);
         expect(calledWith.params).toBe(notificationDto.params);
         expect(calledWith.ccEmail).toEqual(notificationDto.ccEmail);
         expect(calledWith.bccEmail).toEqual(notificationDto.bccEmail);
+        expect(calledWith.lang).toBe(metaDto.lang);
 
         // Also, ensure the method returns the job id as a string.
         expect(result).toBe(jobResult.id.toString());
@@ -83,8 +89,13 @@ describe('EmailNotificationSender', () => {
         const notificationDto: NotificationDto = {
             type: NotificationTypeEnum.EMAIL,
             recipients: ['to@example.com'],
-            name: 'welcome',
+            name: NotificationNameEnum.WELCOME,
             params: { 'key': 'value' },
+        };
+
+        const metaDto: NotificationMetaDto = {
+            lang: 'en-us',
+            ipClient: '::1',
         };
 
         const error = new Error('Queue add failed');
@@ -94,7 +105,7 @@ describe('EmailNotificationSender', () => {
         const loggerErrorSpy = jest.spyOn(emailNotificationSender['logger'], 'error');
 
         // Act & Assert: Expect send to rethrow the error.
-        await expect(emailNotificationSender.send(notificationDto)).rejects.toThrow(error);
+        await expect(emailNotificationSender.send(notificationDto, metaDto)).rejects.toThrow(error);
         expect(loggerErrorSpy).toHaveBeenCalledWith(`Failed to send notification: ${error.message}`);
     });
 });
