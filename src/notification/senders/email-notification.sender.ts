@@ -34,19 +34,20 @@ export class EmailNotificationSender extends AbstractNotificationSender {
 
     async send(dto: NotificationDto, metaDto: NotificationMetaDto): Promise<string> {
         try {
-            const result = await this.sendEmailQueue.add(
-                new EmailSenderDto(
-                    this.fromEmail,
-                    this.fromName,
-                    dto.recipients,
-                    metaDto.lang,
-                    dto.name,
-                    dto.params,
-                    dto.ccEmail,
-                    dto.bccEmail,
-                ),
-            );
-            return result.id.toString();
+            // const result = await this.sendEmailQueue.add(
+            //     new EmailSenderDto(
+            //         this.fromEmail,
+            //         this.fromName,
+            //         dto.recipients,
+            //         metaDto.lang,
+            //         dto.name,
+            //         dto.params,
+            //         dto.ccEmail,
+            //         dto.bccEmail,
+            //     ),
+            // );
+            // return result.id.toString();
+            return "not implemented yet";
         } catch (error) {
             this.logger.error(`Failed to send notification: ${error.message}`);
             throw error;

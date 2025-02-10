@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
-import { EmailSender } from "../entities/email-sender.entity";
+import { EmailSenderDto } from "../dtos/email-sender.dto";
 
 @Injectable()
 export abstract class AbstractEmailSenderService {
-    abstract send(emailSender: EmailSender): Promise<boolean>;
+    abstract send(emailSender: EmailSenderDto): Promise<boolean>;
 }

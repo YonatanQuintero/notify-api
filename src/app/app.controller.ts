@@ -28,4 +28,10 @@ export class AppController {
     const jobId = await this.appService.sendEmailonQueue();
     return { jobId };
   }
+
+  @Get('/send-welcome-email')
+  async sendWelcomeEmail() {
+    const jobId = await this.appService.sendWelcomeEmail();
+    return { jobId };
+  }
 }

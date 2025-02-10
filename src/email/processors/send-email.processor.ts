@@ -1,7 +1,6 @@
 import { Process, Processor } from "@nestjs/bull";
 import { AbstractProcessor } from "src/queue/abstracts/processor.abstract";
 import { SEND_EMAIL_QUEUE } from "src/queue/constants/queue.constants";
-import { EmailSender } from "../entities/email-sender.entity";
 import { Job } from "bull";
 import { Logger } from "@nestjs/common";
 import { AbstractEmailSenderService } from "../abstracts/email-sender.service.abstract";
@@ -24,12 +23,10 @@ export class SendEmailProcessor extends AbstractProcessor<EmailSenderDto> {
         const currentAttempt = job.attemptsMade + 1;
         this.logger.log(`Attempt ${currentAttempt} for job ${job.id}: Starting email send.`);
 
-
         try {
-            await this.emailService.send(EmailSender.create(job.data));
 
+            await this.emailService.send(job.data);
             this.logger.log(`Email sent successfully for job ${job.id} on attempt ${currentAttempt}.`);
-
 
         } catch (error) {
 

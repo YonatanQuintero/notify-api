@@ -11,6 +11,11 @@ import { SendEmailQueue } from 'src/email/queues/send-email.queue';
 import { EmailSenderDto } from 'src/email/dtos/email-sender.dto';
 import { SmtpConfig } from 'src/config/entities/smpt-config.entity';
 import { CompanyConfig } from 'src/config/entities/company-config.entity';
+import { threadId } from 'worker_threads';
+import { TemplateEntityFactory } from 'src/template-renderer/factories/template-entity.factory';
+import { WelcomeEmailDto } from 'src/notification/dtos/welcome-email.dto';
+import { TemplateBase } from 'src/template-renderer/entities/template-base.entity';
+import { WelcomeTemplate } from 'src/template-renderer/entities/welcome-template.entity';
 
 @Injectable()
 export class AppService {
@@ -34,44 +39,101 @@ export class AppService {
   }
 
   async getTemplate(): Promise<string> {
-    return this.templateRendererService.render(
-      TemplateRenderer.create(
-        NotificationNameEnum.WELCOME,
-        LanguageEnum.EN_US,
-        {
-          "username": "John Doe",
-          "companyName": this.companyConfig.name.getValue(),
-          "companySite": this.companyConfig.websiteUrl.getValue(),
-          "companyIconUrl": this.companyConfig.iconUrl.getValue(),
-        }
-      )
+
+    const params = TemplateEntityFactory.createBase(
+      "John Doe",
+      this.companyConfig.name.getValue(),
+      this.companyConfig.websiteUrl.getValue(),
+      this.companyConfig.iconUrl.getValue(),
     );
+
+    const template = TemplateRenderer.create(
+      NotificationNameEnum.WELCOME,
+      LanguageEnum.EN_US,
+      params
+    );
+
+    return this.templateRendererService.render(template);
+
   }
 
   async sendEmail(): Promise<boolean> {
-    const emailSender = EmailSender.create(new EmailSenderDto(
-      this.smtpConfig.user.getValue(),
-      this.companyConfig.name.getValue(),
-      ["yhonax.qrz@gmail.com"],
-      LanguageEnum.ES_LA,
-      NotificationNameEnum.WELCOME,
-      { "username": "John Doe" }
-    ))
+    // const emailSender = EmailSender.create(new EmailSenderDto(
+    //   this.smtpConfig.user.getValue(),
+    //   this.companyConfig.name.getValue(),
+    //   ["yhonax.qrz@gmail.com"],
+    //   LanguageEnum.ES_LA,
+    //   NotificationNameEnum.WELCOME,
+    //   { "username": "John Doe" }
+    // ))
 
-    return await this.emailService.send(
-      emailSender
-    );
+    // return await this.emailService.send(
+    //   emailSender
+    // );
+    return false;
   }
 
   async sendEmailonQueue(): Promise<string> {
-    const result = await this.sendEmailQueue.add(new EmailSenderDto(
+    // const result = await this.sendEmailQueue.add(new EmailSenderDto(
+    //   this.smtpConfig.user.getValue(),
+    //   this.companyConfig.name.getValue(),
+    //   ["yhonax.qrz@gmail.com"],
+    //   LanguageEnum.ES_LA,
+    //   NotificationNameEnum.WELCOME,
+    //   { "username": "John Doe" }
+    // ));
+    // return result.id.toString();
+    return "Not implemented";
+  }
+
+  async sendWelcomeEmail(): Promise<string> {
+
+    const welcomeEmailDto: WelcomeEmailDto = {
+      "toEmail": ["yhonax.qrz@gmail.com"],
+      "username": "yonax",
+      "ccEmail": ["yonax73@gmail.com"],
+      "bccEmail": ["yonatan.a.quintero@gmail.com"]
+    }
+
+    const headers = {
+      "language": "es-la",
+    }
+
+    const params: WelcomeTemplate = TemplateEntityFactory.createBase(
+      welcomeEmailDto.username,
+      this.companyConfig.name.getValue(),
+      this.companyConfig.websiteUrl.getValue(),
+      this.companyConfig.iconUrl.getValue(),
+    );
+
+    const template: TemplateRenderer = TemplateRenderer.create(
+      NotificationNameEnum.WELCOME,
+      headers.language,
+      params
+    );
+
+    const html = await this.templateRendererService.render(template);
+
+    const subject = this.i18n.t(
+      `subject.${NotificationNameEnum.WELCOME}`,
+      { lang: headers.language }
+    );
+
+    const emailSender = EmailSender.create(
       this.smtpConfig.user.getValue(),
       this.companyConfig.name.getValue(),
-      ["yhonax.qrz@gmail.com"],
-      LanguageEnum.ES_LA,
-      NotificationNameEnum.WELCOME,
-      { "username": "John Doe" }
-    ));
-    return result.id.toString();
+      welcomeEmailDto.toEmail,
+      subject,
+      html,
+      welcomeEmailDto.ccEmail,
+      welcomeEmailDto.bccEmail
+    );
+
+    const job = await this.sendEmailQueue.add(emailSender.toDto());
+
+    return job.id.toString();
+
   }
+
+
 }
