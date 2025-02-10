@@ -10,6 +10,7 @@ import { EmailNotificationSender } from "./senders/email-notification.sender";
         EmailModule
     ],
     controllers: [
+        // EmailNotification
         NotificationController
     ],
     providers: [
