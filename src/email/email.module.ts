@@ -6,6 +6,7 @@ import { TemplateRendererModule } from 'src/template-renderer/template-renderer.
 import { ConfigurationModule } from 'src/config/configuration.module';
 import { SendEmailQueue } from './queues/send-email.queue';
 import { SendEmailProcessor } from './processors/send-email.processor';
+import { SubjectService } from './services/subject.service';
 
 @Module({
   imports: [
@@ -18,10 +19,14 @@ import { SendEmailProcessor } from './processors/send-email.processor';
     useClass: NodeMailerService,
   },
     SendEmailQueue,
-    SendEmailProcessor
+    SendEmailProcessor,
+    SubjectService,
   ],
   exports: [
-    AbstractEmailSenderService, SendEmailQueue, SendEmailProcessor
+    AbstractEmailSenderService,
+    SendEmailQueue,
+    SendEmailProcessor,
+    SubjectService,
   ],
 })
 export class EmailModule { }

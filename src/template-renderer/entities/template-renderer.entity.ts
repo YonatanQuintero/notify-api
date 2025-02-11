@@ -1,5 +1,3 @@
-import { LanguageEnum } from "src/config/enums/language.enum";
-import { NotificationNameEnum } from "src/notification/enums/notification-name.enum";
 import { LanguageVO } from "src/config/value-objects/language.vo";
 import { NotificationNameVO } from "src/notification/value-objects/notification-name.vo";
 import { TemplateBase } from "./template-base.entity";
@@ -14,8 +12,8 @@ export class TemplateRenderer {
     }
 
     static create<T extends TemplateBase>(
-        name: string | NotificationNameEnum,
-        language: string | LanguageEnum,
+        name: string,
+        language: string,
         params: T
     ): TemplateRenderer {
         return new TemplateRenderer(

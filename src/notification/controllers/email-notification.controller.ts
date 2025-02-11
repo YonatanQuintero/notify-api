@@ -1,62 +1,63 @@
-
 import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
 import { WelcomeEmailDto } from '../dtos/welcome-email.dto';
-
 import { TfaEmailDto } from '../dtos/tfa-email.dto';
 import { UpdateEmailDto } from '../dtos/update-email.dto';
 import { UpdatePasswordDto } from '../dtos/update-password.dto';
 import { Language } from 'src/common/decorators/language.decorator';
-import { NotificationService } from '../services/notification.service';
+import { EmailNotificationService } from '../services/email-notification.service';
+import { LanguageEnum } from 'src/config/enums/language.enum';
+import { RecoverPasswordSuccessEmailDto } from '../dtos/recover-password-success.dto';
+import { IPClient } from 'src/common/decorators/ip-client.decorator';
 
 @Controller('notifications/email')
-export class EmailNotificationsController {
-    constructor(private readonly notificationService: NotificationService) { }
+export class EmailNotificationController {
+    constructor(
+        private readonly emailService: EmailNotificationService,
+    ) { }
 
-   /* @Post('welcome')
+    @Post('welcome')
     @HttpCode(HttpStatus.OK)
     async sendWelcomeEmail(
         @Body() dto: WelcomeEmailDto,
-        @Language() language: string,
-    ): Promise<any> {
-
-        const notificationDto = new NotificationDto();
-
-        return this.notificationService.sendNotification(dto, language);
+        @Language() lang: LanguageEnum,
+    ): Promise<string> {
+        return this.emailService.sendWelcomeEmail(dto, lang);
     }
 
     @Post('recover-password-success')
     @HttpCode(HttpStatus.OK)
     async sendRecoverPasswordSuccessEmail(
-        @Body() recoverPasswordSuccessEmailDto: RecoverPasswordSuccessEmailDto,
-        @Language() language: string,
-    ): Promise<any> {
-        return this.notificationService.sendRecoverPasswordSuccessEmail(recoverPasswordSuccessEmailDto, language);
+        @Body() dto: RecoverPasswordSuccessEmailDto,
+        @Language() lang: LanguageEnum,
+    ): Promise<string> {
+        return this.emailService.sendRecoverPasswordSuccessEmail(dto, lang);
     }
 
     @Post('tfa')
     @HttpCode(HttpStatus.OK)
     async sendTfaEmail(
-        @Body() tfaEmailDto: TfaEmailDto,
-        @Language() language: string,
-    ): Promise<any> {
-        return this.notificationService.sendTfaEmail(tfaEmailDto, language);
+        @Body() dto: TfaEmailDto,
+        @Language() lang: LanguageEnum,
+        @IPClient() ipClient: string,
+    ): Promise<string> {
+        return this.emailService.sendTfaEmail(dto, lang, ipClient);
     }
 
     @Post('update-email')
     @HttpCode(HttpStatus.OK)
     async sendUpdateEmail(
-        @Body() updateEmailDto: UpdateEmailDto,
-        @Language() language: string,
-    ): Promise<any> {
-        return this.notificationService.sendUpdateEmail(updateEmailDto, language);
+        @Body() dto: UpdateEmailDto,
+        @Language() lang: LanguageEnum,
+    ): Promise<string> {
+        return this.emailService.sendUpdateEmail(dto, lang);
     }
 
     @Post('update-password')
     @HttpCode(HttpStatus.OK)
     async sendUpdatePassword(
-        @Body() updatePasswordDto: UpdatePasswordDto,
-        @Language() language: string,
-    ): Promise<any> {
-        return this.notificationService.sendUpdatePassword(updatePasswordDto, language);
-    }*/
+        @Body() dto: UpdatePasswordDto,
+        @Language() lang: LanguageEnum,
+    ): Promise<string> {
+        return this.emailService.sendUpdatePassword(dto, lang);
+    }
 }

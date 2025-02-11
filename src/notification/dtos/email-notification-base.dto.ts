@@ -1,6 +1,6 @@
 import { IsArray, IsEmail, IsOptional, IsString, IsNotEmpty } from 'class-validator';
 
-export class EmailNotificationBaseDto {
+export class EmailBaseDto {
 
     @IsArray()
     @IsEmail({}, { each: true })

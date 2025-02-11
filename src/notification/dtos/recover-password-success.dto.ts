@@ -1,3 +1,3 @@
-import { EmailNotificationBaseDto } from './email-notification-base.dto';
+import { EmailBaseDto } from './email-notification-base.dto';
 
-export class RecoverPasswordSuccessEmailDto extends EmailNotificationBaseDto { }
+export class RecoverPasswordSuccessEmailDto extends EmailBaseDto { }

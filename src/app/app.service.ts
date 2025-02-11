@@ -16,6 +16,7 @@ import { TemplateEntityFactory } from 'src/template-renderer/factories/template-
 import { WelcomeEmailDto } from 'src/notification/dtos/welcome-email.dto';
 import { TemplateBase } from 'src/template-renderer/entities/template-base.entity';
 import { WelcomeTemplate } from 'src/template-renderer/entities/welcome-template.entity';
+import { SubjectService } from 'src/email/services/subject.service';
 
 @Injectable()
 export class AppService {
@@ -29,6 +30,7 @@ export class AppService {
     private readonly configService: AbstractConfigService,
     private readonly emailService: AbstractEmailSenderService,
     private readonly sendEmailQueue: SendEmailQueue,
+    private readonly subjectService: SubjectService,
   ) {
     this.smtpConfig = this.configService.getSmtpConfig();
     this.companyConfig = this.configService.getCompanyConfig();
@@ -99,24 +101,22 @@ export class AppService {
       "language": "es-la",
     }
 
-    const params: WelcomeTemplate = TemplateEntityFactory.createBase(
-      welcomeEmailDto.username,
-      this.companyConfig.name.getValue(),
-      this.companyConfig.websiteUrl.getValue(),
-      this.companyConfig.iconUrl.getValue(),
-    );
-
-    const template: TemplateRenderer = TemplateRenderer.create(
+    const template = TemplateRenderer.create(
       NotificationNameEnum.WELCOME,
       headers.language,
-      params
+      TemplateEntityFactory.createBase(
+        welcomeEmailDto.username,
+        this.companyConfig.name.getValue(),
+        this.companyConfig.websiteUrl.getValue(),
+        this.companyConfig.iconUrl.getValue(),
+      )
     );
 
     const html = await this.templateRendererService.render(template);
 
-    const subject = this.i18n.t(
-      `subject.${NotificationNameEnum.WELCOME}`,
-      { lang: headers.language }
+    const subject = this.subjectService.getSubject(
+      template.name.getValue(),
+      template.language.getValue()
     );
 
     const emailSender = EmailSender.create(

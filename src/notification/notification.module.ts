@@ -4,19 +4,24 @@ import { NotificationService } from "./services/notification.service";
 import { NotificationController } from "./controllers/notification.controller";
 import { NotificationSenderFactory } from "./factories/notification-sender.factory";
 import { EmailNotificationSender } from "./senders/email-notification.sender";
+import { EmailNotificationController } from "./controllers/email-notification.controller";
+import { EmailNotificationService } from "./services/email-notification.service";
+import { TemplateRendererModule } from "src/template-renderer/template-renderer.module";
 
 @Module({
     imports: [
-        EmailModule
+        EmailModule,
+        TemplateRendererModule
     ],
     controllers: [
-        // EmailNotification
+        EmailNotificationController,
         NotificationController
     ],
     providers: [
         NotificationSenderFactory,
         EmailNotificationSender,
-        NotificationService
+        NotificationService,
+        EmailNotificationService
     ],
     exports: [],
 })

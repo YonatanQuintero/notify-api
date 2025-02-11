@@ -1,11 +1,11 @@
-import { EmailNotificationBaseDto } from './email-notification-base.dto';
+import { EmailBaseDto } from './email-notification-base.dto';
 import { IsNumber, IsString, IsNotEmpty } from 'class-validator';
 
-export class TfaEmailDto extends EmailNotificationBaseDto {
+export class TfaEmailDto extends EmailBaseDto {
     @IsNumber()
     readonly code: number;
 
     @IsString()
     @IsNotEmpty()
-    readonly ttlFormated: string;
+    readonly ttlFormatted: string;
 }

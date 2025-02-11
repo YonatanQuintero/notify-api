@@ -65,24 +65,6 @@ export class NodeMailerService extends AbstractEmailSenderService {
             bccEmail,
         } = emailSender;
 
-        // params["companyName"] = this.companyConfig.name.getValue();
-        // params["companySite"] = this.companyConfig.websiteUrl.getValue();
-        // params["companyIconUrl"] = this.companyConfig.iconUrl.getValue();
-        // params["companyAddress"] = this.companyConfig.address.getValue();
-
-        // const subject = this.i18n.t(
-        //     `subject.${notificationName.getValue()}`,
-        //     { lang: lang.getValue() }
-        // );
-
-        // const html = await this.templateRendererService.render(
-        //     TemplateRenderer.create(
-        //         notificationName.getValue(),
-        //         lang.getValue(),
-        //         params
-        //     )
-        // );
-
         return {
             from: {
                 name: fromName,

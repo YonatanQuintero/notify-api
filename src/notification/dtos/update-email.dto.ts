@@ -1,3 +1,3 @@
-import { EmailNotificationBaseDto } from './email-notification-base.dto';
+import { EmailBaseDto } from './email-notification-base.dto';
 
-export class UpdateEmailDto extends EmailNotificationBaseDto { }
+export class UpdateEmailDto extends EmailBaseDto { }
