@@ -1,124 +1,93 @@
-import { InvalidLanguageError } from "src/config/errors/invalid-language.error";
-import { LanguageVO } from "src/config/value-objects/language.vo";
-import { EmailSenderDto } from "src/email/dtos/email-sender.dto";
-import { EmailIssuer } from "src/email/entities/email-issuer.entity";
-import { EmailRecipientList } from "src/email/entities/email-recipient-list.entity";
-import { EmailSender } from "src/email/entities/email-sender.entity";
-import { InvalidEmailError } from "src/email/errors/invalid-email.error";
-import { InvalidNotificationNameError } from "src/notification/errors/invalid-notification-name.error";
-import { NotificationNameVO } from "src/notification/value-objects/notification-name.vo";
+import { NonEmptyStringVO } from 'src/common/value-objects/non-empty-string.vo';
+import { EmailSenderDto } from 'src/email/dtos/email-sender.dto';
+import { EmailIssuer } from 'src/email/entities/email-issuer.entity';
+import { EmailRecipientList } from 'src/email/entities/email-recipient-list.entity';
+import { EmailSender } from 'src/email/entities/email-sender.entity';
+import { EmailVO } from 'src/email/value-objects/email.vo';
 
 describe('EmailSender', () => {
-    const validFromEmail = 'from@example.com';
-    const validFromName = 'From Name';
-    const validToEmails = ['to1@example.com', 'to2@example.com'];
-    const validLang = 'en-us';
-    const validNotificationName = 'welcome';
-    const validParams = { 'key': 'value' };
-    const validCcEmails = ['cc@example.com'];
-    const validBccEmails = ['bcc@example.com'];
+    it('should create an EmailSender instance with all fields', () => {
+        const fromEmail = 'from@example.com';
+        const fromName = 'Sender Name';
+        const toEmails = ['to1@example.com', 'to2@example.com'];
+        const subject = 'Test Subject';
+        const html = '<p>Test HTML</p>';
+        const ccEmails = ['cc@example.com'];
+        const bccEmails = ['bcc@example.com'];
 
-    const validEmailSenderDto = new EmailSenderDto(
-        validFromEmail,
-        validFromName,
-        validToEmails,
-        validLang,
-        validNotificationName,
-        validParams,
-        validCcEmails,
-        validBccEmails
-    );
-
-    it('should create an EmailSender instance with all properties provided', () => {
-        const sender = EmailSender.create(
-            validEmailSenderDto
+        const emailSender = EmailSender.create(
+            fromEmail,
+            fromName,
+            toEmails,
+            subject,
+            html,
+            ccEmails,
+            bccEmails
         );
 
-        expect(sender).toBeInstanceOf(EmailSender);
-        expect(sender.from).toBeInstanceOf(EmailIssuer);
-        expect(sender.to).toBeInstanceOf(EmailRecipientList);
-        expect(sender.lang).toBeInstanceOf(LanguageVO);
-        expect(sender.notificationName).toBeInstanceOf(NotificationNameVO);
-        expect(sender.params).toBeInstanceOf(Object);
-        expect(sender.cc).toBeDefined();
-        expect(sender.cc?.length).toBe(validCcEmails.length);
-        expect(sender.bcc).toBeDefined();
-        expect(sender.bcc?.length).toBe(validBccEmails.length);
+        // Verify that the value objects are correctly created.
+        expect(emailSender.from).toBeInstanceOf(EmailIssuer);
+        expect(emailSender.to).toBeInstanceOf(EmailRecipientList);
+        expect(emailSender.subject).toBeInstanceOf(NonEmptyStringVO);
+        expect(emailSender.html).toBeInstanceOf(NonEmptyStringVO);
+        if (emailSender.cc) {
+            emailSender.cc.forEach((emailVO) => {
+                expect(emailVO).toBeInstanceOf(EmailVO);
+            });
+        }
+        if (emailSender.bcc) {
+            emailSender.bcc.forEach((emailVO) => {
+                expect(emailVO).toBeInstanceOf(EmailVO);
+            });
+        }
     });
 
-    it('should create an EmailSender instance without optional cc and bcc emails', () => {
-        const senderDto = new EmailSenderDto(
-            validFromEmail,
-            validFromName,
-            validToEmails,
-            validLang,
-            validNotificationName,
-            validParams
-        );
-        const sender = EmailSender.create(senderDto);
+    it('should correctly convert EmailSender to EmailSenderDto', () => {
+        const fromEmail = 'from@example.com';
+        const fromName = 'Sender Name';
+        const toEmails = ['to1@example.com', 'to2@example.com'];
+        const subject = 'Test Subject';
+        const html = '<p>Test HTML</p>';
+        const ccEmails = ['cc@example.com'];
+        const bccEmails = ['bcc@example.com'];
 
-        expect(sender).toBeInstanceOf(EmailSender);
-        expect(sender.cc).toBeUndefined();
-        expect(sender.bcc).toBeUndefined();
+        const emailSender = EmailSender.create(
+            fromEmail,
+            fromName,
+            toEmails,
+            subject,
+            html,
+            ccEmails,
+            bccEmails
+        );
+
+        const dto: EmailSenderDto = emailSender.toDto();
+
+        expect(dto.fromEmail).toBe(fromEmail);
+        expect(dto.fromName).toBe(fromName);
+        expect(dto.toEmail).toEqual(toEmails);
+        expect(dto.subject).toBe(subject);
+        expect(dto.html).toBe(html);
+        expect(dto.ccEmail).toEqual(ccEmails);
+        expect(dto.bccEmail).toEqual(bccEmails);
     });
 
-    it('should throw an error if fromEmail is invalid', () => {
-        const invalidFromEmail = 'invalid-email';
-        const senderDto = new EmailSenderDto(
-            invalidFromEmail,
-            validFromName,
-            validToEmails,
-            validLang,
-            validNotificationName,
-            validParams
-        );
-        expect(() => {
-            EmailSender.create(senderDto);
-        }).toThrow(InvalidEmailError);
-    });
+    it('should correctly handle absence of cc and bcc emails', () => {
+        const fromEmail = 'from@example.com';
+        const fromName = 'Sender Name';
+        const toEmails = ['to@example.com'];
+        const subject = 'Subject';
+        const html = '<p>HTML content</p>';
 
-    it('should throw an error if any email in the to list is invalid', () => {
-        const invalidToEmails = ['to1@example.com', 'invalid-email'];
-        const senderDto = new EmailSenderDto(
-            validFromEmail,
-            validFromName,
-            invalidToEmails,
-            validLang,
-            validNotificationName,
-            validParams
-        );
-        expect(() => {
-            EmailSender.create(senderDto);
-        }).toThrow(InvalidEmailError);
-    });
+        const emailSender = EmailSender.create(fromEmail, fromName, toEmails, subject, html);
+        const dto: EmailSenderDto = emailSender.toDto();
 
-    it('should throw an error if language is invalid', () => {
-        const invalidLang = 'xyz-abc';
-        const senderDto = new EmailSenderDto(
-            validFromEmail,
-            validFromName,
-            validToEmails,
-            invalidLang,
-            validNotificationName,
-            validParams
-        );
-        expect(() => {
-            EmailSender.create(senderDto);
-        }).toThrow(InvalidLanguageError);
-    });
-
-    it('should throw an error if notificationName is invalid', () => {
-        const invalidNotificationName = 'invalid-notification-name';
-        const senderDto = new EmailSenderDto(
-            validFromEmail,
-            validFromName,
-            validToEmails,
-            validLang,
-            invalidNotificationName,
-            validParams
-        );
-        expect(() => {
-            EmailSender.create(senderDto);
-        }).toThrow(InvalidNotificationNameError);
+        expect(dto.fromEmail).toBe(fromEmail);
+        expect(dto.fromName).toBe(fromName);
+        expect(dto.toEmail).toEqual(toEmails);
+        expect(dto.subject).toBe(subject);
+        expect(dto.html).toBe(html);
+        expect(dto.ccEmail).toBeUndefined();
+        expect(dto.bccEmail).toBeUndefined();
     });
 });

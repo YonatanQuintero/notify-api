@@ -1,6 +1,7 @@
 import { LanguageVO } from "src/config/value-objects/language.vo";
 import { NotificationNameVO } from "src/notification/value-objects/notification-name.vo";
 import { TemplateBase } from "./template-base.entity";
+import { TemplateBaseVO } from "../value-objects/template-base.vo";
 
 export class TemplateRenderer {
 
@@ -19,7 +20,7 @@ export class TemplateRenderer {
         return new TemplateRenderer(
             NotificationNameVO.create(name),
             LanguageVO.create(language),
-            params.toObject()
+            TemplateBaseVO.create(params).getValue().toObject()
         );
     }
 }

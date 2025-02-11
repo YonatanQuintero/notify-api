@@ -5,6 +5,7 @@ import { LanguageEnum } from 'src/config/enums/language.enum';
 import { TemplateRenderer } from 'src/template-renderer/entities/template-renderer.entity';
 import { NotificationNameEnum } from 'src/notification/enums/notification-name.enum';
 import { EJSTemplateRendererService } from 'src/template-renderer/services/ejs-template-renderer.service';
+import { TemplateEntityFactory } from 'src/template-renderer/factories/template-entity.factory';
 
 describe('EJSTemplateRendererService', () => {
     let service: EJSTemplateRendererService;
@@ -24,10 +25,20 @@ describe('EJSTemplateRendererService', () => {
             .spyOn(ejs, 'renderFile')
             .mockResolvedValue('<html>Mocked Result</html>');
 
+        const params = TemplateEntityFactory.createTFA(
+            "JohnDoe",
+            "Company Name",
+            "https://example.com",
+            "https://example.com/icon.png",
+            123456,
+            "15 minutes",
+            "127.0.0.1"
+        );
+
         const templateRenderer = TemplateRenderer.create(
             NotificationNameEnum.WELCOME,
             LanguageEnum.EN_US,
-            { 'username': 'JohnDoe', 'code': '123456' }
+            params
         );
 
         const result = await service.render(templateRenderer);
@@ -43,7 +54,12 @@ describe('EJSTemplateRendererService', () => {
                 lang: 'en-us',
                 templateName: 'welcome',
                 username: 'JohnDoe',
-                code: '123456',
+                companyName: 'Company Name',
+                companySite: 'https://example.com',
+                companyIconUrl: 'https://example.com/icon.png',
+                code: 123456,
+                ttlFormatted: '15 minutes',
+                ipClient: '127.0.0.1'
             },
         );
     });
@@ -56,10 +72,17 @@ describe('EJSTemplateRendererService', () => {
 
         const loggerSpy = jest.spyOn(service["logger"], 'error');
 
+        const params = TemplateEntityFactory.createBase(
+            "JohnDoe",
+            "Company Name",
+            "https://example.com",
+            "https://example.com/icon.png",
+        );
+
         const templateRenderer = TemplateRenderer.create(
             NotificationNameEnum.WELCOME,
             LanguageEnum.EN_US,
-            { 'key': 'value' }
+            params
         );
 
         await expect(service.render(templateRenderer)).rejects.toThrow(error);
