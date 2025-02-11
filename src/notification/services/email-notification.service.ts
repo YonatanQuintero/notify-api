@@ -12,11 +12,11 @@ import { AbstractConfigService } from "src/config/abstracts/config.service.abstr
 import { SendEmailQueue } from "src/email/queues/send-email.queue";
 import { SubjectService } from "src/email/services/subject.service";
 import { EmailSender } from "src/email/entities/email-sender.entity";
-import { EmailBaseDto } from "../dtos/email-notification-base.dto";
-import { RecoverPasswordSuccessEmailDto } from "../dtos/recover-password-success.dto";
+import { EmailBaseDto } from "../dtos/email-base.dto";
+import { RecoverPasswordSuccessEmailDto } from "../dtos/recover-password-success-email.dto";
 import { TfaEmailDto } from "../dtos/tfa-email.dto";
 import { UpdateEmailDto } from "../dtos/update-email.dto";
-import { UpdatePasswordDto } from "../dtos/update-password.dto";
+import { UpdatePasswordDto } from "../dtos/update-password-email.dto";
 
 @Injectable()
 export class EmailNotificationService {
@@ -53,7 +53,7 @@ export class EmailNotificationService {
         );
 
         const job = await this.sendEmailQueue.add(emailSender.toDto());
-
+        
         return job.id.toString();
     }
 

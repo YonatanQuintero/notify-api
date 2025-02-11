@@ -12,12 +12,12 @@ export class IPAddressVO extends ValueObject {
         if (!ipAddress) {
             throw new ValueRequiredError('IP Address');
         }
-        const trimmedIpAddress = ipAddress.trim();
-        if (!net.isIPv4(trimmedIpAddress) && !net.isIPv6(trimmedIpAddress)) {
+        const normalizedIpAddress = ipAddress.trim().toLowerCase();
+        if (!net.isIPv4(normalizedIpAddress) && !net.isIPv6(normalizedIpAddress)) {
             throw new InvalidIPAddressError(ipAddress);
         }
 
-        return new IPAddressVO(trimmedIpAddress);
+        return new IPAddressVO(normalizedIpAddress);
     }
 
     getValue(): string {

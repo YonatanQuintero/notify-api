@@ -14,7 +14,7 @@ export class EmailVO extends ValueObject {
             throw new ValueRequiredError('Email');
         }
 
-        const normalizedEmail = email.trim().toLocaleLowerCase();
+        const normalizedEmail = email.trim().toLowerCase();
         if (!this.validateEmail(normalizedEmail)) {
             throw new InvalidEmailError(email);
         }

@@ -1,9 +1,5 @@
 import { Module } from "@nestjs/common";
 import { EmailModule } from "src/email/email.module";
-import { NotificationService } from "./services/notification.service";
-import { NotificationController } from "./controllers/notification.controller";
-import { NotificationSenderFactory } from "./factories/notification-sender.factory";
-import { EmailNotificationSender } from "./senders/email-notification.sender";
 import { EmailNotificationController } from "./controllers/email-notification.controller";
 import { EmailNotificationService } from "./services/email-notification.service";
 import { TemplateRendererModule } from "src/template-renderer/template-renderer.module";
@@ -14,15 +10,10 @@ import { TemplateRendererModule } from "src/template-renderer/template-renderer.
         TemplateRendererModule
     ],
     controllers: [
-        EmailNotificationController,
-        NotificationController
+        EmailNotificationController
     ],
     providers: [
-        NotificationSenderFactory,
-        EmailNotificationSender,
-        NotificationService,
         EmailNotificationService
-    ],
-    exports: [],
+    ]
 })
 export class NotificationModule { }

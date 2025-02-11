@@ -1,12 +1,12 @@
-import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, HttpStatus, Get } from '@nestjs/common';
 import { WelcomeEmailDto } from '../dtos/welcome-email.dto';
 import { TfaEmailDto } from '../dtos/tfa-email.dto';
 import { UpdateEmailDto } from '../dtos/update-email.dto';
-import { UpdatePasswordDto } from '../dtos/update-password.dto';
+import { UpdatePasswordDto } from '../dtos/update-password-email.dto';
 import { Language } from 'src/common/decorators/language.decorator';
 import { EmailNotificationService } from '../services/email-notification.service';
 import { LanguageEnum } from 'src/config/enums/language.enum';
-import { RecoverPasswordSuccessEmailDto } from '../dtos/recover-password-success.dto';
+import { RecoverPasswordSuccessEmailDto } from '../dtos/recover-password-success-email.dto';
 import { IPClient } from 'src/common/decorators/ip-client.decorator';
 
 @Controller('notifications/email')
@@ -14,6 +14,7 @@ export class EmailNotificationController {
     constructor(
         private readonly emailService: EmailNotificationService,
     ) { }
+
 
     @Post('welcome')
     @HttpCode(HttpStatus.OK)

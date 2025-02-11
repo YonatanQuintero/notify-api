@@ -16,7 +16,7 @@ export class UrlVO extends ValueObject {
     } catch {
       throw new InvalidUrlError(url);
     }
-    return new UrlVO(url.trim());
+    return new UrlVO(url.trim().toLowerCase());
   }
 
   getValue(): string {

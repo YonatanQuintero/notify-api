@@ -3,12 +3,10 @@ import { AbstractTemplateRendererService } from './abstracts/template-renderer.s
 import { EJSTemplateRendererService } from './services/ejs-template-renderer.service';
 
 @Module({
-    providers: [
-        {
-            provide: AbstractTemplateRendererService,
-            useClass: EJSTemplateRendererService
-        }
-    ],
+    providers: [{
+        provide: AbstractTemplateRendererService,
+        useClass: EJSTemplateRendererService
+    }],
     exports: [
         AbstractTemplateRendererService
     ],

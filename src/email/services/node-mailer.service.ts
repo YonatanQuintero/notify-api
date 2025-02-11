@@ -29,30 +29,6 @@ export class NodeMailerService extends AbstractEmailSenderService {
         });
     }
 
-    async send(emailSender: EmailSenderDto): Promise<boolean> {
-
-        try {
-
-            return new Promise(async (resolve, reject) => {
-                const mailOptions = await this.buildEmail(emailSender);
-                this.transporter.sendMail(mailOptions, (error: any) => {
-                    const { toEmail, subject } = emailSender;
-                    if (error) {
-                        Logger.error(error.message);
-                        Logger.error(JSON.stringify(emailSender));
-                        return reject(new InvalidEmailError(error.message));
-                    }
-                    toEmail.forEach(email => this.logger.log(`Email sent to: ${email} (${subject})`));
-                    return resolve(true);
-                });
-            });
-
-        } catch (error) {
-            Logger.error(`Error sending email: ${error.message}`);
-            throw error;
-        }
-    }
-
     private async buildEmail(emailSender: EmailSenderDto): Promise<Mail.Options> {
 
         const {
@@ -75,6 +51,30 @@ export class NodeMailerService extends AbstractEmailSenderService {
             bcc: bccEmail ? bccEmail.join(',') : undefined,
             subject,
             html
+        }
+    }
+
+    async send(emailSender: EmailSenderDto): Promise<boolean> {
+
+        try {
+
+            return new Promise(async (resolve, reject) => {
+                const mailOptions = await this.buildEmail(emailSender);
+                this.transporter.sendMail(mailOptions, (error: any) => {
+                    const { toEmail, subject } = emailSender;
+                    if (error) {
+                        this.logger.error(error.message);
+                        this.logger.error(JSON.stringify(emailSender));
+                        return reject(new InvalidEmailError(error.message));
+                    }
+                    toEmail.forEach(email => this.logger.log(`Email sent to: ${email} (${subject})`));
+                    return resolve(true);
+                });
+            });
+
+        } catch (error) {
+            this.logger.error(`Error sending email: ${error.message}`);
+            throw error;
         }
     }
 }
