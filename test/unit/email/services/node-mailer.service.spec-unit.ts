@@ -4,7 +4,6 @@ import { I18nService } from "nestjs-i18n";
 import { AbstractConfigService } from "src/config/abstracts/config.service.abstract";
 import { NodeMailerService } from "src/email/services/node-mailer.service";
 import { AbstractTemplateRendererService } from "src/template-renderer/abstracts/template-renderer.service.abstract";
-import { EmailSender } from "src/email/entities/email-sender.entity";
 import { EmailSenderDto } from "src/email/dtos/email-sender.dto";
 import { SmtpConfig } from "src/config/entities/smpt-config.entity";
 import { CompanyConfig } from "src/config/entities/company-config.entity";
@@ -54,9 +53,7 @@ describe('NodeMailerService', () => {
         };
 
         nodeMailerService = new NodeMailerService(
-            i18nServiceMock as I18nService,
-            configServiceMock as AbstractConfigService,
-            templateRendererServiceMock as AbstractTemplateRendererService
+            configServiceMock as AbstractConfigService
         );
     });
 
@@ -65,11 +62,11 @@ describe('NodeMailerService', () => {
             'from@example.com',
             'From Name',
             ['to@example.com'],
-            'en-us',
-            'welcome',
-            { 'key': 'value' }
+            'subject test',
+            '<p>Test</p>',
+            ['cc@example.com'],
+            ['bcc@example.com']
         );
-        const emailSender = EmailSender.create(emailSenderDto);
 
         // Simulate successful sending by calling the callback with no error.
         transporterSendMailMock.mockImplementation(
@@ -78,7 +75,7 @@ describe('NodeMailerService', () => {
             }
         );
 
-        const result = await nodeMailerService.send(emailSender);
+        const result = await nodeMailerService.send(emailSenderDto);
         expect(result).toBe(true);
         expect(transporterSendMailMock).toHaveBeenCalled();
     });
@@ -88,11 +85,11 @@ describe('NodeMailerService', () => {
             'from@example.com',
             'From Name',
             ['to@example.com'],
-            'en-us',
-            'welcome',
-            { 'key': 'value' }
+            'subject test',
+            '<p>Test</p>',
+            ['cc@example.com'],
+            ['bcc@example.com']
         );
-        const emailSender = EmailSender.create(emailSenderDto);
 
         const errorMessage = 'SMTP connection error';
 
@@ -102,6 +99,6 @@ describe('NodeMailerService', () => {
             }
         );
 
-        await expect(nodeMailerService.send(emailSender)).rejects.toThrow(errorMessage);
+        await expect(nodeMailerService.send(emailSenderDto)).rejects.toThrow(errorMessage);
     });
 });
