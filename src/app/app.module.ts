@@ -7,13 +7,15 @@ import { TemplateRendererModule } from "src/template-renderer/template-renderer.
 import { ConfigurationModule } from "src/config/configuration.module";
 import { QueueModule } from "src/queue/queue.module";
 import { NotificationModule } from "src/notification/notification.module";
+import { AuthenticationModule } from "src/authentication/authentication.module";
 @Module({
     imports: [
         I18nAppModule,
         TemplateRendererModule,
         ConfigurationModule,
         QueueModule,
-        NotificationModule
+        NotificationModule,
+        AuthenticationModule
     ],
     providers: [{
         provide: APP_INTERCEPTOR,
