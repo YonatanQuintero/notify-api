@@ -1,4 +1,4 @@
-import { ValueRequiredError } from "src/common/errors/value-required.error";
+import { ValueRequiredError } from "src/app/errors/value-required.error";
 import { LanguageEnum } from "src/config/enums/language.enum";
 import { InvalidLanguageError } from "src/config/errors/invalid-language.error";
 import { TemplateRenderer } from "src/template-renderer/entities/template-renderer.entity";

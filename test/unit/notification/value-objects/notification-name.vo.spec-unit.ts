@@ -1,4 +1,4 @@
-import { ValueRequiredError } from "src/common/errors/value-required.error";
+import { ValueRequiredError } from "src/app/errors/value-required.error";
 import { NotificationNameEnum } from "src/notification/enums/notification-name.enum";
 import { InvalidNotificationNameError } from "src/notification/errors/invalid-notification-name.error";
 import { NotificationNameVO } from "src/notification/value-objects/notification-name.vo";

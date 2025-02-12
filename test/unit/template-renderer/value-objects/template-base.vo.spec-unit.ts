@@ -1,5 +1,5 @@
-import { NonEmptyStringVO } from "src/common/value-objects/non-empty-string.vo";
-import { UrlVO } from "src/common/value-objects/url.vo";
+import { NonEmptyStringVO } from "src/app/value-objects/non-empty-string.vo";
+import { UrlVO } from "src/app/value-objects/url.vo";
 import { TemplateBase } from "src/template-renderer/entities/template-base.entity";
 import { InvalidTemplateBaseError } from "src/template-renderer/errors/invalid-template-base.error";
 import { TemplateBaseVO } from "src/template-renderer/value-objects/template-base.vo";

@@ -2,7 +2,7 @@ import { EmailIssuer } from "./email-issuer.entity";
 import { EmailRecipientList } from "./email-recipient-list.entity";
 import { EmailVO } from "../value-objects/email.vo";
 import { EmailSenderDto } from "../dtos/email-sender.dto";
-import { NonEmptyStringVO } from "src/common/value-objects/non-empty-string.vo";
+import { NonEmptyStringVO } from "src/app/value-objects/non-empty-string.vo";
 
 export class EmailSender {
     private constructor(

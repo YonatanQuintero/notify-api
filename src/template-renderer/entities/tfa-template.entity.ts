@@ -1,8 +1,8 @@
-import { NonEmptyStringVO } from "src/common/value-objects/non-empty-string.vo";
+import { NonEmptyStringVO } from "src/app/value-objects/non-empty-string.vo";
 import { TemplateBase } from "./template-base.entity";
 import { TFACodeVO } from "../value-objects/tfa-code.vo";
-import { IPAddressVO } from "src/common/value-objects/ip-address.vo";
-import { UrlVO } from "src/common/value-objects/url.vo";
+import { IPAddressVO } from "src/app/value-objects/ip-address.vo";
+import { UrlVO } from "src/app/value-objects/url.vo";
 
 export class TFATemplate extends TemplateBase {
 

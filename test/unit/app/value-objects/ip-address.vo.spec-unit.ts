@@ -1,6 +1,6 @@
-import { InvalidIPAddressError } from "src/common/errors/invalid-ip-address.error";
-import { ValueRequiredError } from "src/common/errors/value-required.error";
-import { IPAddressVO } from "src/common/value-objects/ip-address.vo";
+import { InvalidIPAddressError } from "src/app/errors/invalid-ip-address.error";
+import { ValueRequiredError } from "src/app/errors/value-required.error";
+import { IPAddressVO } from "src/app/value-objects/ip-address.vo";
 
 describe('IPAddressVO', () => {
     it('should create a valid IPv4 IPAddressVO', () => {

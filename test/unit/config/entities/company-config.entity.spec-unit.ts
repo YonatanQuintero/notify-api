@@ -1,8 +1,8 @@
-import { NonEmptyStringError } from 'src/common/errors/non-empty-string.error';
-import { InvalidUrlError } from 'src/common/errors/invalid-url.error';
+import { NonEmptyStringError } from 'src/app/errors/non-empty-string.error';
+import { InvalidUrlError } from 'src/app/errors/invalid-url.error';
 import { CompanyConfig } from 'src/config/entities/company-config.entity';
-import { UrlVO } from 'src/common/value-objects/url.vo';
-import { NonEmptyStringVO } from 'src/common/value-objects/non-empty-string.vo';
+import { UrlVO } from 'src/app/value-objects/url.vo';
+import { NonEmptyStringVO } from 'src/app/value-objects/non-empty-string.vo';
 
 describe('CompanyConfig', () => {
     const validData = {

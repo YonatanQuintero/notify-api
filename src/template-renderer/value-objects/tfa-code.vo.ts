@@ -1,4 +1,4 @@
-import { ValueObject } from "src/common/primitives/value-object";
+import { ValueObject } from "src/app/primitives/value-object";
 import { InvalidTFACodeError } from "../errors/invalid-tfa-code.error";
 
 export class TFACodeVO extends ValueObject {

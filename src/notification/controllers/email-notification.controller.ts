@@ -3,11 +3,11 @@ import { WelcomeEmailDto } from '../dtos/welcome-email.dto';
 import { TfaEmailDto } from '../dtos/tfa-email.dto';
 import { UpdateEmailDto } from '../dtos/update-email.dto';
 import { UpdatePasswordDto } from '../dtos/update-password-email.dto';
-import { Language } from 'src/common/decorators/language.decorator';
+import { Language } from 'src/app/decorators/language.decorator';
 import { EmailNotificationService } from '../services/email-notification.service';
 import { LanguageEnum } from 'src/config/enums/language.enum';
 import { RecoverPasswordSuccessEmailDto } from '../dtos/recover-password-success-email.dto';
-import { IPClient } from 'src/common/decorators/ip-client.decorator';
+import { IPClient } from 'src/app/decorators/ip-client.decorator';
 
 @Controller('notifications/email')
 export class EmailNotificationController {

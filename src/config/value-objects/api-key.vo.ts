@@ -1,5 +1,5 @@
 import { InvalidApiKeyError } from '../errors/invalid-api-key.error';
-import { ValueObject } from '../../common/primitives/value-object';
+import { ValueObject } from '../../app/primitives/value-object';
 
 export class ApiKeyVO extends ValueObject {
 

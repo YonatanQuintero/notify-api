@@ -1,5 +1,5 @@
-import { InvalidUrlError } from "src/common/errors/invalid-url.error";
-import { NonEmptyStringError } from "src/common/errors/non-empty-string.error";
+import { InvalidUrlError } from "src/app/errors/invalid-url.error";
+import { NonEmptyStringError } from "src/app/errors/non-empty-string.error";
 import { RedisConfig } from "src/config/entities/redis-config.entity";
 import { InvalidPortError } from "src/config/errors/invalid-port.error";
 import { InvalidRedisDBError } from "src/config/errors/invalid-redis-db.error";

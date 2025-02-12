@@ -1,5 +1,5 @@
-import { NonEmptyStringVO } from "src/common/value-objects/non-empty-string.vo";
-import { UrlVO } from "src/common/value-objects/url.vo";
+import { NonEmptyStringVO } from "src/app/value-objects/non-empty-string.vo";
+import { UrlVO } from "src/app/value-objects/url.vo";
 
 export class CompanyConfig {
     private constructor(

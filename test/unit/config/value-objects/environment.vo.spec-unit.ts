@@ -1,6 +1,6 @@
 import { EnvironmentVO } from '../../../../src/config/value-objects/environment.vo';
 import { EnvironmentEnum } from '../../../../src/config/enums/environment.enum';
-import { ValueRequiredError } from 'src/common/errors/value-required.error';
+import { ValueRequiredError } from 'src/app/errors/value-required.error';
 import { InvalidEnvironmentError } from 'src/config/errors/invalid-environment.error';
 
 describe('EnvironmentVO', () => {

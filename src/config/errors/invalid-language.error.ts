@@ -1,5 +1,5 @@
 import { LanguageEnum } from "../enums/language.enum";
-import { DomainError } from "../../common/primitives/domain-error";
+import { DomainError } from "../../app/primitives/domain-error";
 
 export class InvalidLanguageError extends DomainError {
     constructor(lang: string) {

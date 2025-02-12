@@ -1,4 +1,4 @@
-import { NonEmptyStringVO } from 'src/common/value-objects/non-empty-string.vo';
+import { NonEmptyStringVO } from 'src/app/value-objects/non-empty-string.vo';
 import { EmailSenderDto } from 'src/email/dtos/email-sender.dto';
 import { EmailIssuer } from 'src/email/entities/email-issuer.entity';
 import { EmailRecipientList } from 'src/email/entities/email-recipient-list.entity';

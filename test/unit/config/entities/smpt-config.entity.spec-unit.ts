@@ -1,7 +1,7 @@
 import { PortVO } from '../../../../src/config/value-objects/port.vo';
 import { InvalidPortError } from 'src/config/errors/invalid-port.error';
-import { NonEmptyStringError } from 'src/common/errors/non-empty-string.error';
-import { NonEmptyStringVO } from 'src/common/value-objects/non-empty-string.vo';
+import { NonEmptyStringError } from 'src/app/errors/non-empty-string.error';
+import { NonEmptyStringVO } from 'src/app/value-objects/non-empty-string.vo';
 import { SmtpConfig } from 'src/config/entities/smpt-config.entity';
 
 describe('SmptConfig', () => {

@@ -1,4 +1,4 @@
-import { NonEmptyStringVO } from "src/common/value-objects/non-empty-string.vo";
+import { NonEmptyStringVO } from "src/app/value-objects/non-empty-string.vo";
 import { EmailVO } from "../value-objects/email.vo";
 
 export class EmailIssuer {

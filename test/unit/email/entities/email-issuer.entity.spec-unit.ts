@@ -1,6 +1,6 @@
-import { NonEmptyStringError } from "src/common/errors/non-empty-string.error";
-import { ValueRequiredError } from "src/common/errors/value-required.error";
-import { NonEmptyStringVO } from "src/common/value-objects/non-empty-string.vo";
+import { NonEmptyStringError } from "src/app/errors/non-empty-string.error";
+import { ValueRequiredError } from "src/app/errors/value-required.error";
+import { NonEmptyStringVO } from "src/app/value-objects/non-empty-string.vo";
 import { EmailIssuer } from "src/email/entities/email-issuer.entity";
 import { InvalidEmailError } from "src/email/errors/invalid-email.error";
 import { EmailVO } from "src/email/value-objects/email.vo";

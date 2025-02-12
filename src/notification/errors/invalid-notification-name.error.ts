@@ -1,4 +1,4 @@
-import { DomainError } from "src/common/primitives/domain-error";
+import { DomainError } from "src/app/primitives/domain-error";
 import { NotificationNameEnum } from "../enums/notification-name.enum";
 
 export class InvalidNotificationNameError extends DomainError {

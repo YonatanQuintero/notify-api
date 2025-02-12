@@ -1,6 +1,6 @@
-import { ValueObject } from '../../common/primitives/value-object';
+import { ValueObject } from '../../app/primitives/value-object';
 import { LanguageEnum } from '../enums/language.enum';
-import { ValueRequiredError } from '../../common/errors/value-required.error';
+import { ValueRequiredError } from '../../app/errors/value-required.error';
 import { InvalidLanguageError } from '../errors/invalid-language.error';
 
 export class LanguageVO extends ValueObject {

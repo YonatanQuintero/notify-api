@@ -1,4 +1,4 @@
-import { ValueObject } from "src/common/primitives/value-object";
+import { ValueObject } from "src/app/primitives/value-object";
 import { InvalidRedisDBError } from "../errors/invalid-redis-db.error";
 
 export class RedisDBVO extends ValueObject {

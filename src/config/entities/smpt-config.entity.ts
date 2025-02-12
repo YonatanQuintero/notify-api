@@ -1,4 +1,4 @@
-import { NonEmptyStringVO } from "src/common/value-objects/non-empty-string.vo";
+import { NonEmptyStringVO } from "src/app/value-objects/non-empty-string.vo";
 import { PortVO } from "../value-objects/port.vo";
 
 export class SmtpConfig {

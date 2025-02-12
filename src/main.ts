@@ -1,9 +1,9 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app/app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { AbstractConfigService } from './config/abstracts/config.service.abstract';
-import { LanguageInterceptor } from './common/interceptors/language.interceptor';
-import { IPClientInterceptor } from './common/interceptors/ip-client.interceptor';
+import { LanguageInterceptor } from './app/interceptors/language.interceptor';
+import { IPClientInterceptor } from './app/interceptors/ip-client.interceptor';
+import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

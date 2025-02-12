@@ -1,4 +1,4 @@
-import { ValueObject } from "src/common/primitives/value-object";
+import { ValueObject } from "src/app/primitives/value-object";
 import { TemplateBase } from "../entities/template-base.entity";
 import { InvalidTemplateBaseError } from "../errors/invalid-template-base.error";
 

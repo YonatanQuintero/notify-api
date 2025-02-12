@@ -1,4 +1,4 @@
-import { ValueRequiredError } from "src/common/errors/value-required.error";
+import { ValueRequiredError } from "src/app/errors/value-required.error";
 import { InvalidEmailError } from "src/email/errors/invalid-email.error";
 import { EmailVO } from "src/email/value-objects/email.vo";
 

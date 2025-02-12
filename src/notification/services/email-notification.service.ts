@@ -1,7 +1,7 @@
 import { LanguageEnum } from "src/config/enums/language.enum";
 import { WelcomeEmailDto } from "../dtos/welcome-email.dto";
 import { BadRequestException, Injectable, InternalServerErrorException } from "@nestjs/common";
-import { DomainError } from "src/common/primitives/domain-error";
+import { DomainError } from "src/app/primitives/domain-error";
 import { TemplateRenderer } from "src/template-renderer/entities/template-renderer.entity";
 import { NotificationNameEnum } from "../enums/notification-name.enum";
 import { TemplateEntityFactory } from "src/template-renderer/factories/template-entity.factory";

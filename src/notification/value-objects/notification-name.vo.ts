@@ -1,7 +1,7 @@
 import { NotificationNameEnum } from "../enums/notification-name.enum";
 import { InvalidNotificationNameError } from "../errors/invalid-notification-name.error";
-import { ValueRequiredError } from "../../common/errors/value-required.error";
-import { ValueObject } from "../../common/primitives/value-object";
+import { ValueRequiredError } from "../../app/errors/value-required.error";
+import { ValueObject } from "../../app/primitives/value-object";
 
 export class NotificationNameVO extends ValueObject {
 

@@ -1,6 +1,6 @@
-import { UrlVO } from "src/common/value-objects/url.vo";
+import { UrlVO } from "src/app/value-objects/url.vo";
 import { PortVO } from "../value-objects/port.vo";
-import { NonEmptyStringVO } from "src/common/value-objects/non-empty-string.vo";
+import { NonEmptyStringVO } from "src/app/value-objects/non-empty-string.vo";
 import { RedisDBVO } from "../value-objects/redis-db.vo";
 
 export class RedisConfig {

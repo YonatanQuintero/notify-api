@@ -1,4 +1,4 @@
-import { ValueObject } from "src/common/primitives/value-object";
+import { ValueObject } from "src/app/primitives/value-object";
 
 // A simple concrete subclass for testing
 class TestValueObject extends ValueObject {

@@ -1,4 +1,4 @@
-import { DomainError } from '../../common/primitives/domain-error';
+import { DomainError } from '../../app/primitives/domain-error';
 
 export class InvalidTFACodeError extends DomainError {
     constructor(code: number) {

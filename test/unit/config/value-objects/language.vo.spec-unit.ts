@@ -1,6 +1,6 @@
 import { LanguageVO } from '../../../../src/config/value-objects/language.vo';
 import { LanguageEnum } from '../../../../src/config/enums/language.enum';
-import { ValueRequiredError } from 'src/common/errors/value-required.error';
+import { ValueRequiredError } from 'src/app/errors/value-required.error';
 import { InvalidLanguageError } from 'src/config/errors/invalid-language.error';
 
 describe('LanguageVO', () => {

@@ -1,6 +1,6 @@
 import { ExecutionContext, CallHandler } from '@nestjs/common';
 import { of } from 'rxjs';
-import { LanguageInterceptor } from 'src/common/interceptors/language.interceptor';
+import { LanguageInterceptor } from 'src/app/interceptors/language.interceptor';
 import { AbstractConfigService } from 'src/config/abstracts/config.service.abstract';
 import { LanguageVO } from 'src/config/value-objects/language.vo';
 

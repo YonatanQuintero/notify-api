@@ -5,8 +5,8 @@ import { InvalidEnvironmentError } from 'src/config/errors/invalid-environment.e
 import { EnvConfigService } from 'src/config/services/env-config.service';
 import { AppConfig } from 'src/config/entities/app-config.entity';
 import { RedisConfig } from 'src/config/entities/redis-config.entity';
-import { InvalidUrlError } from 'src/common/errors/invalid-url.error';
-import { NonEmptyStringError } from 'src/common/errors/non-empty-string.error';
+import { InvalidUrlError } from 'src/app/errors/invalid-url.error';
+import { NonEmptyStringError } from 'src/app/errors/non-empty-string.error';
 import { InvalidRedisDBError } from 'src/config/errors/invalid-redis-db.error';
 import { SmtpConfig } from 'src/config/entities/smpt-config.entity';
 import { CompanyConfig } from 'src/config/entities/company-config.entity';

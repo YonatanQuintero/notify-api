@@ -1,6 +1,6 @@
-import { ValueRequiredError } from 'src/common/errors/value-required.error';
-import { UrlVO } from '../../../../src/common/value-objects/url.vo';
-import { InvalidUrlError } from 'src/common/errors/invalid-url.error';
+import { ValueRequiredError } from 'src/app/errors/value-required.error';
+import { UrlVO } from '../../../../src/app/value-objects/url.vo';
+import { InvalidUrlError } from 'src/app/errors/invalid-url.error';
 
 describe('UrlVO', () => {
     it('should create a UrlVO for a valid URL', () => {

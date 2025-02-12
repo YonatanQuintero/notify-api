@@ -1,5 +1,5 @@
-import { NonEmptyStringError } from 'src/common/errors/non-empty-string.error';
-import { NonEmptyStringVO } from '../../../../src/common/value-objects/non-empty-string.vo';
+import { NonEmptyStringError } from 'src/app/errors/non-empty-string.error';
+import { NonEmptyStringVO } from '../../../../src/app/value-objects/non-empty-string.vo';
 
 describe('NonEmptyStringVO', () => {
 

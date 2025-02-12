@@ -1,7 +1,7 @@
 import { ExecutionContext, CallHandler } from '@nestjs/common';
 import { of } from 'rxjs';
 import * as requestIp from 'request-ip';
-import { IPClientInterceptor } from 'src/common/interceptors/ip-client.interceptor';
+import { IPClientInterceptor } from 'src/app/interceptors/ip-client.interceptor';
 
 describe('IPClientInterceptor', () => {
     let interceptor: IPClientInterceptor;
