@@ -10,9 +10,18 @@ async function bootstrap() {
 
   const configService = app.get(AbstractConfigService);
   const { port } = configService.getAppConfig();
+
   app.useGlobalInterceptors(new LanguageInterceptor(configService));
   app.useGlobalInterceptors(new IPClientInterceptor());
-  app.useGlobalPipes(new ValidationPipe());
+
+  app.useGlobalPipes(new ValidationPipe({
+    whitelist: true,
+    forbidNonWhitelisted: true,
+    transform: true,
+    transformOptions: {
+      enableImplicitConversion: true,
+    }
+  }));
 
   await app.listen(port.getValue(), () => {
     Logger.log(`Application is running on: http://localhost:${port.getValue()}`, 'Bootstrap');
