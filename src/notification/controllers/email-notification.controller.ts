@@ -9,7 +9,7 @@ import { LanguageEnum } from 'src/config/enums/language.enum';
 import { RecoverPasswordSuccessEmailDto } from '../dtos/recover-password-success-email.dto';
 import { IPClient } from 'src/app/decorators/ip-client.decorator';
 
-@Controller('v1/notifications/email')
+@Controller('api/v1/notifications/email')
 export class EmailNotificationController {
     constructor(
         private readonly emailService: EmailNotificationService,

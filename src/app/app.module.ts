@@ -5,6 +5,7 @@ import { ConfigurationModule } from "src/config/configuration.module";
 import { QueueModule } from "src/queue/queue.module";
 import { NotificationModule } from "src/notification/notification.module";
 import { AuthenticationModule } from "src/authentication/authentication.module";
+import { HealthModule } from "src/health/health.module";
 @Module({
     imports: [
         I18nAppModule,
@@ -12,7 +13,8 @@ import { AuthenticationModule } from "src/authentication/authentication.module";
         ConfigurationModule,
         QueueModule,
         NotificationModule,
-        AuthenticationModule
+        AuthenticationModule,
+        HealthModule,
     ]
 })
 export class AppModule { }
