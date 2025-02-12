@@ -15,11 +15,11 @@ export class NotificationNameVO extends ValueObject {
         }
 
         if (typeof name === 'string') {
-            const trimmed = name.trim() as NotificationNameEnum;
-            if (!Object.values(NotificationNameEnum).includes(trimmed)) {
+            const normalized = name.trim().toLowerCase() as NotificationNameEnum;
+            if (!Object.values(NotificationNameEnum).includes(normalized)) {
                 throw new InvalidNotificationNameError(name);
             }
-            return new NotificationNameVO(trimmed);
+            return new NotificationNameVO(normalized);
         }
 
         return new NotificationNameVO(name);

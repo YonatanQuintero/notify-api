@@ -15,7 +15,6 @@ export class EmailNotificationController {
         private readonly emailService: EmailNotificationService,
     ) { }
 
-
     @Post('welcome')
     @HttpCode(HttpStatus.OK)
     async sendWelcomeEmail(
