@@ -20,12 +20,15 @@ import { I18nDomainErrorFilter } from './i18n-domain-error.filter';
             ]
         }),
     ],
-    providers: [{
-        provide: APP_FILTER,
-        useClass: I18nExceptionFilter,
-    }, {
-        provide: APP_FILTER,
-        useClass: I18nDomainErrorFilter
-    }],
+    providers: [
+        {
+            provide: APP_FILTER,
+            useClass: I18nExceptionFilter,
+        },
+        {
+            provide: APP_FILTER,
+            useClass: I18nDomainErrorFilter
+        }
+    ],
 })
 export class I18nAppModule { }

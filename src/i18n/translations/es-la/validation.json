@@ -1,0 +1,4 @@
+{
+    "is-string": "{property} debe ser una cadena 2",
+    "min-length": "{property} debe ser mayor o igual a {constraints.0} caracteres"
+}

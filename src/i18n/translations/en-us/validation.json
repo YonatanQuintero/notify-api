@@ -1,1 +1,4 @@
-{}
+{
+    "is-string": "{property} must be a string 2",
+    "min-length": "{property} must be longer than or equal to {constraints.0} characters"
+}
