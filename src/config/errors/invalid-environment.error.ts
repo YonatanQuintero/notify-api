@@ -1,11 +1,8 @@
-import { EnvironmentEnum } from "../enums/environment.enum";
+import { HttpStatus } from "@nestjs/common";
 import { DomainError } from "../../app/primitives/domain-error";
 
 export class InvalidEnvironmentError extends DomainError {
-    constructor(env: string) {
-        super(
-            'INVALID_ENVIRONMENT',
-            `Invalid environment "${env}". Allowed values: ${Object.values(EnvironmentEnum).join(', ')}.`
-        );
+    constructor(env: string, allowedEnvs: string) {
+        super(HttpStatus.INTERNAL_SERVER_ERROR, 'error.invalid-environment', { env, allowedEnvs });
     }
 }

@@ -58,7 +58,6 @@ describe('AbstractQueue', () => {
             (mockQueue.getJob as jest.Mock).mockResolvedValue(null);
 
             await expect(abstractQueue.getJobStatus(jobId)).rejects.toThrow(QueueServiceError);
-            await expect(abstractQueue.getJobStatus(jobId)).rejects.toThrow(`Job with id ${jobId} not found.`);
         });
     });
 
@@ -85,7 +84,6 @@ describe('AbstractQueue', () => {
             (mockQueue.getJob as jest.Mock).mockResolvedValue(null);
 
             await expect(abstractQueue.getJobDetails(jobId)).rejects.toThrow(QueueServiceError);
-            await expect(abstractQueue.getJobDetails(jobId)).rejects.toThrow(`Job with id ${jobId} not found.`);
         });
     });
 });

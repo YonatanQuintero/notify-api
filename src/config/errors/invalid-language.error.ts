@@ -1,11 +1,8 @@
-import { LanguageEnum } from "../enums/language.enum";
+import { HttpStatus } from "@nestjs/common";
 import { DomainError } from "../../app/primitives/domain-error";
 
 export class InvalidLanguageError extends DomainError {
-    constructor(lang: string) {
-        super(
-            'INVALID_LANGUAGE',
-            `Invalid language "${lang}". Allowed values: ${Object.values(LanguageEnum).join(', ')}.`
-        );
+    constructor(lang: string, allowedLangs: string) {
+        super(HttpStatus.INTERNAL_SERVER_ERROR, 'error.invalid-language', { lang, allowedLangs });
     }
 }

@@ -4,6 +4,7 @@ import { I18nModule, AcceptLanguageResolver, I18nJsonLoader } from 'nestjs-i18n'
 import { APP_FILTER } from '@nestjs/core';
 import { I18nExceptionFilter } from './i18n-exception.filter';
 import { LanguageEnum } from 'src/config/enums/language.enum';
+import { I18nDomainErrorFilter } from './i18n-domain-error.filter';
 
 @Module({
     imports: [
@@ -22,6 +23,9 @@ import { LanguageEnum } from 'src/config/enums/language.enum';
     providers: [{
         provide: APP_FILTER,
         useClass: I18nExceptionFilter,
+    }, {
+        provide: APP_FILTER,
+        useClass: I18nDomainErrorFilter
     }],
 })
 export class I18nAppModule { }

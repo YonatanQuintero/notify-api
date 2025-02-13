@@ -16,8 +16,9 @@ export class LanguageVO extends ValueObject {
     if (typeof lang === 'string') {
 
       const trimmed = lang.trim().toLowerCase() as LanguageEnum;
-      if (!Object.values(LanguageEnum).includes(trimmed)) {
-        throw new InvalidLanguageError(lang);
+      const values = Object.values(LanguageEnum);
+      if (!values.includes(trimmed)) {
+        throw new InvalidLanguageError(lang, values.join(', '));
       }
       return new LanguageVO(trimmed);
     }

@@ -15,12 +15,6 @@ export class I18nExceptionFilter implements ExceptionFilter {
         const response = ctx.getResponse();
         const status = exception.getStatus();
 
-        // const request = ctx.getRequest();
-        // const lang = request.language;
-        // const message = await this.i18n.t("test.hello-world", { lang })
-        // console.log(lang, message)
-        console.log(exception)
-
         if (exception.message.startsWith('error.')) {
 
             const translatedMessage = await this.i18n.t(exception.message, {
@@ -46,5 +40,3 @@ export class I18nExceptionFilter implements ExceptionFilter {
 
     }
 }
-
-

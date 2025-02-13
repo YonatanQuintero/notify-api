@@ -7,6 +7,7 @@ import { AbstractTemplateRendererService } from "src/template-renderer/abstracts
 import { EmailSenderDto } from "src/email/dtos/email-sender.dto";
 import { SmtpConfig } from "src/config/entities/smpt-config.entity";
 import { CompanyConfig } from "src/config/entities/company-config.entity";
+import { EmailSenderError } from "src/email/errors/email-sender.error";
 
 // Mock nodemailer's createTransport method
 jest.mock('nodemailer');
@@ -99,6 +100,6 @@ describe('NodeMailerService', () => {
             }
         );
 
-        await expect(nodeMailerService.send(emailSenderDto)).rejects.toThrow(errorMessage);
+        await expect(nodeMailerService.send(emailSenderDto)).rejects.toThrow(EmailSenderError);
     });
 });

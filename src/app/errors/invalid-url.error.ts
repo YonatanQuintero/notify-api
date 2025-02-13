@@ -1,7 +1,8 @@
+import { HttpStatus } from "@nestjs/common";
 import { DomainError } from "../primitives/domain-error";
 
 export class InvalidUrlError extends DomainError {
     constructor(url: string) {
-        super('INVALID_URL', `Invalid URL "${url}".`);
+        super(HttpStatus.BAD_REQUEST, 'error.invalid-url', { url });
     }
 }

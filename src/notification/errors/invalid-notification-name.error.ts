@@ -1,10 +1,12 @@
+import { HttpStatus } from "@nestjs/common";
 import { DomainError } from "src/app/primitives/domain-error";
-import { NotificationNameEnum } from "../enums/notification-name.enum";
 
 export class InvalidNotificationNameError extends DomainError {
-    constructor(name: string) {
-        super('INVALID_NOTIFICATION_NAME',
-            `Invalid notification name "${name}". Supported names: ${Object.values(NotificationNameEnum).join(', ')}.`
+    constructor(name: string, allowedNames: string) {
+        super(
+            HttpStatus.BAD_REQUEST,
+            'error.invalid-notification-name',
+            { name, allowedNames }
         );
     }
 }

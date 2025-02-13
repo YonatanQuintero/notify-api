@@ -1,0 +1,18 @@
+{
+    "invalid-ip-address": "Dirección IP inválida \"{ipAddress}\"",
+    "invalid-url": "URL inválida \"{url}\"",
+    "non-empty-string": "El valor no puede estar vacío",
+    "value-required": "El valor para \"{propertyName}\" es obligatorio",
+    "invalid-api-key": "La clave API no puede estar vacía o tener menos de \"{minLenghth}\" caracteres",
+    "invalid-environment": "Entorno inválido \"{env}\". Valores permitidos: {allowedEnvs}",
+    "invalid-language": "Idioma inválido \"{lang}\". Valores permitidos: {allowedLangs}",
+    "invalid-port": "Número de puerto inválido \"{port}\". Debe estar entre 1 y 65535",
+    "invalid-redis-db": "Índice de base de datos Redis inválido \"{dbIndex}\". Debe estar entre 0 y 15",
+    "invalid-email-recipient": "Se requiere al menos un correo electrónico",
+    "invalid-email": "Dirección de correo electrónico inválida \"{email}\"",
+    "invalid-notification-name": "Nombre de notificación inválido \"{name}\". Valores permitidos: {allowedNames}",
+    "queue-service-error": "Error en el servicio de cola: {message}",
+    "invalid-template-base": "Debe ser una instancia de TemplateBase",
+    "invalid-tfa-code": "Código TFA inválido \"{code}\". Debe ser un número de 6 dígitos",
+    "email-sender-error": "Error enviando correo electrónico: {message}"
+}

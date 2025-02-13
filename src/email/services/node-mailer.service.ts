@@ -3,9 +3,9 @@ import { AbstractEmailSenderService } from "../abstracts/email-sender.service.ab
 import { AbstractConfigService } from "src/config/abstracts/config.service.abstract";
 import * as nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
-import { InvalidEmailError } from "../errors/invalid-email.error";
 import { SmtpConfig } from "src/config/entities/smpt-config.entity";
 import { EmailSenderDto } from "../dtos/email-sender.dto";
+import { EmailSenderError } from "../errors/email-sender.error";
 
 @Injectable()
 export class NodeMailerService extends AbstractEmailSenderService {
@@ -65,7 +65,7 @@ export class NodeMailerService extends AbstractEmailSenderService {
                     if (error) {
                         this.logger.error(error.message);
                         this.logger.error(JSON.stringify(emailSender));
-                        return reject(new InvalidEmailError(error.message));
+                        return reject(new EmailSenderError(error.message));
                     }
                     toEmail.forEach(email => this.logger.log(`Email sent to: ${email} (${subject})`));
                     return resolve(true);

@@ -1,7 +1,8 @@
+import { HttpStatus } from "@nestjs/common";
 import { DomainError } from "src/app/primitives/domain-error";
 
 export class InvalidEmailRecipientListError extends DomainError {
     constructor() {
-        super('INVALID_EMAIL_RECIPIENT', 'At least one email is required.');
+        super(HttpStatus.BAD_REQUEST, 'error.invalid-email-recipient');
     }
 }

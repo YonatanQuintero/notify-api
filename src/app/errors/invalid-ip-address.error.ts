@@ -1,7 +1,8 @@
+import { HttpStatus } from "@nestjs/common";
 import { DomainError } from "../primitives/domain-error";
 
 export class InvalidIPAddressError extends DomainError {
     constructor(ipAddress: string) {
-        super('INVALID_IP_ADDRESS', `Invalid IP Address "${ipAddress}".`);
+        super(HttpStatus.BAD_REQUEST, `error.invalid-ip-address`, { ipAddress });
     }
 }

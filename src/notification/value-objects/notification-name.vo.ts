@@ -16,8 +16,9 @@ export class NotificationNameVO extends ValueObject {
 
         if (typeof name === 'string') {
             const normalized = name.trim().toLowerCase() as NotificationNameEnum;
-            if (!Object.values(NotificationNameEnum).includes(normalized)) {
-                throw new InvalidNotificationNameError(name);
+            const values = Object.values(NotificationNameEnum);
+            if (!values.includes(normalized)) {
+                throw new InvalidNotificationNameError(name, values.join(", "));
             }
             return new NotificationNameVO(normalized);
         }

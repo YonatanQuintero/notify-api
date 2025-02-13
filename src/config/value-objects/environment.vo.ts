@@ -14,8 +14,9 @@ export class EnvironmentVO extends ValueObject {
     }
 
     const environment = env.trim() as EnvironmentEnum;
-    if (!Object.values(EnvironmentEnum).includes(environment)) {
-      throw new InvalidEnvironmentError(env);
+    const values = Object.values(EnvironmentEnum);
+    if (!values.includes(environment)) {
+      throw new InvalidEnvironmentError(env, values.join(', '));
     }
 
     return new EnvironmentVO(environment);
