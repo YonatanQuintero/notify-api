@@ -1,6 +1,5 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, Logger } from '@nestjs/common';
-import { I18nContext, I18nService } from 'nestjs-i18n';
-
+import { I18nService } from 'nestjs-i18n';
 
 export interface ClassValidatorError {
     message: string[],
@@ -17,33 +16,32 @@ export class I18nExceptionFilter implements ExceptionFilter {
 
     async catch(exception: HttpException, host: ArgumentsHost) {
 
-        this.logger.error(JSON.stringify(exception));
         const ctx = host.switchToHttp();
         const response = ctx.getResponse();
         const status = exception.getStatus();
-        console.log(exception);
-        const exceptionResponse = exception.getResponse() as ClassValidatorError;
-        console.log("exceptionResponse", exceptionResponse);
-        //It possible comes from class validator error
-        if (exceptionResponse && Array.isArray(exceptionResponse.message)) {
-            const { message, statusCode } = exceptionResponse;
-            const { language } = ctx.getRequest();
-            const translatedMessages = await Promise.all(
-                message.map(
-                    async (m) => await this.i18n.t(m, { lang: language })
-                )
-            );
+        const exResponse = exception.getResponse();
 
-            return response.status(statusCode).json({
+        if (exResponse && Array.isArray(exResponse["message"])) {
+            const { message, statusCode } = exResponse as ClassValidatorError;
+            const { language } = ctx.getRequest();
+            const translatedMessages = await Promise.all(message.map(
+                async (m) => await this.i18n.t(m, { lang: language })
+            ));
+
+            const classValidatorData = {
                 statusCode,
-                message: translatedMessages.join(', '),
-            });
+                message: translatedMessages.join('. '),
+            }
+            this.logger.error(JSON.stringify(classValidatorData));
+            return response.status(statusCode).json(classValidatorData);
         }
 
-        return response.status(status).json({
+        const data = {
             statusCode: status,
             message: exception.message,
-        });
+        }
+        this.logger.error(JSON.stringify(data));
+        return response.status(status).json(data);
 
     }
 }

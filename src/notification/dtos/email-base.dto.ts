@@ -2,22 +2,40 @@ import { IsArray, IsEmail, IsOptional, IsString, IsNotEmpty } from 'class-valida
 
 export class EmailBaseDto {
 
-    @IsArray()
-    @IsEmail({}, { each: true })
-    @IsNotEmpty({ each: true })
-    readonly toEmail: string[];
+    @IsArray({
+        message: 'validation.recipients.is-array',
+    })
+    @IsEmail({}, {
+        each: true,
+        message: 'validation.recipients.is-email'
+    })
+    readonly recipients: string[];
 
-    @IsString()
-    @IsNotEmpty()
+    @IsString({
+        message: 'validation.username.is-string'
+    })
+    @IsNotEmpty({
+        message: 'validation.username.is-not-empty'
+    })
     readonly username: string;
 
     @IsOptional()
-    @IsArray()
-    @IsEmail({}, { each: true })
-    readonly ccEmail?: string[];
+    @IsArray({
+        message: 'validation.carbon-copies.is-array'
+    })
+    @IsEmail({}, {
+        each: true,
+        message: 'validation.carbon-copies.is-email'
+    })
+    readonly carbonCopies?: string[];
 
     @IsOptional()
-    @IsArray()
-    @IsEmail({}, { each: true })
-    readonly bccEmail?: string[];
+    @IsArray({
+        message: 'validation.blind-carbon-copies.is-array'
+    })
+    @IsEmail({}, {
+        each: true,
+        message: 'validation.blind-carbon-copies.is-email'
+    })
+    readonly blindCarbonCopies?: string[];
 }

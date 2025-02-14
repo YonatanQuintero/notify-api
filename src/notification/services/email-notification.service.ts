@@ -45,11 +45,11 @@ export class EmailNotificationService {
         const emailSender = EmailSender.create(
             this.smtpConfig.user.getValue(),
             this.companyConfig.name.getValue(),
-            dto.toEmail,
+            dto.recipients,
             subject,
             html,
-            dto.ccEmail,
-            dto.bccEmail
+            dto.carbonCopies,
+            dto.blindCarbonCopies
         );
 
         const job = await this.sendEmailQueue.add(emailSender.toDto());

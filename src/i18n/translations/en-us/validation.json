@@ -1,9 +1,27 @@
 {
-    "is-string": "{property} must be a string 2",
-    "min-length": "{property} must be longer than or equal to {constraints.0} characters",
-    "test": {
-        "is-string": "Test must be a non-empty string",
-        "min-length": "Test must be longer than or equal to 3 characters",
-        "is-not-empty": "Test must not be empty"
+    "username": {
+        "is-string": "Username must be a string",
+        "is-not-empty": "Username must not be empty"
+    },
+    "recipients": {
+        "is-array": "Recipients must be an array",
+        "is-email": "Each value in recipients must be an email"
+    },
+    "carbon-copies": {
+        "is-array": "Carbon copies must be an array",
+        "is-email": "Each value in carbon copies must be an email"
+    },
+    "blind-carbon-copies": {
+        "is-array": "Blind carbon copies must be an array",
+        "is-email": "Each value in blind carbon copies must be an email"
+    },
+    "tfa-code": {
+        "is-number": "Code must be a number",
+        "min": "Code must be greater than or equal to 100000",
+        "max": "Code must be least than or equal to 999999"
+    },
+    "ttl-formatted": {
+        "is-string": "TTL Formatted must be a string",
+        "is-not-empty": "TTL Formatted must not be empty"
     }
 }
