@@ -1,11 +1,8 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, Logger } from '@nestjs/common';
+import { HttpArgumentsHost } from '@nestjs/common/interfaces';
 import { I18nService } from 'nestjs-i18n';
 
-export interface ClassValidatorError {
-    message: string[],
-    error: string,
-    statusCode: number,
-}
+type ResponseData = { message: string, statusCode: number };
 
 @Catch(HttpException)
 export class I18nExceptionFilter implements ExceptionFilter {
@@ -18,30 +15,24 @@ export class I18nExceptionFilter implements ExceptionFilter {
 
         const ctx = host.switchToHttp();
         const response = ctx.getResponse();
-        const status = exception.getStatus();
-        const exResponse = exception.getResponse();
-
-        if (exResponse && Array.isArray(exResponse["message"])) {
-            const { message, statusCode } = exResponse as ClassValidatorError;
-            const { language } = ctx.getRequest();
-            const translatedMessages = await Promise.all(message.map(
-                async (m) => await this.i18n.t(m, { lang: language })
-            ));
-
-            const classValidatorData = {
-                statusCode,
-                message: translatedMessages.join('. '),
-            }
-            this.logger.error(JSON.stringify(classValidatorData));
-            return response.status(statusCode).json(classValidatorData);
-        }
-
-        const data = {
-            statusCode: status,
-            message: exception.message,
-        }
+        const data = await this.buildResponseData(exception, ctx);
         this.logger.error(JSON.stringify(data));
-        return response.status(status).json(data);
+        return response.status(data.statusCode).json(data);
 
+    }
+
+    private async buildResponseData(exception: HttpException, ctx: HttpArgumentsHost): Promise<ResponseData> {
+        const response = exception.getResponse();
+        let statusCode: number = exception.getStatus();
+        let message: string = exception.message;
+        if (typeof response === "object" && Array.isArray(response["message"])) {
+            const lang = ctx.getRequest().language;
+            const messages = response["message"];
+            statusCode = response["statusCode"];
+            message = (await Promise.all(messages.map(
+                async (key) => await this.i18n.t(key, { lang })
+            ))).join('. ');
+        }
+        return {  message, statusCode };
     }
 }

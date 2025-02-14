@@ -18,7 +18,7 @@ export class HealthController {
 
     @Get("/error")
     error() {
-         throw new InvalidIPAddressError("xxxx");
+         throw new InvalidIPAddressError("xxx.yyy.zzz");
         // throw new BadRequestException("Invalid IP address");
     }
 

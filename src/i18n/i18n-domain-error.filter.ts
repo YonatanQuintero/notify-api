@@ -1,4 +1,4 @@
-import { ArgumentsHost, Catch, ExceptionFilter, Logger } from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus, Logger } from '@nestjs/common';
 import { I18nService } from 'nestjs-i18n';
 import { DomainError } from 'src/app/primitives/domain-error';
 
@@ -11,20 +11,22 @@ export class I18nDomainErrorFilter implements ExceptionFilter {
 
     async catch(exception: DomainError, host: ArgumentsHost) {
 
-        const { code, message, args, name } = exception;
-        this.logger.error(JSON.stringify({ code, message, args, name }));
         const ctx = host.switchToHttp();
         const response = ctx.getResponse();
         const { language } = ctx.getRequest();
+        const key = `error.${exception.code}`;
+        const statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
 
-        const translatedMessage = await this.i18n.t(message, {
+        const message = await this.i18n.t(key, {
             lang: language,
-            args: args,
+            args: exception.args,
         });
 
-        return response.status(code).json({
-            message: translatedMessage,
-            statusCode: code,
+        this.logger.error(JSON.stringify({ message, statusCode, }));
+
+        return response.status(statusCode).json({
+            message,
+            statusCode
         });
 
     }

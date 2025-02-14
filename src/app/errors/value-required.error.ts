@@ -1,12 +1,9 @@
-import { HttpStatus } from "@nestjs/common";
 import { DomainError } from "../primitives/domain-error";
 
 export class ValueRequiredError extends DomainError {
-    constructor(propertyName: string) {
+    constructor(property: string) {
         super(
-            HttpStatus.BAD_REQUEST,
-            'error.value-required',
-            { propertyName }
+            'value-required', `value for "${property}" is required`, { property }
         );
     }
 }
