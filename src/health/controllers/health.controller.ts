@@ -1,5 +1,5 @@
 import { BadRequestException, Body, Controller, Get, HttpCode, HttpStatus, InternalServerErrorException, Post } from '@nestjs/common';
-import { IsString, MinLength } from 'class-validator';
+import { IsEmpty, IsNotEmpty, IsString, MinLength } from 'class-validator';
 import { InvalidIPAddressError } from 'src/app/errors/invalid-ip-address.error';
 import { DomainError } from 'src/app/primitives/domain-error';
 import { Authentication } from 'src/authentication/decorators/authentication.decorator';
@@ -23,12 +23,15 @@ Cases:
 export class ErrorDto {
 
     @IsString({
-        message: 'validation.is-string',
+        message: 'validation.test.is-string',
     })
-    @MinLength(3, {
-        message: 'validation.min-length',
+    @IsNotEmpty({
+        message: 'validation.test.is-not-empty',
     })
-    readonly customField: string;
+    // @MinLength(3, {
+    //     message: 'validation.test.min-length',
+    // })
+    readonly test: string;
 }
 
 @Controller('api/v1/health')
@@ -51,7 +54,7 @@ export class HealthController {
     @Post("/error")
     @HttpCode(HttpStatus.OK)
     errorWithBody(@Body() dto: ErrorDto) {
-        console.log(dto.customField);
+        console.log(dto.test);
         throw new BadRequestException("Custom error message");
     }
 }

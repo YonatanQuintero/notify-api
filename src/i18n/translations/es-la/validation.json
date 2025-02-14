@@ -1,4 +1,9 @@
 {
     "is-string": "{property} debe ser una cadena 2",
-    "min-length": "{property} debe ser mayor o igual a {constraints.0} caracteres"
+    "min-length": "{property} debe ser mayor o igual a {constraints.0} caracteres",
+    "test": {
+        "is-string": "Test debe ser una cadena no vacía",
+        "min-length": "Test ser mayor o igual a 3 caracteres",
+        "is-not-empty": "Test no puede estar vacío"
+    }
 }
