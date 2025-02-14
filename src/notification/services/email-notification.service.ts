@@ -1,7 +1,6 @@
 import { LanguageEnum } from "src/config/enums/language.enum";
 import { WelcomeEmailDto } from "../dtos/welcome-email.dto";
-import { BadRequestException, Injectable, InternalServerErrorException } from "@nestjs/common";
-import { DomainError } from "src/app/primitives/domain-error";
+import { Injectable } from "@nestjs/common";
 import { TemplateRenderer } from "src/template-renderer/entities/template-renderer.entity";
 import { NotificationNameEnum } from "../enums/notification-name.enum";
 import { TemplateEntityFactory } from "src/template-renderer/factories/template-entity.factory";
@@ -53,32 +52,25 @@ export class EmailNotificationService {
         );
 
         const job = await this.sendEmailQueue.add(emailSender.toDto());
-        
+
         return job.id.toString();
     }
 
     async sendBaseEmail(dto: EmailBaseDto, lang: LanguageEnum, name: NotificationNameEnum): Promise<string> {
-        try {
 
-            const template = TemplateRenderer.create(
-                name,
-                lang,
-                TemplateEntityFactory.createBase(
-                    dto.username,
-                    this.companyConfig.name.getValue(),
-                    this.companyConfig.websiteUrl.getValue(),
-                    this.companyConfig.iconUrl.getValue(),
-                )
-            );
+        const template = TemplateRenderer.create(
+            name,
+            lang,
+            TemplateEntityFactory.createBase(
+                dto.username,
+                this.companyConfig.name.getValue(),
+                this.companyConfig.websiteUrl.getValue(),
+                this.companyConfig.iconUrl.getValue(),
+            )
+        );
 
-            return await this.sendEmail(template, dto);
+        return await this.sendEmail(template, dto);
 
-        } catch (error) {
-            if (error instanceof DomainError) {
-                throw new BadRequestException(error.message);
-            }
-            throw new InternalServerErrorException(error.message);
-        }
     }
 
     async sendWelcomeEmail(dto: WelcomeEmailDto, lang: LanguageEnum): Promise<string> {
@@ -98,29 +90,22 @@ export class EmailNotificationService {
     }
 
     async sendTfaEmail(dto: TfaEmailDto, lang: LanguageEnum, ipClient: string): Promise<string> {
-        try {
 
-            const template = TemplateRenderer.create(
-                NotificationNameEnum.TFA,
-                lang,
-                TemplateEntityFactory.createTFA(
-                    dto.username,
-                    this.companyConfig.name.getValue(),
-                    this.companyConfig.websiteUrl.getValue(),
-                    this.companyConfig.iconUrl.getValue(),
-                    dto.code,
-                    dto.ttlFormatted,
-                    ipClient,
-                )
-            );
+        const template = TemplateRenderer.create(
+            NotificationNameEnum.TFA,
+            lang,
+            TemplateEntityFactory.createTFA(
+                dto.username,
+                this.companyConfig.name.getValue(),
+                this.companyConfig.websiteUrl.getValue(),
+                this.companyConfig.iconUrl.getValue(),
+                dto.code,
+                dto.ttlFormatted,
+                'ipClient',
+            )
+        );
 
-            return await this.sendEmail(template, dto);
+        return await this.sendEmail(template, dto);
 
-        } catch (error) {
-            if (error instanceof DomainError) {
-                throw new BadRequestException(error.message);
-            }
-            throw new InternalServerErrorException(error.message);
-        }
     }
 }
