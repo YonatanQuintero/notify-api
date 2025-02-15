@@ -8,6 +8,7 @@ import { EmailSenderDto } from "src/email/dtos/email-sender.dto";
 import { SmtpConfig } from "src/config/entities/smpt-config.entity";
 import { CompanyConfig } from "src/config/entities/company-config.entity";
 import { EmailSenderError } from "src/email/errors/email-sender.error";
+import { NodeMailerTransporterService } from "src/email/services/node-mailer-transporter.service";
 
 // Mock nodemailer's createTransport method
 jest.mock('nodemailer');
@@ -17,6 +18,7 @@ describe('NodeMailerService', () => {
     let i18nServiceMock: Partial<I18nService>;
     let configServiceMock: Partial<AbstractConfigService>;
     let templateRendererServiceMock: Partial<AbstractTemplateRendererService>;
+    let nodeMailerTransporterService: NodeMailerTransporterService;
     let transporterSendMailMock: jest.Mock;
 
     const fakeSmtpConfig: SmtpConfig = {
@@ -49,12 +51,16 @@ describe('NodeMailerService', () => {
             getCompanyConfig: jest.fn().mockReturnValue(fakeCompanyConfig)
         };
 
+        nodeMailerTransporterService = new NodeMailerTransporterService(
+            configServiceMock as AbstractConfigService
+        );
+
         templateRendererServiceMock = {
             render: jest.fn().mockResolvedValue('<html>Test Email</html>'),
         };
 
         nodeMailerService = new NodeMailerService(
-            configServiceMock as AbstractConfigService
+            nodeMailerTransporterService as NodeMailerTransporterService,
         );
     });
 

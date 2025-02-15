@@ -1,32 +1,22 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { AbstractEmailSenderService } from "../abstracts/email-sender.service.abstract";
-import { AbstractConfigService } from "src/config/abstracts/config.service.abstract";
 import * as nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
-import { SmtpConfig } from "src/config/entities/smpt-config.entity";
 import { EmailSenderDto } from "../dtos/email-sender.dto";
 import { EmailSenderError } from "../errors/email-sender.error";
+import { NodeMailerTransporterService } from "./node-mailer-transporter.service";
 
 @Injectable()
 export class NodeMailerService extends AbstractEmailSenderService {
 
     private readonly logger = new Logger(NodeMailerService.name);
     private readonly transporter: nodemailer.Transporter;
-    private readonly smtpConfig: SmtpConfig;
 
     constructor(
-        private readonly configService: AbstractConfigService,
+        private readonly transporterService: NodeMailerTransporterService,
     ) {
         super();
-        this.smtpConfig = this.configService.getSmtpConfig();
-        this.transporter = nodemailer.createTransport({
-            host: this.smtpConfig.host.getValue(),
-            port: this.smtpConfig.port.getValue(),
-            auth: {
-                user: this.smtpConfig.user.getValue(),
-                pass: this.smtpConfig.pass.getValue(),
-            },
-        });
+        this.transporter = this.transporterService.getTransporter();
     }
 
     private async buildEmail(emailSender: EmailSenderDto): Promise<Mail.Options> {

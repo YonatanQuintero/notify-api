@@ -6,6 +6,7 @@ import { TemplateRendererModule } from 'src/template-renderer/template-renderer.
 import { SendEmailQueue } from './queues/send-email.queue';
 import { SendEmailProcessor } from './processors/send-email.processor';
 import { SubjectService } from './services/subject.service';
+import { NodeMailerTransporterService } from './services/node-mailer-transporter.service';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { SubjectService } from './services/subject.service';
     SendEmailQueue,
     SendEmailProcessor,
     SubjectService,
+    NodeMailerTransporterService
   ],
   exports: [
     AbstractEmailSenderService,
