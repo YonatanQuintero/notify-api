@@ -3,17 +3,17 @@
         "is-string": "Username must be a string",
         "is-not-empty": "Username must not be empty"
     },
-    "recipients": {
-        "is-array": "Recipients must be an array",
-        "is-email": "Each value in recipients must be an email"
+    "to": {
+        "is-array": "To must be an array",
+        "is-email": "Each value in to must be an email"
     },
-    "carbon-copies": {
-        "is-array": "Carbon copies must be an array",
-        "is-email": "Each value in carbon copies must be an email"
+    "cc": {
+        "is-array": "CC must be an array",
+        "is-email": "Each value in CC must be an email"
     },
-    "blind-carbon-copies": {
-        "is-array": "Blind carbon copies must be an array",
-        "is-email": "Each value in blind carbon copies must be an email"
+    "bcc": {
+        "is-array": "BCC must be an array",
+        "is-email": "Each value in BCC must be an email"
     },
     "tfa-code": {
         "is-number": "Code must be a number",

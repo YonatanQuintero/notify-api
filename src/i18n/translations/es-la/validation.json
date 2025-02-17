@@ -1,28 +1,27 @@
 {
-    "username": {
-      "is-string": "El nombre de usuario debe ser una cadena de texto",
-      "is-not-empty": "El nombre de usuario no debe estar vacío"
-    },
-    "recipients": {
-      "is-array": "Los destinatarios deben ser un arreglo",
-      "is-email": "Cada valor en destinatarios debe ser un correo electrónico"
-    },
-    "carbon-copies": {
-      "is-array": "Las copias de carbón deben ser un arreglo",
-      "is-email": "Cada valor en copias de carbón debe ser un correo electrónico"
-    },
-    "blind-carbon-copies": {
-      "is-array": "Las copias ocultas deben ser un arreglo",
-      "is-email": "Cada valor en copias ocultas debe ser un correo electrónico"
-    },
-    "tfa-code": {
-      "is-number": "El código debe ser un número",
-      "min": "El código debe ser mayor o igual a 100000",
-      "max": "El código debe ser menor o igual a 999999"
-    },
-    "ttl-formatted": {
-      "is-string": "El TTL formateado debe ser una cadena de texto",
-      "is-not-empty": "El TTL formateado no debe estar vacío"
-    }
+  "username": {
+    "is-string": "El nombre de usuario debe ser una cadena de texto",
+    "is-not-empty": "El nombre de usuario no debe estar vacío"
+  },
+  "to": {
+    "is-array": "Los destinatarios (to) deben ser un arreglo",
+    "is-email": "Cada valor en destinatarios (to) debe ser un correo electrónico"
+  },
+  "cc": {
+    "is-array": "Las copias de carbón (cc) deben ser un arreglo",
+    "is-email": "Cada valor en copias de carbón (cc) debe ser un correo electrónico"
+  },
+  "bcc": {
+    "is-array": "Las copias ocultas (bcc) deben ser un arreglo",
+    "is-email": "Cada valor en copias ocultas (bcc) debe ser un correo electrónico"
+  },
+  "tfa-code": {
+    "is-number": "El código debe ser un número",
+    "min": "El código debe ser mayor o igual a 100000",
+    "max": "El código debe ser menor o igual a 999999"
+  },
+  "ttl-formatted": {
+    "is-string": "El tiempo de vivir (ttl) formateado  debe ser una cadena de texto",
+    "is-not-empty": "El tiempo de vivir (ttl) formateado no debe estar vacío"
   }
-  
+}

@@ -59,7 +59,7 @@ describe('EmailNotificationService', () => {
     it('should send a welcome email successfully and return job id as string', async () => {
         const dto: WelcomeEmailDto = {
             username: 'testuser',
-            recipients: ['recipient@example.com'],
+            to: ['recipient@example.com'],
         };
 
         // Prepare a fake template object with necessary value objects.

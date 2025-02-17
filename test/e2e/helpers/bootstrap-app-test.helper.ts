@@ -5,7 +5,9 @@ import { LanguageInterceptor } from "src/app/interceptors/language.interceptor";
 import { IPClientInterceptor } from "src/app/interceptors/ip-client.interceptor";
 import { AppModule } from "src/app/app.module";
 import { NodeMailerTransporterService } from "src/email/services/node-mailer-transporter.service";
-import { NodeMailerTransporterStubService } from "./services/node-mailer-transporter-stub.service";
+import { NodeMailerTransporterStubService } from "./services/node-mailer-transporter-stub.service.helper";
+import { SendEmailQueue } from "src/email/queues/send-email.queue";
+import { ImmediatelySendEmailQueue } from "./queues/immediately-send-email.queue.helper";
 
 export async function bootstrapAppTest(
     extraModules = [],
@@ -17,7 +19,10 @@ export async function bootstrapAppTest(
     })
         // Override NodeMailerTransporter to use a stub (stream transport) for tests.
         .overrideProvider(NodeMailerTransporterService)
-        .useValue(transporterStub).compile();
+        .useValue(transporterStub)
+        .overrideProvider(SendEmailQueue)
+        .useClass(ImmediatelySendEmailQueue)
+        .compile();
 
     const appTest = moduleFixture.createNestApplication();
 
