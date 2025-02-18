@@ -5,6 +5,7 @@ import { NodeMailerTransporterStubService } from "test/e2e/helpers/services/node
 import { LanguageEnum } from "src/config/enums/language.enum";
 import { EmailBaseDto } from "src/notification/dtos/email-base.dto";
 import { TfaEmailDto } from "src/notification/dtos/tfa-email.dto";
+import { NotificationNameEnum } from "src/notification/enums/notification-name.enum";
 
 describe("EmailNotificationController E2E Tests", () => {
 
@@ -32,19 +33,19 @@ describe("EmailNotificationController E2E Tests", () => {
         transporterStub.sentEmails = [];
     });
 
-    const generalTemplates = [
-        'welcome',
-        'recover-password-success',
-        'update-email',
-        'update-password',
+    const commonNotifications = [
+        NotificationNameEnum.WELCOME,
+        NotificationNameEnum.RECOVER_PASSWORD_SUCCESS,
+        NotificationNameEnum.UPDATE_EMAIL,
+        NotificationNameEnum.UPDATE_PASSWORD
     ]
     const languages = Object.values(LanguageEnum);
 
-    describe('Common Email Templates', () => {
-        generalTemplates.forEach(template => {
+    describe('Common Email Notifications', () => {
+        commonNotifications.forEach(notification => {
             languages.forEach(lang => {
-                it(`should send ${template} email successfully in ${lang}`, async () => {
-                    const url = `${baseUrl}/${template}`;
+                it(`should send ${notification} email successfully in ${lang}`, async () => {
+                    const url = `${baseUrl}/${notification}`;
                     const dto: EmailBaseDto = {
                         ...baseDto,
                         'cc': ['cc@example.com'],
@@ -83,7 +84,7 @@ describe("EmailNotificationController E2E Tests", () => {
         });
     });
 
-    describe('TFA Email Template', () => {
+    describe('TFA Email Notification', () => {
         languages.forEach(lang => {
             it(`should send TFA email successfully in ${lang}`, async () => {
                 const url = `${baseUrl}/tfa`;
@@ -133,7 +134,7 @@ describe("EmailNotificationController E2E Tests", () => {
                 .expect(HttpStatus.UNAUTHORIZED);
         });
 
-        it('should return bad request if to is missing', async () => {
+        it('should return 400 if to is missing', async () => {
             const url = `${baseUrl}/welcome`;
             const dto = {
                 username: 'Yonax73',
@@ -146,7 +147,7 @@ describe("EmailNotificationController E2E Tests", () => {
                 .expect(HttpStatus.BAD_REQUEST);
         });
 
-        it('should return bad request if to is a invalid email', async () => {
+        it('should return 400 if to is a invalid email', async () => {
             const url = `${baseUrl}/welcome`;
             const dto = baseDto;
             dto.to.push('invalid-email');
@@ -158,7 +159,7 @@ describe("EmailNotificationController E2E Tests", () => {
                 .expect(HttpStatus.BAD_REQUEST);
         });
 
-        it('should return bad request if username is missing', async () => {
+        it('should return 400 if username is missing', async () => {
             const url = `${baseUrl}/welcome`;
             const dto = {
                 to: ['yonax73@gmail.com'],

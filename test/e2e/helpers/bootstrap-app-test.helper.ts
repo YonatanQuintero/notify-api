@@ -11,7 +11,7 @@ import { ImmediatelySendEmailQueue } from "./queues/immediately-send-email.queue
 
 export async function bootstrapAppTest(
     extraModules = [],
-    transporterStub: NodeMailerTransporterStubService
+    transporterStub?: NodeMailerTransporterStubService
 ) {
 
     const envBackup: NodeJS.ProcessEnv = { ...process.env };

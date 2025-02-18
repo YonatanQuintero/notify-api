@@ -1,7 +1,8 @@
-import { EmailBaseDto } from './email-base.dto';
-import { IsNumber, IsString, IsNotEmpty, Min, Max } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, Max, Min } from "class-validator";
+import { ViewBaseTemplateDto } from "./view-base-template.dto";
 
-export class TfaEmailDto extends EmailBaseDto {
+export class ViewTfaTemplateDto extends ViewBaseTemplateDto {
+
     @IsNumber({
         maxDecimalPlaces: 0
     }, {
