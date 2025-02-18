@@ -5,11 +5,10 @@ import { NodeMailerTransporterStubService } from "test/e2e/helpers/services/node
 import { LanguageEnum } from "src/config/enums/language.enum";
 import { EmailBaseDto } from "src/notification/dtos/email-base.dto";
 import { TfaEmailDto } from "src/notification/dtos/tfa-email.dto";
-import { dot } from "node:test/reporters";
 
 describe("EmailNotificationController E2E Tests", () => {
 
-    const apiKey = 'b981937e5689a4596e1ae3c0f6d240af47f7d882f8ef2b97c3070495bb20f740';// load it from test enviroment or file. rename enviroments
+    const apiKey = 'a'.repeat(64);
     const baseUrl = '/api/v1/notifications/email';
     const baseDto: EmailBaseDto = {
         username: 'Yonax73',

@@ -14,6 +14,26 @@ export async function bootstrapAppTest(
     transporterStub: NodeMailerTransporterStubService
 ) {
 
+    const envBackup: NodeJS.ProcessEnv = { ...process.env };
+    process.env = {
+        PORT: '3000',
+        API_KEY: 'a'.repeat(64), // Minimum valid API key length
+        ENVIRONMENT: 'test',
+        DEFAULT_LANG: 'en-us',
+        SMTP_HOST: 'smtp.example.com',
+        SMTP_PORT: '587',
+        SMTP_USER: 'smtp@example.com',
+        SMTP_PASS: 'smtp-pass',
+        COMPANY_NAME: 'Example Company',
+        COMPANY_ICON_URL: 'https://example.com/icon.png',
+        COMPANY_WEBSITE_URL: 'https://example.com',
+        COMPANY_ADDRESS: '123 Example Street',
+        REDIS_URL: 'redis://localhost:6379/0',
+        REDIS_PORT: '6379',
+        REDIS_HOST: 'localhost',
+        REDIS_DB: '0'
+    };
+
     const moduleFixture = await Test.createTestingModule({
         imports: [AppModule, ...extraModules]
     })
@@ -40,6 +60,9 @@ export async function bootstrapAppTest(
     }));
 
     await appTest.init();
+
+    // Restore environment variables after tests.
+    process.env = envBackup;
 
     return appTest;
 }

@@ -12,7 +12,6 @@ export class EnvConfigService extends AbstractConfigService {
 
     getAppConfig(): AppConfig {
         try {
-
             return AppConfig.create(
                 Number(process.env.PORT),
                 process.env.API_KEY,
