@@ -13,7 +13,7 @@ describe('AppConfig', () => {
         port: 3000,
         apiKey: 'a'.repeat(64), // Minimum valid API key length
         environment: EnvironmentEnum.PRODUCTION,
-        defaultLang: LanguageEnum.EN_US
+        defaultLang: LanguageEnum.EN
     };
 
     it('should create an AppConfig instance with valid data', () => {
@@ -28,7 +28,7 @@ describe('AppConfig', () => {
         expect(appConfig.port).toBeInstanceOf(PortVO);
         expect(appConfig.apiKey).toBeInstanceOf(ApiKeyVO);
         expect(appConfig.environment.getValue()).toBe(EnvironmentEnum.PRODUCTION);
-        expect(appConfig.defaultLang.getValue()).toBe(LanguageEnum.EN_US);
+        expect(appConfig.defaultLang.getValue()).toBe(LanguageEnum.EN);
     });
 
     it('should throw an error if any required value is invalid (invalid port)', () => {

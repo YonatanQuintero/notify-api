@@ -5,14 +5,14 @@ import { InvalidLanguageError } from 'src/config/errors/invalid-language.error';
 
 describe('LanguageVO', () => {
     it('should create a LanguageVO for a valid language', () => {
-        const vo = LanguageVO.create(LanguageEnum.EN_US);
+        const vo = LanguageVO.create(LanguageEnum.EN);
         expect(vo).toBeInstanceOf(LanguageVO);
-        expect(vo.getValue()).toBe(LanguageEnum.EN_US);
+        expect(vo.getValue()).toBe(LanguageEnum.EN);
     });
 
     it('should trim whitespace around the language string', () => {
-        const vo = LanguageVO.create(`   ${LanguageEnum.ES_LA}   `);
-        expect(vo.getValue()).toBe(LanguageEnum.ES_LA);
+        const vo = LanguageVO.create(`   ${LanguageEnum.ES}   `);
+        expect(vo.getValue()).toBe(LanguageEnum.ES);
     });
 
     it('should throw an error if the language is not provided', () => {
@@ -28,14 +28,14 @@ describe('LanguageVO', () => {
     });
 
     it('should consider two LanguageVOs equal if they have the same value', () => {
-        const vo1 = LanguageVO.create(LanguageEnum.EN_US);
-        const vo2 = LanguageVO.create(LanguageEnum.EN_US);
+        const vo1 = LanguageVO.create(LanguageEnum.EN);
+        const vo2 = LanguageVO.create(LanguageEnum.EN);
         expect(vo1.equals(vo2)).toBe(true);
     });
 
     it('should consider two LanguageVOs not equal if they have different values', () => {
-        const vo1 = LanguageVO.create(LanguageEnum.EN_US);
-        const vo2 = LanguageVO.create(LanguageEnum.ES_LA);
+        const vo1 = LanguageVO.create(LanguageEnum.EN);
+        const vo2 = LanguageVO.create(LanguageEnum.ES);
         expect(vo1.equals(vo2)).toBe(false);
     });
 });

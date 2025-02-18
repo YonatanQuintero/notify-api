@@ -65,7 +65,7 @@ describe('EmailNotificationService', () => {
         // Prepare a fake template object with necessary value objects.
         const fakeTemplate = {
             name: { getValue: () => NotificationNameEnum.WELCOME },
-            language: { getValue: () => LanguageEnum.EN_US },
+            language: { getValue: () => LanguageEnum.EN },
         };
 
         // Spy on the static methods to control their outputs.
@@ -73,7 +73,7 @@ describe('EmailNotificationService', () => {
         jest.spyOn(TemplateEntityFactory, 'createBase').mockReturnValue({ dummy: 'data' } as any);
 
         // Act: Call sendWelcomeEmail.
-        const result = await service.sendWelcomeEmail(dto, LanguageEnum.EN_US);
+        const result = await service.sendWelcomeEmail(dto, LanguageEnum.EN);
 
         // Assert: Verify that template rendering, subject resolution, and queue submission occurred.
         expect(templateRendererServiceMock.render).toHaveBeenCalledWith(fakeTemplate);

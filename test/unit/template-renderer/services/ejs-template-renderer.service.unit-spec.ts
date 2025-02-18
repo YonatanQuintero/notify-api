@@ -37,7 +37,7 @@ describe('EJSTemplateRendererService', () => {
 
         const templateRenderer = TemplateRenderer.create(
             NotificationNameEnum.WELCOME,
-            LanguageEnum.EN_US,
+            LanguageEnum.EN,
             params
         );
 
@@ -51,7 +51,7 @@ describe('EJSTemplateRendererService', () => {
                 'src/template-renderer/templates/ejs/partials/base.layout.ejs',
             ),
             {
-                lang: 'en-us',
+                lang: 'en',
                 templateName: 'welcome',
                 username: 'JohnDoe',
                 companyName: 'Company Name',
@@ -81,7 +81,7 @@ describe('EJSTemplateRendererService', () => {
 
         const templateRenderer = TemplateRenderer.create(
             NotificationNameEnum.WELCOME,
-            LanguageEnum.EN_US,
+            LanguageEnum.EN,
             params
         );
 

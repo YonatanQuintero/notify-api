@@ -9,7 +9,7 @@ import { I18nDomainErrorFilter } from './i18n-domain-error.filter';
 @Module({
     imports: [
         I18nModule.forRoot({
-            fallbackLanguage: LanguageEnum.EN_US,
+            fallbackLanguage: LanguageEnum.EN,
             loader: I18nJsonLoader,
             loaderOptions: {
                 path: path.join(__dirname, '/translations'),

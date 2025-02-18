@@ -21,7 +21,7 @@ describe('SubjectService', () => {
 
     it('should return the subject using i18n.t with correct key and language', () => {
         const notificationName = NotificationNameEnum.WELCOME;
-        const language = LanguageEnum.EN_US;
+        const language = LanguageEnum.EN;
 
         const result = subjectService.getSubject(notificationName, language);
 

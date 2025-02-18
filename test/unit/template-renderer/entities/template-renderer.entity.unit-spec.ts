@@ -26,13 +26,13 @@ describe('TemplateRenderer', () => {
 
         const renderer = TemplateRenderer.create(
             'welcome',      // valid string in NotificationNameEnum
-            'en-us',        // valid string in LanguageEnum
+            'en',        // valid string in LanguageEnum
             params
         );
 
         expect(renderer).toBeInstanceOf(TemplateRenderer);
         expect(renderer.name.getValue()).toBe(NotificationNameEnum.WELCOME);
-        expect(renderer.language.getValue()).toBe(LanguageEnum.EN_US);
+        expect(renderer.language.getValue()).toBe(LanguageEnum.EN);
         expect(renderer.params).toEqual(params.toObject());
     });
 
@@ -40,18 +40,18 @@ describe('TemplateRenderer', () => {
 
         const renderer = TemplateRenderer.create(
             NotificationNameEnum.RECOVER_PASSWORD_SUCCESS, // direct enum
-            LanguageEnum.ES_LA,                        // direct enum
+            LanguageEnum.ES,                        // direct enum
             params
         );
 
         expect(renderer).toBeInstanceOf(TemplateRenderer);
         expect(renderer.name.getValue()).toBe(NotificationNameEnum.RECOVER_PASSWORD_SUCCESS);
-        expect(renderer.language.getValue()).toBe(LanguageEnum.ES_LA);
+        expect(renderer.language.getValue()).toBe(LanguageEnum.ES);
     });
 
     it('should throw ValueRequiredError if name is missing', () => {
         expect(() =>
-            TemplateRenderer.create(undefined as any, LanguageEnum.EN_US, params)
+            TemplateRenderer.create(undefined as any, LanguageEnum.EN, params)
         ).toThrow(ValueRequiredError);
     });
 
@@ -63,7 +63,7 @@ describe('TemplateRenderer', () => {
 
     it('should throw InvalidTemplateNameError if name is invalid', () => {
         expect(() =>
-            TemplateRenderer.create('INVALID_NAME', LanguageEnum.EN_US, params)
+            TemplateRenderer.create('INVALID_NAME', LanguageEnum.EN, params)
         ).toThrow(InvalidNotificationNameError);
     });
 
@@ -75,7 +75,7 @@ describe('TemplateRenderer', () => {
 
     it('should throw InvalidTemplateBase if params are undefined', () => {
         expect(() =>
-            TemplateRenderer.create(NotificationNameEnum.WELCOME, LanguageEnum.EN_US, undefined as any)
+            TemplateRenderer.create(NotificationNameEnum.WELCOME, LanguageEnum.EN, undefined as any)
         ).toThrow(InvalidTemplateBaseError);
     });
 });

@@ -23,7 +23,7 @@ describe('EnvConfigService', () => {
             PORT: '3000',
             API_KEY: 'a'.repeat(64), // Minimum valid API key length
             ENVIRONMENT: 'production',
-            DEFAULT_LANG: 'en-us',
+            DEFAULT_LANG: 'en',
             SMTP_HOST: 'smtp.example.com',
             SMTP_PORT: '587',
             SMTP_USER: 'smtp-user',
@@ -52,7 +52,7 @@ describe('EnvConfigService', () => {
         expect(appConfig.port.getValue()).toBe(3000);
         expect(appConfig.apiKey.getValue()).toBe('a'.repeat(64));
         expect(appConfig.environment.getValue()).toBe('production');
-        expect(appConfig.defaultLang.getValue()).toBe('en-us');
+        expect(appConfig.defaultLang.getValue()).toBe('en');
     });
 
     it('should throw an error if PORT is invalid', () => {

@@ -19,7 +19,7 @@ export async function bootstrapAppTest(
         PORT: '3000',
         API_KEY: 'a'.repeat(64), // Minimum valid API key length
         ENVIRONMENT: 'test',
-        DEFAULT_LANG: 'en-us',
+        DEFAULT_LANG: 'en',
         SMTP_HOST: 'smtp.example.com',
         SMTP_PORT: '587',
         SMTP_USER: 'smtp@example.com',
