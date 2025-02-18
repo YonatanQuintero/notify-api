@@ -25,7 +25,7 @@ export async function bootstrapAppTest(
         SMTP_USER: 'smtp@example.com',
         SMTP_PASS: 'smtp-pass',
         COMPANY_NAME: 'Example Company',
-        COMPANY_ICON_URL: 'https://example.com/icon.png',
+        COMPANY_ICON_URL: 'https://robohash.org/yonax-73',
         COMPANY_WEBSITE_URL: 'https://example.com',
         COMPANY_ADDRESS: '123 Example Street',
         REDIS_URL: 'redis://localhost:6379/0',
