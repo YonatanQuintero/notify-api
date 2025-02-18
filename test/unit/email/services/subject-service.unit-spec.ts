@@ -1,7 +1,7 @@
 import { I18nService } from 'nestjs-i18n';
 import { LanguageEnum } from 'src/config/enums/language.enum';
 import { SubjectService } from 'src/email/services/subject.service';
-import { NotificationNameEnum } from 'src/notification/enums/notification-name.enum';
+import { TemplateNameEnum } from 'src/template-renderer/enum/template-name.enum';
 
 describe('SubjectService', () => {
     let subjectService: SubjectService;
@@ -20,7 +20,7 @@ describe('SubjectService', () => {
     });
 
     it('should return the subject using i18n.t with correct key and language', () => {
-        const notificationName = NotificationNameEnum.WELCOME;
+        const notificationName = TemplateNameEnum.WELCOME;
         const language = LanguageEnum.EN;
 
         const result = subjectService.getSubject(notificationName, language);

@@ -2,11 +2,11 @@ import { ValueRequiredError } from "src/app/errors/value-required.error";
 import { LanguageEnum } from "src/config/enums/language.enum";
 import { InvalidLanguageError } from "src/config/errors/invalid-language.error";
 import { TemplateRenderer } from "src/template-renderer/entities/template-renderer.entity";
-import { NotificationNameEnum } from "src/notification/enums/notification-name.enum";
-import { InvalidNotificationNameError } from "src/notification/errors/invalid-notification-name.error";
 import { TemplateEntityFactory } from "src/template-renderer/factories/template-entity.factory";
 import { TemplateBase } from "src/template-renderer/entities/template-base.entity";
 import { InvalidTemplateBaseError } from "src/template-renderer/errors/invalid-template-base.error";
+import { TemplateNameEnum } from "src/template-renderer/enum/template-name.enum";
+import { InvalidTemplateNameError } from "src/template-renderer/errors/invalid-template-name.error";
 
 describe('TemplateRenderer', () => {
 
@@ -23,15 +23,14 @@ describe('TemplateRenderer', () => {
 
     it('should create a TemplateRenderer with valid string name and language', () => {
 
-
         const renderer = TemplateRenderer.create(
-            'welcome',      // valid string in NotificationNameEnum
+            'welcome',      // valid string in TemplateNameEnum
             'en',        // valid string in LanguageEnum
             params
         );
 
         expect(renderer).toBeInstanceOf(TemplateRenderer);
-        expect(renderer.name.getValue()).toBe(NotificationNameEnum.WELCOME);
+        expect(renderer.name.getValue()).toBe(TemplateNameEnum.WELCOME);
         expect(renderer.language.getValue()).toBe(LanguageEnum.EN);
         expect(renderer.params).toEqual(params.toObject());
     });
@@ -39,13 +38,13 @@ describe('TemplateRenderer', () => {
     it('should create a TemplateRenderer with enum values for name and language', () => {
 
         const renderer = TemplateRenderer.create(
-            NotificationNameEnum.RECOVER_PASSWORD_SUCCESS, // direct enum
+            TemplateNameEnum.RECOVER_PASSWORD_SUCCESS, // direct enum
             LanguageEnum.ES,                        // direct enum
             params
         );
 
         expect(renderer).toBeInstanceOf(TemplateRenderer);
-        expect(renderer.name.getValue()).toBe(NotificationNameEnum.RECOVER_PASSWORD_SUCCESS);
+        expect(renderer.name.getValue()).toBe(TemplateNameEnum.RECOVER_PASSWORD_SUCCESS);
         expect(renderer.language.getValue()).toBe(LanguageEnum.ES);
     });
 
@@ -57,25 +56,25 @@ describe('TemplateRenderer', () => {
 
     it('should throw ValueRequiredError if language is missing', () => {
         expect(() =>
-            TemplateRenderer.create(NotificationNameEnum.WELCOME, undefined as any, params)
+            TemplateRenderer.create(TemplateNameEnum.WELCOME, undefined as any, params)
         ).toThrow(ValueRequiredError);
     });
 
     it('should throw InvalidTemplateNameError if name is invalid', () => {
         expect(() =>
             TemplateRenderer.create('INVALID_NAME', LanguageEnum.EN, params)
-        ).toThrow(InvalidNotificationNameError);
+        ).toThrow(InvalidTemplateNameError);
     });
 
     it('should throw an error if language is invalid', () => {
         expect(() =>
-            TemplateRenderer.create(NotificationNameEnum.WELCOME, 'invalid-lang', params)
+            TemplateRenderer.create(TemplateNameEnum.WELCOME, 'invalid-lang', params)
         ).toThrow(InvalidLanguageError);
     });
 
     it('should throw InvalidTemplateBase if params are undefined', () => {
         expect(() =>
-            TemplateRenderer.create(NotificationNameEnum.WELCOME, LanguageEnum.EN, undefined as any)
+            TemplateRenderer.create(TemplateNameEnum.WELCOME, LanguageEnum.EN, undefined as any)
         ).toThrow(InvalidTemplateBaseError);
     });
 });

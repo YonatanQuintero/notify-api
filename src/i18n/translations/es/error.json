@@ -14,5 +14,6 @@
     "queue-service-error": "Error en el servicio de cola: {message}",
     "invalid-template-base": "Debe ser una instancia de TemplateBase",
     "invalid-tfa-code": "Código TFA inválido \"{code}\". Debe ser un número de 6 dígitos",
-    "email-sender-error": "Error enviando correo electrónico: {message}"
+    "email-sender-error": "Error enviando correo electrónico: {message}",
+    "invalid-template-name": "Nombre de plantilla inválido \"{name}\". Valores permitidos: {allowedNames}"
 }

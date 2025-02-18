@@ -14,5 +14,6 @@
     "queue-service-error": "Error on queue service: {message}",
     "invalid-template-base": "Must be a instance of TemplateBase",
     "invalid-tfa-code": "Invalid TFA code \"{code}\". Must be a 6-digit number",
-    "email-sender-error": "Error sending email: {message}"
+    "email-sender-error": "Error sending email: {message}",
+    "invalid-template-name": "Invalid template name \"{name}\". Allowed values are: {allowedNames}"
 }
