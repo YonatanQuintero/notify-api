@@ -4,6 +4,7 @@ import { AbstractConfigService } from './config/abstracts/config.service.abstrac
 import { LanguageInterceptor } from './app/interceptors/language.interceptor';
 import { IPClientInterceptor } from './app/interceptors/ip-client.interceptor';
 import { AppModule } from './app/app.module';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -22,6 +23,14 @@ async function bootstrap() {
       enableImplicitConversion: true,
     }
   }));
+
+  const config = new DocumentBuilder()
+    .setTitle('Notify API')
+    .setDescription('Notification API for sending emails.')
+    .setVersion('1.0')
+    .build();
+  const documentFactory = () => SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, documentFactory);
 
   await app.listen(port.getValue(), () => {
     Logger.log(`Application is running on: http://localhost:${port.getValue()}`, 'Bootstrap');

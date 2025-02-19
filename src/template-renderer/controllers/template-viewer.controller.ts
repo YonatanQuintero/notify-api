@@ -1,4 +1,6 @@
-import { Controller, Get, HttpCode, HttpStatus, Post, Query, Req } from "@nestjs/common";
+import { Controller, Get, HttpCode, HttpStatus, Query } from "@nestjs/common";
+import { ApiHeader, ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
+
 import { AbstractTemplateRendererService } from "../abstracts/template-renderer.service.abstract";
 import { TemplateRenderer } from "../entities/template-renderer.entity";
 import { TemplateNameEnum } from "../enum/template-name.enum";
@@ -15,9 +17,17 @@ import { ViewBaseTemplateDto } from "../dtos/view-base-template.dto";
 import { ViewUpdateEmailTemplateDto } from "../dtos/view-update-email-template.dto";
 import { ViewUpdatePasswordTemplateDto } from "../dtos/view-update-password-template.dto";
 
+@ApiTags('Templates')
+@ApiHeader({
+    name: 'x-language',
+    description: 'Specify the language of the email (en or es), default is en',
+})
+@ApiHeader({
+    name: 'x-api-key',
+    description: 'Specify the API key',
+})
 @Controller('api/v1/templates/viewer')
 export class TemplateViewerController {
-
     private companyConfig: CompanyConfig;
 
     constructor(
@@ -47,6 +57,11 @@ export class TemplateViewerController {
 
     @Get("welcome")
     @HttpCode(HttpStatus.OK)
+    @ApiOperation({ summary: 'Render the Welcome Email Template' })
+    @ApiResponse({ status: 200, description: 'Welcome email rendered successfully', type: String })
+    @ApiResponse({ status: 400, description: 'Bad Request: One or more required fields are missing or invalid.' })
+    @ApiResponse({ status: 401, description: 'Unauthorized: API key is missing or invalid.' })
+    @ApiResponse({ status: 500, description: 'Internal Server Error: An unexpected error occurred on the server.' })
     async viewWelcomeTemplate(
         @Query() dto: ViewWelcomeTemplateDto,
         @Language() lang: LanguageEnum,
@@ -56,6 +71,11 @@ export class TemplateViewerController {
 
     @Get("recover-password-success")
     @HttpCode(HttpStatus.OK)
+    @ApiOperation({ summary: 'Render the Recover Password Success Email Template' })
+    @ApiResponse({ status: 200, description: 'Password recovery success email rendered successfully', type: String })
+    @ApiResponse({ status: 400, description: 'Bad Request: One or more required fields are missing or invalid.' })
+    @ApiResponse({ status: 401, description: 'Unauthorized: API key is missing or invalid.' })
+    @ApiResponse({ status: 500, description: 'Internal Server Error: An unexpected error occurred on the server.' })
     async viewRecoverPasswordSuccessTemplate(
         @Query() dto: ViewRecoverPasswordSuccessTemplateDto,
         @Language() lang: LanguageEnum,
@@ -65,6 +85,11 @@ export class TemplateViewerController {
 
     @Get("update-email")
     @HttpCode(HttpStatus.OK)
+    @ApiOperation({ summary: 'Render the Update Email Template' })
+    @ApiResponse({ status: 200, description: 'Update email rendered successfully', type: String })
+    @ApiResponse({ status: 400, description: 'Bad Request: One or more required fields are missing or invalid.' })
+    @ApiResponse({ status: 401, description: 'Unauthorized: API key is missing or invalid.' })
+    @ApiResponse({ status: 500, description: 'Internal Server Error: An unexpected error occurred on the server.' })
     async viewUpdateEmailTemplate(
         @Query() dto: ViewUpdateEmailTemplateDto,
         @Language() lang: LanguageEnum,
@@ -74,6 +99,11 @@ export class TemplateViewerController {
 
     @Get("update-password")
     @HttpCode(HttpStatus.OK)
+    @ApiOperation({ summary: 'Render the Update Password Template' })
+    @ApiResponse({ status: 200, description: 'Update password email rendered successfully', type: String })
+    @ApiResponse({ status: 400, description: 'Bad Request: One or more required fields are missing or invalid.' })
+    @ApiResponse({ status: 401, description: 'Unauthorized: API key is missing or invalid.' })
+    @ApiResponse({ status: 500, description: 'Internal Server Error: An unexpected error occurred on the server.' })
     async viewUpdatePasswordTemplate(
         @Query() dto: ViewUpdatePasswordTemplateDto,
         @Language() lang: LanguageEnum,
@@ -83,6 +113,11 @@ export class TemplateViewerController {
 
     @Get("tfa")
     @HttpCode(HttpStatus.OK)
+    @ApiOperation({ summary: 'Render the Two-Factor Authentication (TFA) Template' })
+    @ApiResponse({ status: 200, description: 'TFA email rendered successfully', type: String })
+    @ApiResponse({ status: 400, description: 'Bad Request: One or more required fields are missing or invalid.' })
+    @ApiResponse({ status: 401, description: 'Unauthorized: API key is missing or invalid.' })
+    @ApiResponse({ status: 500, description: 'Internal Server Error: An unexpected error occurred on the server.' })
     async viewTfaTemplate(
         @Query() dto: ViewTfaTemplateDto,
         @Language() lang: LanguageEnum,
@@ -103,5 +138,4 @@ export class TemplateViewerController {
         );
         return await this.templateRendererService.render(template);
     }
-
 }
