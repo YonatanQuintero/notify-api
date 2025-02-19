@@ -147,7 +147,7 @@ The service uses SMTP to send emails. Configure your SMTP details in the `.env` 
 - **SMTP_USER:** Your SMTP username.
 - **SMTP_PASS:** Your SMTP password.
 
-Emails are templated using EJS with HTML templates stored in the `templates/` directory. The email sending process includes a retry mechanism for handling transient errors.
+Emails are templated using EJS with HTML templates stored in the `template-renderer/templates/` directory. The email sending process includes a retry mechanism for handling transient errors.
 
 ## Internationalization (i18n)
 
@@ -237,8 +237,8 @@ When you're ready to deploy:
 ## Resources & Support
 
 - **NestJS Documentation:** [NestJS Docs](https://docs.nestjs.com)
-- **Contact me at:** yonax73@gmail.com
+- **Stay in Touch with Me:** [yonax73](https://t.me/yonax73)
 
 ## License
 
-Notify API is released under the [MIT License](LICENSE).
+Notify API is released under the [MIT License](LICENSE.txt).
