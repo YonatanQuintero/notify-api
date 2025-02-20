@@ -74,10 +74,17 @@ describe("TemplateViewController E2E", () => {
 
     describe("Error Handling", () => {
         it("should return 401 x-api-key is invalid", async () => {
-            const url = `${baseUrl}/tfa`;
+            const url = `${baseUrl}/welcome`;
             await request(app.getHttpServer())
                 .get(url)
-                .set('x-api-key', 'invalid-api-key')
+                .set('x-api-key', 'x'.repeat(64))
+                .expect(HttpStatus.UNAUTHORIZED);
+        });
+
+        it("should return 401 if x-api-key is missing", async () => {
+            const url = `${baseUrl}/welcome`;
+            await request(app.getHttpServer())
+                .get(url)
                 .expect(HttpStatus.UNAUTHORIZED);
         });
 
