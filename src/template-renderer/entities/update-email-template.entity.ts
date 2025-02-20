@@ -1,3 +1,3 @@
-import { TemplateBase } from "./template-base.entity";
+import { TemplateBase } from './template-base.entity'
 
 export class UpdateEmailTemplate extends TemplateBase { }

@@ -1,25 +1,26 @@
-import { InvalidUrlError } from '../errors/invalid-url.error';
-import { ValueRequiredError } from '../errors/value-required.error';
-import { ValueObject } from '../primitives/value-object';
+import { InvalidUrlError } from '../errors/invalid-url.error'
+import { ValueRequiredError } from '../errors/value-required.error'
+import { ValueObject } from '../primitives/value-object'
 
 export class UrlVO extends ValueObject {
-  private constructor(private readonly value: string) {
-    super();
+  private constructor (private readonly value: string) {
+    super()
   }
 
-  static create(url?: string): UrlVO {
-    if (!url) {
-      throw new ValueRequiredError('Url');
+  static create (url?: string): UrlVO {
+    if (url == null) {
+      throw new ValueRequiredError('Url')
     }
+    let parsedUrl: URL
     try {
-      new URL(url);
+      parsedUrl = new URL(url)
     } catch {
-      throw new InvalidUrlError(url);
+      throw new InvalidUrlError(url)
     }
-    return new UrlVO(url.trim().toLowerCase());
+    return new UrlVO(parsedUrl.href.toLowerCase())
   }
 
-  getValue(): string {
-    return this.value;
+  getValue (): string {
+    return this.value
   }
 }

@@ -12,7 +12,8 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "lint": "ts-standard",
+    "lint:fix": "ts-standard --fix",
     "test:unit": "jest --config ./test/unit/jest-unit.json",
     "test:e2e": "jest --config ./test/e2e/jest-e2e.json",
     "test": "npm run test:unit && npm run test:e2e",
@@ -58,6 +59,7 @@
     "ts-jest": "^29.2.5",
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
+    "ts-standard": "^12.0.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3"
   },

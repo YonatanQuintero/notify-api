@@ -3,4 +3,4 @@ export enum EnvironmentEnum {
   STAGING = 'staging',
   PRODUCTION = 'production',
   TEST = 'test'
-}  
+}

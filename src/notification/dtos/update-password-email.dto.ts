@@ -1,4 +1,4 @@
-import { EmailBaseDto } from './email-base.dto';
+import { EmailBaseDto } from './email-base.dto'
 
 export class UpdatePasswordDto extends EmailBaseDto {
 }
