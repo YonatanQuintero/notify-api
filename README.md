@@ -206,15 +206,25 @@ Run tests to ensure everything is functioning correctly:
   ```bash
   npm run test:unit
   ```
-
 - **End-to-End Tests:**  
   ```bash
   npm run test:e2e
   ```
-
-- **Test Coverage:**  
+- **All Tests:**  
+  ```bash
+  npm run test
+  ```
+- **Unit Test Coverage:**  
   ```bash
   npm run test:cov:unit
+  ```
+- **End-to-End Test Coverage:**  
+  ```bash
+  npm run test:cov:e2e
+  ```
+- **All Tests Coverage:**  
+  ```bash
+  npm run test:cov
   ```
 
 ## Deployment
