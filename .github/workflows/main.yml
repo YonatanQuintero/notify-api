@@ -1,0 +1,22 @@
+name: CI Testing
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  install-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.11.0
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests
+        run: npm run test
