@@ -44,12 +44,12 @@ describe('ApiKeyGuard', () => {
 
   it('should throw UnauthorizedException when the provided API key does NOT equal the configured API key', () => {
     const headerApiKey = 'invalid-api-key'
-    // Simula que ApiKeyVO.create retorna un objeto cuyo método equals() devuelve false.
+    // Simulate ApiKeyVO.create returning an object whose equals() method returns false.
     const fakeApiKey = { equals: jest.fn().mockReturnValue(false) }
     jest.spyOn(ApiKeyVO, 'create').mockReturnValue(fakeApiKey as any)
 
     const context = createMockExecutionContext({ 'x-api-key': headerApiKey })
-    expect(async () => await guard.canActivate(context)).toThrow(UnauthorizedException)
+    expect(() => guard.canActivate(context)).toThrow(UnauthorizedException)
     expect(ApiKeyVO.create).toHaveBeenCalledWith(headerApiKey)
     expect(fakeApiKey.equals).toHaveBeenCalledWith(fakeAppConfig.apiKey)
   })
@@ -61,6 +61,6 @@ describe('ApiKeyGuard', () => {
     })
 
     const context = createMockExecutionContext({}) // No x-api-key header provided.
-    expect(async () => await guard.canActivate(context)).toThrow(UnauthorizedException)
+    expect(() => guard.canActivate(context)).toThrow(UnauthorizedException)
   })
 })

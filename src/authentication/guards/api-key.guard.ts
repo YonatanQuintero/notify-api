@@ -1,5 +1,4 @@
 import { Injectable, CanActivate, ExecutionContext, Logger, UnauthorizedException } from '@nestjs/common'
-import { Observable } from 'rxjs'
 import { AbstractConfigService } from 'src/config/abstracts/config.service.abstract'
 import { ApiKeyVO } from 'src/config/value-objects/api-key.vo'
 
@@ -12,7 +11,7 @@ export class ApiKeyGuard implements CanActivate {
     this.appConfig = this.configService.getAppConfig()
   }
 
-  canActivate (context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
+  canActivate (context: ExecutionContext): boolean {
     try {
       const request = context.switchToHttp().getRequest()
       const apiKey = ApiKeyVO.create(request.headers['x-api-key'])
