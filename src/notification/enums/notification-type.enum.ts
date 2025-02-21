@@ -1,5 +1,5 @@
 export enum NotificationTypeEnum {
-    EMAIL = 'email',
-    SMS = 'sms',
-    TELEGRAM = 'telegram'
+  EMAIL = 'email',
+  SMS = 'sms',
+  TELEGRAM = 'telegram'
 }

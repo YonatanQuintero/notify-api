@@ -1,12 +1,12 @@
-import { Module } from '@nestjs/common';
-import { AbstractEmailSenderService } from './abstracts/email-sender.service.abstract';
-import { NodeMailerService } from './services/node-mailer.service';
-import { I18nAppModule } from 'src/i18n/i18n.module';
-import { TemplateRendererModule } from 'src/template-renderer/template-renderer.module';
-import { SendEmailQueue } from './queues/send-email.queue';
-import { SendEmailProcessor } from './processors/send-email.processor';
-import { SubjectService } from './services/subject.service';
-import { NodeMailerTransporterService } from './services/node-mailer-transporter.service';
+import { Module } from '@nestjs/common'
+import { AbstractEmailSenderService } from './abstracts/email-sender.service.abstract'
+import { NodeMailerService } from './services/node-mailer.service'
+import { I18nAppModule } from 'src/i18n/i18n.module'
+import { TemplateRendererModule } from 'src/template-renderer/template-renderer.module'
+import { SendEmailQueue } from './queues/send-email.queue'
+import { SendEmailProcessor } from './processors/send-email.processor'
+import { SubjectService } from './services/subject.service'
+import { NodeMailerTransporterService } from './services/node-mailer-transporter.service'
 
 @Module({
   imports: [
@@ -15,18 +15,18 @@ import { NodeMailerTransporterService } from './services/node-mailer-transporter
   ],
   providers: [{
     provide: AbstractEmailSenderService,
-    useClass: NodeMailerService,
+    useClass: NodeMailerService
   },
-    SendEmailQueue,
-    SendEmailProcessor,
-    SubjectService,
-    NodeMailerTransporterService
+  SendEmailQueue,
+  SendEmailProcessor,
+  SubjectService,
+  NodeMailerTransporterService
   ],
   exports: [
     AbstractEmailSenderService,
     SendEmailQueue,
     SendEmailProcessor,
-    SubjectService,
-  ],
+    SubjectService
+  ]
 })
 export class EmailModule { }

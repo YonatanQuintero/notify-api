@@ -1,4 +1,4 @@
 export enum AuthenticationType {
-    ApiKey,
-    None
+  ApiKey,
+  None
 }

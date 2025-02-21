@@ -1,10 +1,10 @@
-import { DomainError } from "../../app/primitives/domain-error";
+import { DomainError } from '../../app/primitives/domain-error'
 
 export class InvalidEnvironmentError extends DomainError {
-    constructor(env: string, allowedEnvs: string) {
-        super(
-            'invalid-environment',
+  constructor (env: string, allowedEnvs: string) {
+    super(
+      'invalid-environment',
             `Invalid environment "${env}". Allowed values are: ${allowedEnvs}`,
-            { env, allowedEnvs });
-    }
+            { env, allowedEnvs })
+  }
 }
