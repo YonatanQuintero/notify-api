@@ -49,7 +49,7 @@ describe('ApiKeyGuard', () => {
     jest.spyOn(ApiKeyVO, 'create').mockReturnValue(fakeApiKey as any)
 
     const context = createMockExecutionContext({ 'x-api-key': headerApiKey })
-    expect(() => guard.canActivate(context)).toThrow(UnauthorizedException)
+    expect(async () => await guard.canActivate(context)).toThrow(UnauthorizedException)
     expect(ApiKeyVO.create).toHaveBeenCalledWith(headerApiKey)
     expect(fakeApiKey.equals).toHaveBeenCalledWith(fakeAppConfig.apiKey)
   })
@@ -61,6 +61,6 @@ describe('ApiKeyGuard', () => {
     })
 
     const context = createMockExecutionContext({}) // No x-api-key header provided.
-    expect(() => guard.canActivate(context)).toThrow(UnauthorizedException)
+    expect(async () => await guard.canActivate(context)).toThrow(UnauthorizedException)
   })
 })

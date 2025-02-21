@@ -30,14 +30,14 @@ import { createBase, createTFA } from '../factories/template-entity.factory'
 export class TemplateViewerController {
   private readonly companyConfig: CompanyConfig
 
-  constructor(
+  constructor (
     private readonly templateRendererService: AbstractTemplateRendererService,
     private readonly configService: AbstractConfigService
   ) {
     this.companyConfig = this.configService.getCompanyConfig()
   }
 
-  private async viewBaseTemplate(
+  private async viewBaseTemplate (
     dto: ViewBaseTemplateDto,
     lang: LanguageEnum,
     name: TemplateNameEnum
@@ -62,9 +62,9 @@ export class TemplateViewerController {
   @ApiResponse({ status: 400, description: 'Bad Request: One or more required fields are missing or invalid.' })
   @ApiResponse({ status: 401, description: 'Unauthorized: API key is missing or invalid.' })
   @ApiResponse({ status: 500, description: 'Internal Server Error: An unexpected error occurred on the server.' })
-  async viewWelcomeTemplate(
+  async viewWelcomeTemplate (
     @Query() dto: ViewWelcomeTemplateDto,
-    @Language() lang: LanguageEnum
+      @Language() lang: LanguageEnum
   ): Promise<string> {
     return await this.viewBaseTemplate(dto, lang, TemplateNameEnum.WELCOME)
   }
@@ -76,9 +76,9 @@ export class TemplateViewerController {
   @ApiResponse({ status: 400, description: 'Bad Request: One or more required fields are missing or invalid.' })
   @ApiResponse({ status: 401, description: 'Unauthorized: API key is missing or invalid.' })
   @ApiResponse({ status: 500, description: 'Internal Server Error: An unexpected error occurred on the server.' })
-  async viewRecoverPasswordSuccessTemplate(
+  async viewRecoverPasswordSuccessTemplate (
     @Query() dto: ViewRecoverPasswordSuccessTemplateDto,
-    @Language() lang: LanguageEnum
+      @Language() lang: LanguageEnum
   ): Promise<string> {
     return await this.viewBaseTemplate(dto, lang, TemplateNameEnum.RECOVER_PASSWORD_SUCCESS)
   }
@@ -90,9 +90,9 @@ export class TemplateViewerController {
   @ApiResponse({ status: 400, description: 'Bad Request: One or more required fields are missing or invalid.' })
   @ApiResponse({ status: 401, description: 'Unauthorized: API key is missing or invalid.' })
   @ApiResponse({ status: 500, description: 'Internal Server Error: An unexpected error occurred on the server.' })
-  async viewUpdateEmailTemplate(
+  async viewUpdateEmailTemplate (
     @Query() dto: ViewUpdateEmailTemplateDto,
-    @Language() lang: LanguageEnum
+      @Language() lang: LanguageEnum
   ): Promise<string> {
     return await this.viewBaseTemplate(dto, lang, TemplateNameEnum.UPDATE_EMAIL)
   }
@@ -104,9 +104,9 @@ export class TemplateViewerController {
   @ApiResponse({ status: 400, description: 'Bad Request: One or more required fields are missing or invalid.' })
   @ApiResponse({ status: 401, description: 'Unauthorized: API key is missing or invalid.' })
   @ApiResponse({ status: 500, description: 'Internal Server Error: An unexpected error occurred on the server.' })
-  async viewUpdatePasswordTemplate(
+  async viewUpdatePasswordTemplate (
     @Query() dto: ViewUpdatePasswordTemplateDto,
-    @Language() lang: LanguageEnum
+      @Language() lang: LanguageEnum
   ): Promise<string> {
     return await this.viewBaseTemplate(dto, lang, TemplateNameEnum.UPDATE_PASSWORD)
   }
@@ -118,10 +118,10 @@ export class TemplateViewerController {
   @ApiResponse({ status: 400, description: 'Bad Request: One or more required fields are missing or invalid.' })
   @ApiResponse({ status: 401, description: 'Unauthorized: API key is missing or invalid.' })
   @ApiResponse({ status: 500, description: 'Internal Server Error: An unexpected error occurred on the server.' })
-  async viewTfaTemplate(
+  async viewTfaTemplate (
     @Query() dto: ViewTfaTemplateDto,
-    @Language() lang: LanguageEnum,
-    @IPClient() ipClient: string
+      @Language() lang: LanguageEnum,
+      @IPClient() ipClient: string
   ): Promise<string> {
     const template = TemplateRenderer.create(
       TemplateNameEnum.TFA,
