@@ -2,19 +2,15 @@
   <a href="https://x.com/yonax73" target="blank"><img src="https://api.dicebear.com/9.x/bottts/svg?seed=notify-API" width="90" alt="avatar" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
   <p align="center">A flexible and extensible Notification REST API built with NestJS.</p>
     <p align="center">
     <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-    <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+        <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+    <a href="https://github.com/standard/ts-standard"><img src="https://badgen.net/badge/code%20style/ts-standard/blue?icon=typescript" alt="Code Style: ts-standard"></a>
+    <a href="https://github.com/YonatanQuintero/notify-api/actions/workflows/main.yml"><img src="https://github.com/YonatanQuintero/notify-api/actions/workflows/main.yml/badge.svg" alt="Actions: CI Testing"></a>
     <a href="https://www.paypal.com/paypalme/yonax73" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
     <a href="https://x.com/yonax73" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
 
 # Notify API
 
