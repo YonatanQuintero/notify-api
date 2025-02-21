@@ -1,4 +1,4 @@
-import Bull, { Queue } from 'bull'
+import { Queue } from 'bull'
 import { AbstractQueue } from 'src/queue/abstracts/queue.abstract'
 import { QueueServiceError } from 'src/queue/errors/queue-service.error'
 

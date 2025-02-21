@@ -18,7 +18,6 @@ describe('EmailRecipientList', () => {
   })
 
   it('should throw InvalidEmailRecipientListError when rawEmails is undefined', () => {
-    // @ts-expect-error: Intentional incorrect usage for testing
     expect(() => {
       EmailRecipientList.create(undefined)
     }).toThrow(InvalidEmailRecipientListError)

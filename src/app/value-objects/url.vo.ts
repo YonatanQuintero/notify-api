@@ -1,6 +1,7 @@
 import { InvalidUrlError } from '../errors/invalid-url.error'
 import { ValueRequiredError } from '../errors/value-required.error'
 import { ValueObject } from '../primitives/value-object'
+import validator from 'validator'
 
 export class UrlVO extends ValueObject {
   private constructor (private readonly value: string) {
@@ -11,13 +12,17 @@ export class UrlVO extends ValueObject {
     if (url == null) {
       throw new ValueRequiredError('Url')
     }
-    let parsedUrl: URL
-    try {
-      parsedUrl = new URL(url)
-    } catch {
+    const trimmedUrl = url.trim()
+    const options = {
+      require_protocol: true,
+      protocols: ['http', 'https', 'redis'], // Allow Redis URLs (redis://localhost:6379/0)
+      require_tld: false // Allow localhost
+    }
+    if (!validator.isURL(trimmedUrl, options)) {
       throw new InvalidUrlError(url)
     }
-    return new UrlVO(parsedUrl.href.toLowerCase())
+
+    return new UrlVO(trimmedUrl)
   }
 
   getValue (): string {

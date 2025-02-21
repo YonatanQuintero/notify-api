@@ -6,7 +6,7 @@ import * as ejs from 'ejs'
 
 @Injectable()
 export class EJSTemplateRendererService extends AbstractTemplateRendererService {
-  private readonly logger = new Logger(EJSTemplateRendererService.name)
+  readonly logger = new Logger(EJSTemplateRendererService.name)
   async render (templateRenderer: TemplateRenderer): Promise<string> {
     try {
       const resolvedPath = path.resolve(
@@ -14,13 +14,15 @@ export class EJSTemplateRendererService extends AbstractTemplateRendererService 
         'src/template-renderer/templates/ejs/partials/base.layout.ejs'
       )
 
-      return await ejs.renderFile(resolvedPath, {
+      const renderedTemplate = await ejs.renderFile(resolvedPath, {
         lang: templateRenderer.language.getValue(),
         templateName: templateRenderer.name.getValue(),
         ...templateRenderer.params
       })
-    } catch (error) {
-      this.logger.error(`Error rendering template: ${error.message}`)
+      return renderedTemplate
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error)
+      this.logger.error(`Error rendering template: ${message}`)
       throw error
     }
   }

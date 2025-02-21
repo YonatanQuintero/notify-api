@@ -6,7 +6,6 @@ import { NotificationNameEnum } from 'src/notification/enums/notification-name.e
 import { LanguageEnum } from 'src/config/enums/language.enum'
 import { WelcomeEmailDto } from 'src/notification/dtos/welcome-email.dto'
 import { TemplateRenderer } from 'src/template-renderer/entities/template-renderer.entity'
-import { TemplateEntityFactory } from 'src/template-renderer/factories/template-entity.factory'
 import { EmailNotificationService } from 'src/notification/services/email-notification.service'
 
 describe('EmailNotificationService', () => {
@@ -70,7 +69,6 @@ describe('EmailNotificationService', () => {
 
     // Spy on the static methods to control their outputs.
     jest.spyOn(TemplateRenderer, 'create').mockReturnValue(fakeTemplate as any)
-    jest.spyOn(TemplateEntityFactory, 'createBase').mockReturnValue({ dummy: 'data' } as any)
 
     // Act: Call sendWelcomeEmail.
     const result = await service.sendWelcomeEmail(dto, LanguageEnum.EN)

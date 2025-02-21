@@ -9,7 +9,7 @@ export class NotificationNameVO extends ValueObject {
   }
 
   static create (name?: string | NotificationNameEnum): NotificationNameVO {
-    if (!name) {
+    if (name == null) {
       throw new ValueRequiredError('Notification Name')
     }
 

@@ -1,6 +1,6 @@
 import { TemplateBase } from 'src/template-renderer/entities/template-base.entity'
 import { TFATemplate } from 'src/template-renderer/entities/tfa-template.entity'
-import { TemplateEntityFactory } from 'src/template-renderer/factories/template-entity.factory'
+import { createBase, createTFA } from 'src/template-renderer/factories/template-entity.factory'
 
 describe('TemplateEntityFactory', () => {
   describe('createBase', () => {
@@ -10,7 +10,7 @@ describe('TemplateEntityFactory', () => {
       const companySite = 'https://testcompany.com'
       const companyIconUrl = 'https://testcompany.com/icon.png'
 
-      const result = TemplateEntityFactory.createBase(
+      const result = createBase(
         username,
         companyName,
         companySite,
@@ -40,7 +40,7 @@ describe('TemplateEntityFactory', () => {
       const ttlFormatted = '5 minutes'
       const ipClient = '192.168.1.1'
 
-      const result = TemplateEntityFactory.createTFA(
+      const result = createTFA(
         username,
         companyName,
         companySite,

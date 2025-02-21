@@ -18,7 +18,7 @@ export class NodeMailerTransporterStubService {
     const originalSendMail = this.transporter.sendMail.bind(this.transporter)
     this.transporter.sendMail = (mailOptions, callback) => {
       originalSendMail(mailOptions, (error, info) => {
-        if (!error) {
+        if (error == null) {
           this.sentEmails.push({ mailOptions, info })
         }
         callback(error, info)

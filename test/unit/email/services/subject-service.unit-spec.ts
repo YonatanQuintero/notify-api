@@ -10,7 +10,7 @@ describe('SubjectService', () => {
   beforeEach(() => {
     // Create a mock for the i18n.t() method.
     i18nServiceMock = {
-      t: jest.fn().mockImplementation((key: string, options: any) => {
+      t: jest.fn().mockImplementation((key: string, options: { lang: string }) => {
         // For testing purposes, simply return a string combining the key and language.
         return `${key}-${options.lang}`
       })

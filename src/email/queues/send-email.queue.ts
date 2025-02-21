@@ -1,6 +1,6 @@
 import { InjectQueue } from '@nestjs/bull'
 import { Injectable } from '@nestjs/common'
-import { Job, Queue } from 'bull'
+import { Job, JobOptions, Queue } from 'bull'
 import { AbstractQueue } from 'src/queue/abstracts/queue.abstract'
 import { SEND_EMAIL_QUEUE } from 'src/queue/constants/queue.constants'
 import { EmailSenderDto } from '../dtos/email-sender.dto'
@@ -15,12 +15,13 @@ export class SendEmailQueue extends AbstractQueue<EmailSenderDto> {
   }
 
   async add (dto: EmailSenderDto): Promise<Job<EmailSenderDto>> {
-    return await this.queue.add(dto, {
+    const options: JobOptions = {
       attempts: 5,
       backoff: {
         type: 'exponential',
         delay: 3000
       }
-    })
+    }
+    return await this.queue.add(dto, options)
   }
 }

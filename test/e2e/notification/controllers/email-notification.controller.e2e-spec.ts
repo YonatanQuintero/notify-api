@@ -74,8 +74,8 @@ describe('EmailNotificationController E2E Tests', () => {
           expect(sentEmail.mailOptions.to).toContain(dto.to[0])
           expect(sentEmail.mailOptions.subject).toBeDefined()
           expect(sentEmail.mailOptions.html).toBeDefined()
-          expect(sentEmail.mailOptions.cc).toContain(dto.cc[0])
-          expect(sentEmail.mailOptions.bcc).toContain(dto.bcc[0])
+          expect(sentEmail.mailOptions.cc).toContain(dto.cc?.[0])
+          expect(sentEmail.mailOptions.bcc).toContain(dto.bcc?.[0])
           // Verify that the email's HTML contains a language marker matching the header.
           expect(sentEmail.mailOptions.html).toContain(`lang="${lang}"`)
         })

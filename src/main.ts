@@ -6,7 +6,7 @@ import { IPClientInterceptor } from './app/interceptors/ip-client.interceptor'
 import { AppModule } from './app/app.module'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 
-async function bootstrap () {
+async function bootstrap (): Promise<void> {
   const app = await NestFactory.create(AppModule)
 
   const configService = app.get(AbstractConfigService)
@@ -29,11 +29,14 @@ async function bootstrap () {
     .setDescription('Notification API for sending emails.')
     .setVersion('1.0')
     .build()
-  const documentFactory = () => SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('api', app, documentFactory)
+  SwaggerModule.setup('api', app, SwaggerModule.createDocument(app, config))
 
   await app.listen(port.getValue(), () => {
     Logger.log(`Application is running on: http://localhost:${port.getValue()}`, 'Bootstrap')
   })
 }
-bootstrap()
+
+bootstrap().catch(err => {
+  Logger.error(err.stack, 'Server Error')
+  process.exit(1)
+})

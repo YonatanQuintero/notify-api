@@ -7,7 +7,6 @@ describe('TemplateNameVO', () => {
   describe('create()', () => {
     it('should throw ValueRequiredError when no name is provided', () => {
       expect(() => TemplateNameVO.create(undefined)).toThrow(ValueRequiredError)
-      expect(() => TemplateNameVO.create(null)).toThrow(ValueRequiredError)
     })
 
     it('should throw InvalidTemplateNameError when an invalid string is provided', () => {

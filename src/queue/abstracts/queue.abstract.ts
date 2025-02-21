@@ -5,15 +5,19 @@ import { QueueServiceError } from '../errors/queue-service.error'
 @Injectable()
 export abstract class AbstractQueue<T> {
   constructor (
-    protected readonly queue: Queue
+    protected readonly queue?: Queue
   ) { }
 
   async add (dto: T): Promise<Bull.Job<T>> {
-    return await this.queue.add(dto)
+    const job = await this.queue?.add(dto)
+    if (job == null) {
+      throw new QueueServiceError('Queue is not available.')
+    }
+    return job
   }
 
   async getJobStatus (jobId: string): Promise<string> {
-    const job = await this.queue.getJob(jobId)
+    const job = await this.queue?.getJob(jobId)
     if (job == null) {
       throw new QueueServiceError(`Job with id ${jobId} not found.`)
     }
@@ -21,7 +25,7 @@ export abstract class AbstractQueue<T> {
   }
 
   async getJobDetails (jobId: string): Promise<T> {
-    const job = await this.queue.getJob(jobId)
+    const job = await this.queue?.getJob(jobId)
     if (job == null) {
       throw new QueueServiceError(`Job with id ${jobId} not found.`)
     }

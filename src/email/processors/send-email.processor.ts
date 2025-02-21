@@ -8,7 +8,7 @@ import { EmailSenderDto } from '../dtos/email-sender.dto'
 
 @Processor(SEND_EMAIL_QUEUE)
 export class SendEmailProcessor extends AbstractProcessor<EmailSenderDto> {
-  private readonly logger = new Logger(SendEmailProcessor.name)
+  readonly logger = new Logger(SendEmailProcessor.name)
 
   constructor (
     private readonly emailService: AbstractEmailSenderService
@@ -30,7 +30,8 @@ export class SendEmailProcessor extends AbstractProcessor<EmailSenderDto> {
                 error.stack
       )
 
-      if (currentAttempt >= job.opts.attempts) {
+      const attempts = job.opts.attempts == null ? 0 : job.opts.attempts
+      if (currentAttempt >= attempts) {
         this.logger.error(`Job ${job.id} failed after ${currentAttempt} attempts. No further retries.`)
       }
 

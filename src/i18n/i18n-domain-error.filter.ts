@@ -8,7 +8,7 @@ export class I18nDomainErrorFilter implements ExceptionFilter {
 
   constructor (private readonly i18n: I18nService) { }
 
-  async catch (exception: DomainError, host: ArgumentsHost) {
+  async catch (exception: DomainError, host: ArgumentsHost): Promise<any> {
     const ctx = host.switchToHttp()
     const response = ctx.getResponse()
     const { language } = ctx.getRequest()

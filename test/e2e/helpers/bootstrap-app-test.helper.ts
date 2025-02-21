@@ -1,5 +1,5 @@
 import { Test } from '@nestjs/testing'
-import { ValidationPipe } from '@nestjs/common'
+import { INestApplication, ValidationPipe } from '@nestjs/common'
 import { AbstractConfigService } from 'src/config/abstracts/config.service.abstract'
 import { LanguageInterceptor } from 'src/app/interceptors/language.interceptor'
 import { IPClientInterceptor } from 'src/app/interceptors/ip-client.interceptor'
@@ -12,7 +12,7 @@ import { ImmediatelySendEmailQueue } from './queues/immediately-send-email.queue
 export async function bootstrapAppTest (
   extraModules = [],
   transporterStub?: NodeMailerTransporterStubService
-) {
+): Promise<INestApplication> {
   const envBackup: NodeJS.ProcessEnv = { ...process.env }
   process.env = {
     PORT: '3000',
@@ -36,7 +36,7 @@ export async function bootstrapAppTest (
   const moduleFixture = await Test.createTestingModule({
     imports: [AppModule, ...extraModules]
   })
-  // Override NodeMailerTransporter to use a stub (stream transport) for tests.
+    // Override NodeMailerTransporter to use a stub (stream transport) for tests.
     .overrideProvider(NodeMailerTransporterService)
     .useValue(transporterStub)
     .overrideProvider(SendEmailQueue)

@@ -8,7 +8,7 @@ export class ApiKeyVO extends ValueObject {
   }
 
   static create (apiKey?: string): ApiKeyVO {
-    if (!apiKey || apiKey.trim().length === 0 || apiKey.trim().length < ApiKeyVO.MIN_LENGTH) {
+    if (apiKey == null || apiKey.trim().length === 0 || apiKey.trim().length < ApiKeyVO.MIN_LENGTH) {
       throw new InvalidApiKeyError(ApiKeyVO.MIN_LENGTH)
     }
     return new ApiKeyVO(apiKey.trim())

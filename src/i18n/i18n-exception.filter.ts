@@ -10,7 +10,7 @@ export class I18nExceptionFilter implements ExceptionFilter {
 
   constructor (private readonly i18n: I18nService) { }
 
-  async catch (exception: HttpException, host: ArgumentsHost) {
+  async catch (exception: HttpException, host: ArgumentsHost): Promise<any> {
     const ctx = host.switchToHttp()
     const response = ctx.getResponse()
     const data = await this.buildResponseData(exception, ctx)
@@ -19,7 +19,7 @@ export class I18nExceptionFilter implements ExceptionFilter {
   }
 
   private async buildResponseData (exception: HttpException, ctx: HttpArgumentsHost): Promise<ResponseData> {
-    const response = exception.getResponse()
+    const response = exception.getResponse() as ResponseData
     let statusCode: number = exception.getStatus()
     let message: string = exception.message
     if (typeof response === 'object' && Array.isArray(response.message)) {
@@ -27,7 +27,7 @@ export class I18nExceptionFilter implements ExceptionFilter {
       const messages = response.message
       statusCode = response.statusCode
       message = (await Promise.all(messages.map(
-        async (key) => await this.i18n.t(key, { lang })
+        key => this.i18n.t(key, { lang })
       ))).join('. ')
     }
     return { message, statusCode }

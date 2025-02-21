@@ -7,7 +7,7 @@ import { CompanyConfig } from '../entities/company-config.entity'
 
 @Injectable()
 export class EnvConfigService extends AbstractConfigService {
-  private readonly logger = new Logger(EnvConfigService.name)
+  readonly logger = new Logger(EnvConfigService.name)
 
   getAppConfig (): AppConfig {
     try {

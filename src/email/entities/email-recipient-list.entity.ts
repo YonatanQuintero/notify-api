@@ -6,8 +6,8 @@ export class EmailRecipientList {
     public readonly emails: EmailVO[]
   ) { }
 
-  static create (rawEmails: string[]): EmailRecipientList {
-    if (!rawEmails || rawEmails.length === 0) {
+  static create (rawEmails?: string[]): EmailRecipientList {
+    if (rawEmails == null || rawEmails.length === 0) {
       throw new InvalidEmailRecipientListError()
     }
     return new EmailRecipientList(

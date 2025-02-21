@@ -9,7 +9,7 @@ export class EnvironmentVO extends ValueObject {
   }
 
   static create (env?: string): EnvironmentVO {
-    if (!env) {
+    if (env == null) {
       throw new ValueRequiredError('Environment')
     }
 

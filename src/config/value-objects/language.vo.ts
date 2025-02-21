@@ -9,7 +9,7 @@ export class LanguageVO extends ValueObject {
   }
 
   static create (lang?: string | LanguageEnum): LanguageVO {
-    if (!lang) {
+    if (lang == null) {
       throw new ValueRequiredError('Language')
     }
 

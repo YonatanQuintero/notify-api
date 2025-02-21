@@ -3,7 +3,6 @@ import { WelcomeEmailDto } from '../dtos/welcome-email.dto'
 import { Injectable } from '@nestjs/common'
 import { TemplateRenderer } from 'src/template-renderer/entities/template-renderer.entity'
 import { NotificationNameEnum } from '../enums/notification-name.enum'
-import { TemplateEntityFactory } from 'src/template-renderer/factories/template-entity.factory'
 import { SmtpConfig } from 'src/config/entities/smpt-config.entity'
 import { CompanyConfig } from 'src/config/entities/company-config.entity'
 import { AbstractTemplateRendererService } from 'src/template-renderer/abstracts/template-renderer.service.abstract'
@@ -16,6 +15,7 @@ import { RecoverPasswordSuccessEmailDto } from '../dtos/recover-password-success
 import { TfaEmailDto } from '../dtos/tfa-email.dto'
 import { UpdateEmailDto } from '../dtos/update-email.dto'
 import { UpdatePasswordDto } from '../dtos/update-password-email.dto'
+import { createBase, createTFA } from 'src/template-renderer/factories/template-entity.factory'
 
 @Injectable()
 export class EmailNotificationService {
@@ -32,7 +32,7 @@ export class EmailNotificationService {
     this.companyConfig = this.configService.getCompanyConfig()
   }
 
-  private async sendEmail (template: TemplateRenderer, dto: EmailBaseDto) {
+  private async sendEmail (template: TemplateRenderer, dto: EmailBaseDto): Promise<string> {
     const html = await this.templateRendererService.render(template)
 
     const subject = this.subjectService.getSubject(
@@ -59,7 +59,7 @@ export class EmailNotificationService {
     const template = TemplateRenderer.create(
       name,
       lang,
-      TemplateEntityFactory.createBase(
+      createBase(
         dto.username,
         this.companyConfig.name.getValue(),
         this.companyConfig.websiteUrl.getValue(),
@@ -90,7 +90,7 @@ export class EmailNotificationService {
     const template = TemplateRenderer.create(
       NotificationNameEnum.TFA,
       lang,
-      TemplateEntityFactory.createTFA(
+      createTFA(
         dto.username,
         this.companyConfig.name.getValue(),
         this.companyConfig.websiteUrl.getValue(),

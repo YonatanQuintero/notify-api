@@ -9,7 +9,7 @@ export class TemplateNameVO extends ValueObject {
   }
 
   static create (name?: string | TemplateNameEnum): TemplateNameVO {
-    if (!name) {
+    if (name == null) {
       throw new ValueRequiredError('Template Name')
     }
 

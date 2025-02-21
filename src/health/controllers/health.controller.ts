@@ -24,7 +24,7 @@ export class HealthController {
       }
     }
   })
-  getHealth () {
+  getHealth (): { status: string, uptime: number, version: string } {
     return {
       status: 'ok',
       uptime: process.uptime(),

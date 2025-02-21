@@ -13,7 +13,7 @@ describe('NotificationNameVO', () => {
   it('should throw ValueRequiredError when an empty string is provided', () => {
     expect(() => {
       NotificationNameVO.create('')
-    }).toThrow(ValueRequiredError)
+    }).toThrow(InvalidNotificationNameError)
   })
 
   it('should throw InvalidNotificationNameError when an invalid notification name string is provided', () => {

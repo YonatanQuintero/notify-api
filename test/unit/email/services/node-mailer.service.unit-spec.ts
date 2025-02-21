@@ -1,9 +1,7 @@
 import * as nodemailer from 'nodemailer'
 import Mail from 'nodemailer/lib/mailer'
-import { I18nService } from 'nestjs-i18n'
 import { AbstractConfigService } from 'src/config/abstracts/config.service.abstract'
 import { NodeMailerService } from 'src/email/services/node-mailer.service'
-import { AbstractTemplateRendererService } from 'src/template-renderer/abstracts/template-renderer.service.abstract'
 import { EmailSenderDto } from 'src/email/dtos/email-sender.dto'
 import { SmtpConfig } from 'src/config/entities/smpt-config.entity'
 import { CompanyConfig } from 'src/config/entities/company-config.entity'
@@ -15,9 +13,7 @@ jest.mock('nodemailer')
 
 describe('NodeMailerService', () => {
   let nodeMailerService: NodeMailerService
-  let i18nServiceMock: Partial<I18nService>
   let configServiceMock: Partial<AbstractConfigService>
-  let templateRendererServiceMock: Partial<AbstractTemplateRendererService>
   let nodeMailerTransporterService: NodeMailerTransporterService
   let transporterSendMailMock: jest.Mock
 
@@ -42,10 +38,6 @@ describe('NodeMailerService', () => {
       sendMail: transporterSendMailMock
     })
 
-    i18nServiceMock = {
-      t: jest.fn().mockImplementation((key: string, options: any) => `Subject for ${key}`)
-    }
-
     configServiceMock = {
       getSmtpConfig: jest.fn().mockReturnValue(fakeSmtpConfig),
       getCompanyConfig: jest.fn().mockReturnValue(fakeCompanyConfig)
@@ -54,10 +46,6 @@ describe('NodeMailerService', () => {
     nodeMailerTransporterService = new NodeMailerTransporterService(
       configServiceMock as AbstractConfigService
     )
-
-    templateRendererServiceMock = {
-      render: jest.fn().mockResolvedValue('<html>Test Email</html>')
-    }
 
     nodeMailerService = new NodeMailerService(
       nodeMailerTransporterService
@@ -102,7 +90,7 @@ describe('NodeMailerService', () => {
 
     transporterSendMailMock.mockImplementation(
       (mailOptions: Mail.Options, callback: (error: any, info?: any) => void) => {
-        callback({ message: errorMessage })
+        callback(new Error(errorMessage))
       }
     )
 

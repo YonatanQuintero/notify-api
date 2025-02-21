@@ -5,7 +5,7 @@ import { LanguageEnum } from 'src/config/enums/language.enum'
 import { TemplateRenderer } from 'src/template-renderer/entities/template-renderer.entity'
 import { NotificationNameEnum } from 'src/notification/enums/notification-name.enum'
 import { EJSTemplateRendererService } from 'src/template-renderer/services/ejs-template-renderer.service'
-import { TemplateEntityFactory } from 'src/template-renderer/factories/template-entity.factory'
+import { createBase, createTFA } from 'src/template-renderer/factories/template-entity.factory'
 
 describe('EJSTemplateRendererService', () => {
   let service: EJSTemplateRendererService
@@ -25,7 +25,7 @@ describe('EJSTemplateRendererService', () => {
       .spyOn(ejs, 'renderFile')
       .mockResolvedValue('<html>Mocked Result</html>')
 
-    const params = TemplateEntityFactory.createTFA(
+    const params = createTFA(
       'JohnDoe',
       'Company Name',
       'https://example.com',
@@ -72,7 +72,7 @@ describe('EJSTemplateRendererService', () => {
 
     const loggerSpy = jest.spyOn(service.logger, 'error')
 
-    const params = TemplateEntityFactory.createBase(
+    const params = createBase(
       'JohnDoe',
       'Company Name',
       'https://example.com',
@@ -87,7 +87,7 @@ describe('EJSTemplateRendererService', () => {
 
     await expect(service.render(templateRenderer)).rejects.toThrow(error)
     expect(loggerSpy).toHaveBeenCalledWith(
-            `Error rendering template: ${error.message}`
+      `Error rendering template: ${error.message}`
     )
     expect(renderFileMock).toHaveBeenCalled()
   })

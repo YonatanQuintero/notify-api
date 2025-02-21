@@ -2,17 +2,17 @@ import { ValueRequiredError } from 'src/app/errors/value-required.error'
 import { LanguageEnum } from 'src/config/enums/language.enum'
 import { InvalidLanguageError } from 'src/config/errors/invalid-language.error'
 import { TemplateRenderer } from 'src/template-renderer/entities/template-renderer.entity'
-import { TemplateEntityFactory } from 'src/template-renderer/factories/template-entity.factory'
 import { TemplateBase } from 'src/template-renderer/entities/template-base.entity'
 import { InvalidTemplateBaseError } from 'src/template-renderer/errors/invalid-template-base.error'
 import { TemplateNameEnum } from 'src/template-renderer/enum/template-name.enum'
 import { InvalidTemplateNameError } from 'src/template-renderer/errors/invalid-template-name.error'
+import { createBase } from 'src/template-renderer/factories/template-entity.factory'
 
 describe('TemplateRenderer', () => {
   let params: TemplateBase
 
   beforeEach(() => {
-    params = TemplateEntityFactory.createBase(
+    params = createBase(
       'JohnDoe',
       'Company Inc.',
       'https://example.com',

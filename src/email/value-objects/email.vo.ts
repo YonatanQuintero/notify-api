@@ -9,7 +9,7 @@ export class EmailVO extends ValueObject {
   }
 
   static create (email?: string): EmailVO {
-    if (!email) {
+    if (email == null) {
       throw new ValueRequiredError('Email')
     }
 

@@ -1,4 +1,3 @@
-import { HttpStatus } from '@nestjs/common'
 import { DomainError } from '../../app/primitives/domain-error'
 
 export class InvalidTFACodeError extends DomainError {

@@ -44,21 +44,23 @@ export class NodeMailerService extends AbstractEmailSenderService {
 
   async send (emailSender: EmailSenderDto): Promise<boolean> {
     try {
-      return await new Promise(async (resolve, reject) => {
-        const mailOptions = await this.buildEmail(emailSender)
+      const mailOptions = await this.buildEmail(emailSender)
+      return await new Promise((resolve, reject) => {
         this.transporter.sendMail(mailOptions, (error: any) => {
           const { toEmail, subject } = emailSender
-          if (error) {
+          if (error != null) {
             this.logger.error(error.message)
             this.logger.error(JSON.stringify(emailSender))
-            return reject(new EmailSenderError(error.message))
+            reject(new EmailSenderError(error.message))
+            return
           }
           toEmail.forEach(email => this.logger.log(`Email sent to: ${email} (${subject})`))
           return resolve(true)
         })
       })
-    } catch (error) {
-      this.logger.error(`Error sending email: ${error.message}`)
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error)
+      this.logger.error(`Error sending email: ${message}`)
       throw error
     }
   }
