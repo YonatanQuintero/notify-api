@@ -19,7 +19,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Analize Syntax Issues
-        run: npm lint
+        run: npm run lint
       - name: Run Unit Test
         run: npm run test:unit
       - name: Run E2E Test
